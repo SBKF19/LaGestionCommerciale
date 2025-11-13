@@ -120,6 +120,33 @@ namespace DAL
             return lesProduits;
         }
 
+        public static bool ProduitEstUtilise(int code)
+        {
+            // Connexion à la BD et commande sécurisée
+            using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
+            using (SqlCommand cmd = maConnexion.CreateCommand())
+            {
+                cmd.CommandText = "SELECT COUNT(*) FROM contenir WHERE id_produit = @code";
+                cmd.Parameters.Add("@code", SqlDbType.Int).Value = code;
+
+                object result = cmd.ExecuteScalar();
+                int nbEnr;
+                if (result == null || result == DBNull.Value)
+                {
+                    nbEnr = 0;
+                }
+                else
+                {
+                    nbEnr = Convert.ToInt32(result);
+                }
+
+                if (nbEnr > 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
         // MÉTHODE : Met à jour un produit passé en paramètre
         public static int UpdateProduit(ProduitBO unProduit)
         {

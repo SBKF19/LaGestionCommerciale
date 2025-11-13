@@ -42,7 +42,7 @@ namespace GUI
 
                 foreach (var p in lesProduits)
                 {
-                    dataGridView1.Rows.Add(p.Code, p.Code, p.Categorie.NomCategorie, $"{p.Prix} €");
+                    dataGridView1.Rows.Add(p.Code, p.Libelle, p.Categorie.NomCategorie, $"{p.Prix} €");
                 }
 
                 // Sélection automatique de la première ligne
@@ -119,6 +119,18 @@ namespace GUI
                 row.Cells["Libellé"].Value = txtLibelle.Text;
                 row.Cells["Catégorie"].Value = cmbCategorie.Text;
                 row.Cells["Prix"].Value = $"{prix} €";
+
+                
+
+                Categorie macat = GestionProduits.GetCategorieByNom(cmbCategorie.Text);
+
+                ProduitBO monprod = new ProduitBO(
+                    int.Parse(txtCode.Text),
+                    txtLibelle.Text,
+                    macat,
+                    prix
+                );
+                GestionProduits.ModifierProduit(monprod);
             }
         }
 
@@ -133,14 +145,25 @@ namespace GUI
             var confirm = MessageBox.Show($"Confirmer la suppression du produit '{txtLibelle.Text}' ?", "Supprimer", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.Yes)
             {
-                if (dataGridView1.SelectedRows.Count > 0)
+                try
                 {
+                    int codeProduit = int.Parse(txtCode.Text);
+                    GestionProduits.SupprimerProduit(codeProduit);
+
                     dataGridView1.Rows.RemoveAt(dataGridView1.SelectedRows[0].Index);
                     txtCode.Text = "";
                     txtLibelle.Text = "";
                     cmbCategorie.SelectedIndex = -1;
                     txtPrix.Text = "";
+
+                    MessageBox.Show("Produit supprimé avec succès.", "Suppression", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                catch (Exception ex)
+                {
+                    // ⚠️ Ici on intercepte ton "throw new Exception(...)" de la BLL
+                    MessageBox.Show(ex.Message, "Impossible de supprimer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
             }
         }
 
