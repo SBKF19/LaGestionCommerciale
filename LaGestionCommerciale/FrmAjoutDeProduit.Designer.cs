@@ -48,7 +48,6 @@
             this.lblAjoutDeProduit.Size = new System.Drawing.Size(203, 31);
             this.lblAjoutDeProduit.TabIndex = 0;
             this.lblAjoutDeProduit.Text = "Ajout de produit";
-            this.lblAjoutDeProduit.Click += new System.EventHandler(this.lblAjoutDeProduit_Click);
             // 
             // lblLibelle
             // 
@@ -59,7 +58,6 @@
             this.lblLibelle.Size = new System.Drawing.Size(44, 15);
             this.lblLibelle.TabIndex = 1;
             this.lblLibelle.Text = "Libellé";
-            this.lblLibelle.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtLibelle
             // 
@@ -67,7 +65,6 @@
             this.txtLibelle.Name = "txtLibelle";
             this.txtLibelle.Size = new System.Drawing.Size(422, 20);
             this.txtLibelle.TabIndex = 2;
-            this.txtLibelle.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // lblCategorie
             // 
@@ -78,7 +75,6 @@
             this.lblCategorie.Size = new System.Drawing.Size(60, 15);
             this.lblCategorie.TabIndex = 3;
             this.lblCategorie.Text = "Catégorie";
-            this.lblCategorie.Click += new System.EventHandler(this.lblCategorie_Click);
             // 
             // cmbCategorie
             // 
@@ -87,6 +83,7 @@
             this.cmbCategorie.Name = "cmbCategorie";
             this.cmbCategorie.Size = new System.Drawing.Size(422, 21);
             this.cmbCategorie.TabIndex = 4;
+            
             // 
             // lblPrixDeVenteHT
             // 
@@ -116,7 +113,7 @@
             this.btnAjoutDeProduit.TabIndex = 7;
             this.btnAjoutDeProduit.Text = "Ajouter le produit";
             this.btnAjoutDeProduit.UseVisualStyleBackColor = true;
-            this.btnAjoutDeProduit.Click += new System.EventHandler(this.button1_Click);
+            this.btnAjoutDeProduit.Click += new System.EventHandler(this.btnAjoutDeProduit_Click);
             // 
             // btnRetour
             // 
@@ -127,8 +124,9 @@
             this.btnRetour.TabIndex = 8;
             this.btnRetour.Text = "Retour";
             this.btnRetour.UseVisualStyleBackColor = true;
+            this.btnRetour.Click += new System.EventHandler(this.btnRetour_Click);
             // 
-            // btnAjouterLeProduit
+            // FrmAjoutDeProduit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -142,7 +140,7 @@
             this.Controls.Add(this.txtLibelle);
             this.Controls.Add(this.lblLibelle);
             this.Controls.Add(this.lblAjoutDeProduit);
-            this.Name = "btnAjouterLeProduit";
+            this.Name = "FrmAjoutDeProduit";
             this.Text = "FrmAjoutDeProduit";
             this.Load += new System.EventHandler(this.FrmAjoutDeProduit_Load);
             this.ResumeLayout(false);

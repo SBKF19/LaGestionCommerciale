@@ -27,11 +27,15 @@ namespace BLL
             return DAL.CategorieDAO.GetCategorieByNom(nom);
         }
 
+        public static List<Categorie> GetCategories()
+        {
+            return DAL.CategorieDAO.GetCategories();
+        }
+
         public static void SetchaineConnexion(string chaine)
         {
             ConnexionBD.GetConnexionBD().SetchaineConnexion(chaine);
         }
-
 
         public static List<ProduitBO> GetProduits()
         {
@@ -51,6 +55,22 @@ namespace BLL
             else             {
                 throw new Exception("Le produit est utilisé et ne peut pas être supprimé.");
             }
+        }
+
+        public static int AjouterProduit(ProduitBO produit)
+        {
+            // Validation métier (couche BLL)
+            if (string.IsNullOrWhiteSpace(produit.Libelle))
+                throw new Exception("Le libellé du produit est obligatoire.");
+
+            if (produit.Prix <= 0)
+                throw new Exception("Le prix doit être supérieur à 0.");
+
+            if (produit.Categorie == null)
+                throw new Exception("Une catégorie doit être sélectionnée.");
+
+            // Appel à la DAL
+            return ProduitDAO.AddProduit(produit);
         }
     }
 }
