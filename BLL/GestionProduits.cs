@@ -27,6 +27,10 @@ namespace BLL
         {
             return ProduitDAO.GetProduits();
         }
+        public static int AjouterProduit(ProduitBO p)
+        {
+            return ProduitDAO.AddProduit(p);
+        }
 
         public static int ModifierProduit(ProduitBO p)
         {

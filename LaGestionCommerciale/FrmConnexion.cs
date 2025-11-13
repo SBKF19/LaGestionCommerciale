@@ -6,9 +6,9 @@ using UtilisateursBLL;
 
 namespace GUI
 {
-    public partial class FrmLogin : Form
+    public partial class FrmConnexion : Form
     {
-        public FrmLogin()
+        public FrmConnexion()
         {
             InitializeComponent();
 
@@ -55,13 +55,18 @@ namespace GUI
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
 
-                Produit Produit = new Produit();
+                FrmProduit Produit = new FrmProduit();
                 Produit.Show();
                 this.Hide();
             }
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblNom_Click(object sender, EventArgs e)
         {
 
         }

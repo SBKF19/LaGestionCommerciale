@@ -73,6 +73,28 @@ namespace DAL
             return lesProduits;
         }
 
+
+        public static int AddProduit(ProduitBO p)
+        {
+            int nbEnr; // nombre d’enregistrements ajoutés
+            SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion();
+
+            SqlCommand cmd = new SqlCommand(
+                "INSERT INTO Produit (libelle_produit, id_categorie, prix_vente_HT_produit) " +
+                "VALUES (@lib, @cat, @prix)", maConnexion);
+
+            // ⚠️ On suppose que p.getCategorie() renvoie un objet Categorie
+            cmd.Parameters.AddWithValue("@lib", p.getLibelle());
+            cmd.Parameters.AddWithValue("@cat", p.getCategorie().IdCategorie);
+            cmd.Parameters.AddWithValue("@prix", p.getPrix());
+
+            nbEnr = cmd.ExecuteNonQuery();
+
+            maConnexion.Close();
+
+            return nbEnr; // Retourne 1 si OK, 0 si rien inséré
+        }
+
         // Met à jour un produit
         public static int UpdateProduit(ProduitBO p)
         {

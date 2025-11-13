@@ -1,7 +1,7 @@
 ﻿
 namespace GUI
 {
-    partial class FrmLogin
+    partial class FrmConnexion
     {
         /// <summary>
         /// Required designer variable.
@@ -69,6 +69,7 @@ namespace GUI
             this.lblNom.Size = new System.Drawing.Size(34, 15);
             this.lblNom.TabIndex = 2;
             this.lblNom.Text = "Nom";
+            this.lblNom.Click += new System.EventHandler(this.lblNom_Click);
             // 
             // txtNom
             // 
@@ -108,7 +109,7 @@ namespace GUI
             this.btnConnexion.UseVisualStyleBackColor = true;
             this.btnConnexion.Click += new System.EventHandler(this.btnConnexion_Click);
             // 
-            // FrmLogin
+            // FrmConnexion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,7 +122,7 @@ namespace GUI
             this.Controls.Add(this.lblSousTitre);
             this.Controls.Add(this.lblTitre);
             this.ForeColor = System.Drawing.Color.Gray;
-            this.Name = "FrmLogin";
+            this.Name = "FrmConnexion";
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.ResumeLayout(false);
