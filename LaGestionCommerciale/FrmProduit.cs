@@ -16,9 +16,9 @@ using System.Globalization;
 
 namespace GUI
 {
-    public partial class Produit : Form
+    public partial class FrmProduit : Form
     {
-        public Produit()
+        public FrmProduit()
         {
             InitializeComponent();
         }
