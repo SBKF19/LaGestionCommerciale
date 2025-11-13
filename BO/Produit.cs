@@ -4,57 +4,17 @@ namespace BO
 {
     public class ProduitBO
     {
-        private int code;
-        private string libelle;
-        private Categorie categorie;
-        private decimal prix; 
+        public int Code { get; set; }
+        public string Libelle { get; set; }
+        public Categorie Categorie { get; set; }
+        public float Prix { get; set; }
 
-        public ProduitBO(int code, string libelle, Categorie categorie, decimal prix)
+        public ProduitBO(int code, string libelle, Categorie categorie, float prix)
         {
-            this.code = code;
-            this.libelle = libelle;
-            this.categorie = categorie;
-            this.prix = prix;
-        }
-
-        public int getCode()
-        {
-            return code;
-        }
-
-        public void setCode(int code)
-        {
-            this.code = code;
-        }
-
-        public string getLibelle()
-        {
-            return libelle;
-        }
-
-        public void setLibelle(string libelle)
-        {
-            this.libelle = libelle;
-        }
-
-        public Categorie getCategorie()
-        {
-            return categorie;
-        }
-
-        public void setCategorie(Categorie categorie)
-        {
-            this.categorie = categorie;
-        }
-
-        public decimal getPrix()
-        {
-            return prix;
-        }
-
-        public void setPrix(decimal prix)
-        {
-            this.prix = prix;
+            Code = code;
+            Libelle = libelle;
+            Categorie = categorie;
+            Prix = prix;
         }
     }
 }

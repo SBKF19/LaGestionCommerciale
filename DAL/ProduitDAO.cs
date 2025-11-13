@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using BO;
 
@@ -26,11 +27,19 @@ namespace DAL
                         "" // on peut charger le nom plus tard ou via jointure
                     );
 
+                    float prix = 0f;
+                    int ordPrix = monReader.GetOrdinal("prix_vente_HT_produit");
+                    if (!monReader.IsDBNull(ordPrix))
+                    {
+                        // Utiliser Convert.ToSingle pour éviter l'erreur d'unboxing si la valeur est un decimal/double
+                        prix = Convert.ToSingle(monReader["prix_vente_HT_produit"]);
+                    }
+
                     produit = new ProduitBO(
                         Convert.ToInt32(monReader["id_produit"]),
                         monReader["libelle_produit"].ToString(),
                         categorie,
-                        Convert.ToDecimal(monReader["prix_vente_HT_produit"])
+                        prix
                     );
                 }
 
@@ -47,21 +56,29 @@ namespace DAL
 
             using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
-                SqlCommand cmd = new SqlCommand("SELECT id_produit, libelle_produit, id_categorie, prix_vente_HT_produit FROM Produit", maConnexion);
+                SqlCommand cmd = new SqlCommand("SELECT p.id_produit, p.libelle_produit, p.id_categorie, c.nom_categorie,p.prix_vente_HT_produit " +
+                    "FROM produit p INNER JOIN categorie c ON p.id_categorie = c.id_categorie;", maConnexion);
                 SqlDataReader monReader = cmd.ExecuteReader();
 
                 while (monReader.Read())
                 {
                     var categorie = new Categorie(
                         Convert.ToInt32(monReader["id_categorie"]),
-                        ""
+                        monReader["nom_categorie"].ToString()
                     );
 
-                    var prod = new ProduitBO(
+                    float prix = 0f;
+                    int ordPrix = monReader.GetOrdinal("prix_vente_HT_produit");
+                    if (!monReader.IsDBNull(ordPrix))
+                    {
+                        prix = Convert.ToSingle(monReader["prix_vente_HT_produit"]);
+                    }
+
+                        var prod = new ProduitBO(
                         Convert.ToInt32(monReader["id_produit"]),
                         monReader["libelle_produit"].ToString(),
                         categorie,
-                        Convert.ToDecimal(monReader["prix_vente_HT_produit"])
+                        prix
                     );
 
                     lesProduits.Add(prod);
@@ -85,10 +102,19 @@ namespace DAL
                     maConnexion
                 );
 
-                cmd.Parameters.AddWithValue("@lib", p.getLibelle());
-                cmd.Parameters.AddWithValue("@cat", p.getCategorie().IdCategorie);
-                cmd.Parameters.AddWithValue("@prix", p.getPrix());
-                cmd.Parameters.AddWithValue("@id", p.getCode());
+                cmd.Parameters.AddWithValue("@lib", p.Libelle);
+                cmd.Parameters.AddWithValue("@cat", p.Categorie.IdCategorie);
+
+                // Préférer un paramètre Decimal si la colonne en base est decimal pour éviter conversions implicites
+                var paramPrix = new SqlParameter("@prix", SqlDbType.Decimal)
+                {
+                    Precision = 18,
+                    Scale = 2,
+                    Value = Convert.ToDecimal(p.Prix)
+                };
+                cmd.Parameters.Add(paramPrix);
+
+                cmd.Parameters.AddWithValue("@id", p.Code);
 
                 nb = cmd.ExecuteNonQuery();
             }

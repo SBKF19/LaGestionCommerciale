@@ -41,7 +41,7 @@ namespace GUI
 
                 foreach (var p in lesProduits)
                 {
-                    dataGridView1.Rows.Add(p.getCode(), p.getLibelle(), p.getCategorie(), $"{p.getPrix()} €");
+                    dataGridView1.Rows.Add(p.Code, p.Code, p.Categorie.NomCategorie, $"{p.Prix} €");
                 }
 
                 // Sélection automatique de la première ligne
