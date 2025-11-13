@@ -30,5 +30,24 @@ namespace DAL
 
             return cat;
         }
+
+        public static Categorie GetCategorieByNom(string nom)
+        {
+            Categorie cat = null;
+            SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Categorie WHERE nom_categorie = @nom", maConnexion);
+            cmd.Parameters.AddWithValue("@nom", nom);
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                cat = new Categorie(
+                    Convert.ToInt32(reader["id_categorie"]),
+                    reader["nom_categorie"].ToString()
+                );
+            }
+            reader.Close();
+            maConnexion.Close();
+            return cat;
+        }
     }
 }
