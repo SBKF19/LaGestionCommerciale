@@ -139,11 +139,11 @@ namespace DAL
             cmd.Parameters.AddWithValue("@cat", unProduit.Categorie.IdCategorie);
 
             // Gestion du type SQL Decimal pour la colonne prix
-            SqlParameter paramPrix = new SqlParameter("@prix", SqlDbType.Decimal)
+            SqlParameter paramPrix = new SqlParameter("@prix", SqlDbType.Float)
             {
                 Precision = 18,
                 Scale = 2,
-                Value = Convert.ToDecimal(unProduit.Prix)
+                Value = (unProduit.Prix)
             };
             cmd.Parameters.Add(paramPrix);
 
