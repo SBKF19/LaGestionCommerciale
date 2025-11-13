@@ -10,7 +10,7 @@ namespace UtilisateursBLL
     {
         private static LoginUtilisateur uneGestionUtilisateurs;
 
-        // Accesseur en lecture (singleton)
+        // Accesseur en lecture 
         public static LoginUtilisateur GetGestionUtilisateurs()
         {
             if (uneGestionUtilisateurs == null)
