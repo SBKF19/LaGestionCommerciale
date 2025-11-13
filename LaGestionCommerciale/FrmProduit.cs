@@ -27,17 +27,17 @@ namespace GUI
         {
             try
             {
-                // 🔗 Étape 1 : établir la connexion à la base via la BLL
+                //Étape 1 : établir la connexion à la base via la BLL
                 var cs = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
                 if (cs == null)
                     throw new ConfigurationErrorsException("Connection string 'gestion_commerciale' introuvable dans le fichier de configuration.");
                 string chaine = cs.ConnectionString;
                 GestionProduits.SetchaineConnexion(chaine);
 
-                // 📦 Étape 2 : récupérer la liste des produits depuis la BLL
+                //Étape 2 : récupérer la liste des produits depuis la BLL
                 List<ProduitBO> lesProduits = GestionProduits.GetProduits();
 
-                // 💡 Étape 3 : afficher dans le DataGridView
+                //Étape 3 : afficher dans le DataGridView
                 dataGridView1.Rows.Clear();
 
                 foreach (var p in lesProduits)
@@ -59,10 +59,11 @@ namespace GUI
             }
         }
 
-
         private void addProduct_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Bouton 'Nouveau' cliqué — à relier à la couche BLL/DAL.", "Nouveau", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LaGestionCommerciale.FrmAjoutDeProduit frm = new LaGestionCommerciale.FrmAjoutDeProduit();
+            frm.Show();
+            this.Hide();
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
