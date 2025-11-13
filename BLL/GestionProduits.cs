@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration; // nécessaire pour ConnectionStringSettings
+using System.Configuration; 
 using BO;
 using DAL;
 

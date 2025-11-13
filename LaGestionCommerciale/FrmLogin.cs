@@ -55,7 +55,7 @@ namespace GUI
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
 
-                Produit Produit = new Produit();
+                FrmProduit Produit = new FrmProduit();
                 Produit.Show();
                 this.Hide();
             }

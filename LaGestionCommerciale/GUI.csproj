@@ -57,11 +57,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>gestion_commercialeDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Produit.cs">
+    <Compile Include="FrmProduit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Produit.Designer.cs">
-      <DependentUpon>Produit.cs</DependentUpon>
+    <Compile Include="FrmProduit.Designer.cs">
+      <DependentUpon>FrmProduit.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -92,8 +92,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Produit.resx">
-      <DependentUpon>Produit.cs</DependentUpon>
+    <EmbeddedResource Include="FrmProduit.resx">
+      <DependentUpon>FrmProduit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
