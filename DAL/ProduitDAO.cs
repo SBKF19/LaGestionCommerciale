@@ -106,11 +106,11 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@cat", p.Categorie.IdCategorie);
 
                 // Préférer un paramètre Decimal si la colonne en base est decimal pour éviter conversions implicites
-                var paramPrix = new SqlParameter("@prix", SqlDbType.Decimal)
+                var paramPrix = new SqlParameter("@prix", SqlDbType.Float)
                 {
                     Precision = 18,
                     Scale = 2,
-                    Value = Convert.ToDecimal(p.Prix)
+                    Value = (p.Prix)
                 };
                 cmd.Parameters.Add(paramPrix);
 
