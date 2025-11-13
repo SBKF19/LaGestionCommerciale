@@ -111,18 +111,8 @@ namespace GUI
                 );
                 return;
             }
-
-            MessageBox.Show($"Produit modifié : {txtLibelle.Text} ({cmbCategorie.Text}) - {prix} €", "Modifier", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            if (dataGridView1.SelectedRows.Count > 0)
+            try
             {
-                var row = dataGridView1.SelectedRows[0];
-                row.Cells["Libellé"].Value = txtLibelle.Text;
-                row.Cells["Catégorie"].Value = cmbCategorie.Text;
-                row.Cells["Prix"].Value = $"{prix} €";
-
-                
-
                 Categorie macat = GestionProduits.GetCategorieByNom(cmbCategorie.Text);
 
                 ProduitBO monprod = new ProduitBO(
@@ -132,6 +122,17 @@ namespace GUI
                     prix
                 );
                 GestionProduits.ModifierProduit(monprod);
+
+                var row = dataGridView1.SelectedRows[0];
+                row.Cells["Libellé"].Value = txtLibelle.Text;
+                row.Cells["Catégorie"].Value = cmbCategorie.Text;
+                row.Cells["Prix"].Value = $"{prix} €";
+
+                MessageBox.Show($"Produit modifié : {txtLibelle.Text} ({cmbCategorie.Text}) - {prix} €", "Modifier", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Impossible de modifier", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

@@ -212,15 +212,20 @@ namespace DAL
         // MÉTHODE : Met à jour un produit passé en paramètre
         public static int UpdateProduit(ProduitBO unProduit)
         {
-            if (unProduit == null)
-                throw new ArgumentNullException(nameof(unProduit), "Le produit à modifier ne peut pas être nul.");
+            int nbEnr;
 
-            if (unProduit.Categorie == null)
-                throw new ArgumentNullException(nameof(unProduit.Categorie), "La catégorie du produit ne peut pas être nulle.");
-
-            int nbEnr = 0;
-
-            try
+            if (unProduit == null || unProduit.Libelle == null || unProduit.Prix == 0 || unProduit.Categorie == null)
+            {
+                if (unProduit.Prix == 0)
+                {
+                    nbEnr = -1;
+                    return nbEnr;
+                }
+                else
+                nbEnr = 69;
+                return nbEnr;  
+            }
+            else
             {
                 using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
                 {
@@ -246,19 +251,11 @@ namespace DAL
                         cmd.Parameters.Add(paramPrix);
 
                         nbEnr = cmd.ExecuteNonQuery();
+                        return nbEnr;
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Erreur SQL lors de la mise à jour du produit : " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erreur lors de la mise à jour du produit : " + ex.Message);
-            }
-
-            return nbEnr;
+               
         }
 
         // MÉTHODE : Supprime un produit par son identifiant
