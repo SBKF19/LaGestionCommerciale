@@ -147,40 +147,116 @@ namespace DAL
             }
         }
 
-        // MÉTHODE : Met à jour un produit passé en paramètre
-        public static int UpdateProduit(ProduitBO unProduit)
+        public static int AddProduit(ProduitBO produit)
         {
-            int nbEnr;
+            int nbEnr = 0;
 
-            // Connexion à la BD
+            // Connexion à la base
             SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion();
 
-            // Commande SQL paramétrée
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = maConnexion;
-            cmd.CommandText = "UPDATE Produit " +
-                              "SET libelle_produit = @lib, id_categorie = @cat, prix_vente_HT_produit = @prix " +
-                              "WHERE id_produit = @id";
+            // Requête SQL paramétrée
+            SqlCommand cmd = new SqlCommand(
+                "INSERT INTO Produit (libelle_produit, id_categorie, prix_vente_ht_produit) VALUES (@libelle, @idCat, @prix)",
+                maConnexion
+            );
 
-            cmd.Parameters.AddWithValue("@lib", unProduit.Libelle);
-            cmd.Parameters.AddWithValue("@cat", unProduit.Categorie.IdCategorie);
-
-            // Gestion du type SQL Decimal pour la colonne prix
-            SqlParameter paramPrix = new SqlParameter("@prix", SqlDbType.Float)
-            {
-                Precision = 18,
-                Scale = 2,
-                Value = (unProduit.Prix)
-            };
-            cmd.Parameters.Add(paramPrix);
-
-            cmd.Parameters.AddWithValue("@id", unProduit.Code);
+            cmd.Parameters.AddWithValue("@libelle", produit.Libelle);
+            cmd.Parameters.AddWithValue("@idCat", produit.Categorie.IdCategorie);
+            cmd.Parameters.AddWithValue("@prix", produit.Prix);
 
             // Exécution
             nbEnr = cmd.ExecuteNonQuery();
 
             // Fermeture de la connexion
             maConnexion.Close();
+
+            return nbEnr;
+        }
+
+        // Exemple de méthode existante pour compléter ton DAO
+        public static List<ProduitBO> GetProduit()
+        {
+            List<ProduitBO> listeProduits = new List<ProduitBO>();
+            SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion();
+
+            SqlCommand cmd = new SqlCommand(
+                "SELECT p.id_produit, p.libelle_produit, p.prix_vente_ht, c.id_categorie, c.libelle_categorie " +
+                "FROM Produit p INNER JOIN Categorie c ON p.id_categorie = c.id_categorie",
+                maConnexion
+            );
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Categorie cat = new Categorie(
+                    Convert.ToInt32(reader["id_categorie"]),
+                    reader["libelle_categorie"].ToString()
+                );
+
+                ProduitBO produit = new ProduitBO(
+                    Convert.ToInt32(reader["id_produit"]),
+                    reader["libelle_produit"].ToString(),
+                    cat,
+                    Convert.ToSingle(reader["prix_vente_ht"])
+                );
+
+                listeProduits.Add(produit);
+            }
+
+            reader.Close();
+            maConnexion.Close();
+
+            return listeProduits;
+        }
+
+        // MÉTHODE : Met à jour un produit passé en paramètre
+        public static int UpdateProduit(ProduitBO unProduit)
+        {
+            if (unProduit == null)
+                throw new ArgumentNullException(nameof(unProduit), "Le produit à modifier ne peut pas être nul.");
+
+            if (unProduit.Categorie == null)
+                throw new ArgumentNullException(nameof(unProduit.Categorie), "La catégorie du produit ne peut pas être nulle.");
+
+            int nbEnr = 0;
+
+            try
+            {
+                using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = maConnexion;
+                        cmd.CommandText = @"
+                    UPDATE Produit 
+                    SET libelle_produit = @lib, 
+                        id_categorie = @cat, 
+                        prix_vente_HT_produit = @prix 
+                    WHERE id_produit = @id";
+
+                        cmd.Parameters.AddWithValue("@lib", unProduit.Libelle);
+                        cmd.Parameters.AddWithValue("@cat", unProduit.Categorie.IdCategorie);
+                        cmd.Parameters.AddWithValue("@id", unProduit.Code);
+
+                        // Gestion propre du prix (float)
+                        SqlParameter paramPrix = new SqlParameter("@prix", SqlDbType.Float)
+                        {
+                            Value = unProduit.Prix
+                        };
+                        cmd.Parameters.Add(paramPrix);
+
+                        nbEnr = cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Erreur SQL lors de la mise à jour du produit : " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la mise à jour du produit : " + ex.Message);
+            }
 
             return nbEnr;
         }

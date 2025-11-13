@@ -161,7 +161,6 @@ namespace GUI
                 }
                 catch (Exception ex)
                 {
-                    // ⚠️ Ici on intercepte ton "throw new Exception(...)" de la BLL
                     MessageBox.Show(ex.Message, "Impossible de supprimer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 

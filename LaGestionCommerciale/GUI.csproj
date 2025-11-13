@@ -98,6 +98,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmAjoutDeProduit.resx">
+      <DependentUpon>FrmAjoutDeProduit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmProduit.resx">
       <DependentUpon>FrmProduit.cs</DependentUpon>
     </EmbeddedResource>
