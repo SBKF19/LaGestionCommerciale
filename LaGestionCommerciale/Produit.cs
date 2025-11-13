@@ -11,6 +11,7 @@ using static System.Runtime.CompilerServices.RuntimeHelpers;
 using BLL;
 using BO;
 using System.Configuration;
+using System.Globalization;
 
 
 namespace GUI
@@ -95,10 +96,18 @@ namespace GUI
                 return;
             }
 
-            decimal prix;
-            if (!decimal.TryParse(txtPrix.Text.Replace(',', '.'), out prix))
+
+            float prix;
+            var cultureFr = new CultureInfo("fr-FR"); // accepte les virgules comme séparateurs décimaux
+
+            if (!float.TryParse(txtPrix.Text, NumberStyles.Float, cultureFr, out prix))
             {
-                MessageBox.Show("Prix invalide. Utilisez un format numérique (ex : 14.99).", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    "Prix invalide. Utilisez un format numérique (ex : 14,99).",
+                    "Erreur",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
                 return;
             }
 
