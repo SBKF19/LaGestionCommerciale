@@ -44,7 +44,22 @@ namespace BLL
 
         public static int ModifierProduit(ProduitBO p)
         {
-            return ProduitDAO.UpdateProduit(p);
+            if (ProduitDAO.UpdateProduit(p) != -1 && ProduitDAO.UpdateProduit(p) != 69)
+            {
+                return ProduitDAO.UpdateProduit(p);
+            }
+            else if (ProduitDAO.UpdateProduit(p) == 69)
+            {
+                throw new Exception("Veuillez remplir tous les champs");
+            }
+            else if (ProduitDAO.UpdateProduit(p) == -1)
+            {
+                throw new Exception("Veuillez saisir un prix supérieur à 0");
+            }
+            else
+            {
+                throw new Exception("Une erreur est survenue lors de la modification du produit.");
+            }
         }
 
         public static int SupprimerProduit(int code)

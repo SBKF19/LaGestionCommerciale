@@ -34,6 +34,11 @@ namespace GUI
                 string chaine = cs.ConnectionString;
                 GestionProduits.SetchaineConnexion(chaine);
 
+                cmbCategorie.DataSource = GestionProduits.GetCategories();
+                cmbCategorie.DisplayMember = "NomCategorie";
+                cmbCategorie.ValueMember = "IdCategorie"; // Même si tu ne l’utilises pas, c'est propre
+
+
                 //Étape 2 : récupérer la liste des produits depuis la BLL
                 List<ProduitBO> lesProduits = GestionProduits.GetProduits();
 
@@ -73,7 +78,14 @@ namespace GUI
                 var row = dataGridView1.SelectedRows[0];
                 txtCode.Text = row.Cells["Code"].Value?.ToString() ?? string.Empty;
                 txtLibelle.Text = row.Cells["Libellé"].Value?.ToString() ?? string.Empty;
-                cmbCategorie.Text = row.Cells["Catégorie"].Value?.ToString() ?? string.Empty;
+                var nomCat = row.Cells["Catégorie"].Value?.ToString();
+
+                var categorie = cmbCategorie.Items
+                    .Cast<Categorie>()
+                    .FirstOrDefault(c => c.NomCategorie == nomCat);
+
+                cmbCategorie.SelectedItem = categorie;
+
 
                 var prixVal = row.Cells["Prix"].Value?.ToString() ?? string.Empty;
                 if (prixVal.EndsWith(" €"))
@@ -111,18 +123,8 @@ namespace GUI
                 );
                 return;
             }
-
-            MessageBox.Show($"Produit modifié : {txtLibelle.Text} ({cmbCategorie.Text}) - {prix} €", "Modifier", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            if (dataGridView1.SelectedRows.Count > 0)
+            try
             {
-                var row = dataGridView1.SelectedRows[0];
-                row.Cells["Libellé"].Value = txtLibelle.Text;
-                row.Cells["Catégorie"].Value = cmbCategorie.Text;
-                row.Cells["Prix"].Value = $"{prix} €";
-
-                
-
                 Categorie macat = GestionProduits.GetCategorieByNom(cmbCategorie.Text);
 
                 ProduitBO monprod = new ProduitBO(
@@ -132,6 +134,17 @@ namespace GUI
                     prix
                 );
                 GestionProduits.ModifierProduit(monprod);
+
+                var row = dataGridView1.SelectedRows[0];
+                row.Cells["Libellé"].Value = txtLibelle.Text;
+                row.Cells["Catégorie"].Value = cmbCategorie.Text;
+                row.Cells["Prix"].Value = $"{prix} €";
+
+                MessageBox.Show($"Produit modifié : {txtLibelle.Text} ({cmbCategorie.Text}) - {prix} €", "Modifier", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Impossible de modifier", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
