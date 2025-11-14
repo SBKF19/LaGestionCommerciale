@@ -173,7 +173,6 @@ namespace DAL
             return nbEnr;
         }
 
-        // Exemple de méthode existante pour compléter ton DAO
         public static List<ProduitBO> GetProduit()
         {
             List<ProduitBO> listeProduits = new List<ProduitBO>();

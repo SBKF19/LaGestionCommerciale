@@ -11,7 +11,6 @@ namespace DAL
     {
         private static UtilisateurDAO unUtilisateurDAO;
 
-        // Singleton
         public static UtilisateurDAO GetunUtilisateurDAO()
         {
             if (unUtilisateurDAO == null)

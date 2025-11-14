@@ -35,17 +35,17 @@
             this.Catégorie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Prix = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDetail = new System.Windows.Forms.Panel();
-            this.lblDetail = new System.Windows.Forms.Label();
-            this.lblCode = new System.Windows.Forms.Label();
-            this.lblLibelle = new System.Windows.Forms.Label();
-            this.lblCategorie = new System.Windows.Forms.Label();
-            this.lblPrix = new System.Windows.Forms.Label();
-            this.txtCode = new System.Windows.Forms.TextBox();
-            this.txtLibelle = new System.Windows.Forms.TextBox();
-            this.cmbCategorie = new System.Windows.Forms.ComboBox();
-            this.txtPrix = new System.Windows.Forms.TextBox();
-            this.btnModifier = new System.Windows.Forms.Button();
             this.btnSupprimer = new System.Windows.Forms.Button();
+            this.btnModifier = new System.Windows.Forms.Button();
+            this.txtPrix = new System.Windows.Forms.TextBox();
+            this.cmbCategorie = new System.Windows.Forms.ComboBox();
+            this.txtLibelle = new System.Windows.Forms.TextBox();
+            this.txtCode = new System.Windows.Forms.TextBox();
+            this.lblPrix = new System.Windows.Forms.Label();
+            this.lblCategorie = new System.Windows.Forms.Label();
+            this.lblLibelle = new System.Windows.Forms.Label();
+            this.lblCode = new System.Windows.Forms.Label();
+            this.lblDetail = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.pnlDetail.SuspendLayout();
             this.SuspendLayout();
@@ -81,8 +81,8 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(850, 450);
             this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // Code
             // 
@@ -114,7 +114,7 @@
             // 
             // pnlDetail
             // 
-            this.pnlDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))));
+            this.pnlDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlDetail.Controls.Add(this.btnSupprimer);
             this.pnlDetail.Controls.Add(this.btnModifier);
@@ -132,87 +132,17 @@
             this.pnlDetail.Size = new System.Drawing.Size(350, 505);
             this.pnlDetail.TabIndex = 2;
             // 
-            // lblDetail
+            // btnSupprimer
             // 
-            this.lblDetail.AutoSize = true;
-            this.lblDetail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblDetail.Location = new System.Drawing.Point(20, 15);
-            this.lblDetail.Name = "lblDetail";
-            this.lblDetail.Size = new System.Drawing.Size(57, 21);
-            this.lblDetail.TabIndex = 0;
-            this.lblDetail.Text = "Détail";
-            // 
-            // lblCode
-            // 
-            this.lblCode.AutoSize = true;
-            this.lblCode.Location = new System.Drawing.Point(22, 60);
-            this.lblCode.Name = "lblCode";
-            this.lblCode.Size = new System.Drawing.Size(35, 13);
-            this.lblCode.TabIndex = 1;
-            this.lblCode.Text = "Code:";
-            // 
-            // lblLibelle
-            // 
-            this.lblLibelle.AutoSize = true;
-            this.lblLibelle.Location = new System.Drawing.Point(22, 110);
-            this.lblLibelle.Name = "lblLibelle";
-            this.lblLibelle.Size = new System.Drawing.Size(43, 13);
-            this.lblLibelle.TabIndex = 2;
-            this.lblLibelle.Text = "Libellé:";
-            // 
-            // lblCategorie
-            // 
-            this.lblCategorie.AutoSize = true;
-            this.lblCategorie.Location = new System.Drawing.Point(22, 160);
-            this.lblCategorie.Name = "lblCategorie";
-            this.lblCategorie.Size = new System.Drawing.Size(58, 13);
-            this.lblCategorie.TabIndex = 3;
-            this.lblCategorie.Text = "Catégorie:";
-            // 
-            // lblPrix
-            // 
-            this.lblPrix.AutoSize = true;
-            this.lblPrix.Location = new System.Drawing.Point(22, 210);
-            this.lblPrix.Name = "lblPrix";
-            this.lblPrix.Size = new System.Drawing.Size(80, 13);
-            this.lblPrix.TabIndex = 4;
-            this.lblPrix.Text = "Prix de vente HT:";
-            // 
-            // txtCode
-            // 
-            this.txtCode.Location = new System.Drawing.Point(130, 57);
-            this.txtCode.Name = "txtCode";
-            this.txtCode.ReadOnly = true;
-            this.txtCode.Size = new System.Drawing.Size(100, 20);
-            this.txtCode.TabIndex = 5;
-            // 
-            // txtLibelle
-            // 
-            this.txtLibelle.Location = new System.Drawing.Point(130, 107);
-            this.txtLibelle.Name = "txtLibelle";
-            this.txtLibelle.Size = new System.Drawing.Size(180, 20);
-            this.txtLibelle.TabIndex = 6;
-            // 
-            // cmbCategorie
-            // 
-            this.cmbCategorie.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCategorie.FormattingEnabled = true;
-            this.cmbCategorie.Items.AddRange(new object[] {
-            "réseau",
-            "consommable",
-            "PC",
-            "pièces détachées"});
-            this.cmbCategorie.Location = new System.Drawing.Point(130, 157);
-            this.cmbCategorie.Name = "cmbCategorie";
-            this.cmbCategorie.Size = new System.Drawing.Size(180, 21);
-            this.cmbCategorie.TabIndex = 7;
-            // 
-            // txtPrix
-            // 
-            this.txtPrix.Location = new System.Drawing.Point(130, 207);
-            this.txtPrix.Name = "txtPrix";
-            this.txtPrix.Size = new System.Drawing.Size(100, 20);
-            this.txtPrix.TabIndex = 8;
+            this.btnSupprimer.BackColor = System.Drawing.Color.Crimson;
+            this.btnSupprimer.ForeColor = System.Drawing.Color.White;
+            this.btnSupprimer.Location = new System.Drawing.Point(170, 260);
+            this.btnSupprimer.Name = "btnSupprimer";
+            this.btnSupprimer.Size = new System.Drawing.Size(120, 35);
+            this.btnSupprimer.TabIndex = 10;
+            this.btnSupprimer.Text = "Supprimer";
+            this.btnSupprimer.UseVisualStyleBackColor = false;
+            this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click);
             // 
             // btnModifier
             // 
@@ -226,19 +156,89 @@
             this.btnModifier.UseVisualStyleBackColor = false;
             this.btnModifier.Click += new System.EventHandler(this.btnModifier_Click);
             // 
-            // btnSupprimer
+            // txtPrix
             // 
-            this.btnSupprimer.BackColor = System.Drawing.Color.Crimson;
-            this.btnSupprimer.ForeColor = System.Drawing.Color.White;
-            this.btnSupprimer.Location = new System.Drawing.Point(170, 260);
-            this.btnSupprimer.Name = "btnSupprimer";
-            this.btnSupprimer.Size = new System.Drawing.Size(120, 35);
-            this.btnSupprimer.TabIndex = 10;
-            this.btnSupprimer.Text = "Supprimer";
-            this.btnSupprimer.UseVisualStyleBackColor = false;
-            this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click);
+            this.txtPrix.Location = new System.Drawing.Point(130, 207);
+            this.txtPrix.Name = "txtPrix";
+            this.txtPrix.Size = new System.Drawing.Size(100, 20);
+            this.txtPrix.TabIndex = 8;
             // 
-            // Produit
+            // cmbCategorie
+            // 
+            this.cmbCategorie.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategorie.FormattingEnabled = true;
+            this.cmbCategorie.Items.AddRange(new object[] {
+            "réseau",
+            "consommable",
+            "PC",
+            "pièces détachées"});
+            this.cmbCategorie.Location = new System.Drawing.Point(130, 157);
+            this.cmbCategorie.Name = "cmbCategorie";
+            this.cmbCategorie.Size = new System.Drawing.Size(180, 21);
+            this.cmbCategorie.TabIndex = 6;
+            // 
+            // txtLibelle
+            // 
+            this.txtLibelle.Location = new System.Drawing.Point(130, 107);
+            this.txtLibelle.Name = "txtLibelle";
+            this.txtLibelle.Size = new System.Drawing.Size(180, 20);
+            this.txtLibelle.TabIndex = 4;
+            // 
+            // txtCode
+            // 
+            this.txtCode.Location = new System.Drawing.Point(130, 57);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.ReadOnly = true;
+            this.txtCode.Size = new System.Drawing.Size(100, 20);
+            this.txtCode.TabIndex = 2;
+            // 
+            // lblPrix
+            // 
+            this.lblPrix.AutoSize = true;
+            this.lblPrix.Location = new System.Drawing.Point(22, 210);
+            this.lblPrix.Name = "lblPrix";
+            this.lblPrix.Size = new System.Drawing.Size(90, 13);
+            this.lblPrix.TabIndex = 7;
+            this.lblPrix.Text = "Prix de vente HT:";
+            // 
+            // lblCategorie
+            // 
+            this.lblCategorie.AutoSize = true;
+            this.lblCategorie.Location = new System.Drawing.Point(22, 160);
+            this.lblCategorie.Name = "lblCategorie";
+            this.lblCategorie.Size = new System.Drawing.Size(55, 13);
+            this.lblCategorie.TabIndex = 5;
+            this.lblCategorie.Text = "Catégorie:";
+            // 
+            // lblLibelle
+            // 
+            this.lblLibelle.AutoSize = true;
+            this.lblLibelle.Location = new System.Drawing.Point(22, 110);
+            this.lblLibelle.Name = "lblLibelle";
+            this.lblLibelle.Size = new System.Drawing.Size(40, 13);
+            this.lblLibelle.TabIndex = 3;
+            this.lblLibelle.Text = "Libellé:";
+            // 
+            // lblCode
+            // 
+            this.lblCode.AutoSize = true;
+            this.lblCode.Location = new System.Drawing.Point(22, 60);
+            this.lblCode.Name = "lblCode";
+            this.lblCode.Size = new System.Drawing.Size(35, 13);
+            this.lblCode.TabIndex = 1;
+            this.lblCode.Text = "Code:";
+            // 
+            // lblDetail
+            // 
+            this.lblDetail.AutoSize = true;
+            this.lblDetail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblDetail.Location = new System.Drawing.Point(20, 15);
+            this.lblDetail.Name = "lblDetail";
+            this.lblDetail.Size = new System.Drawing.Size(56, 21);
+            this.lblDetail.TabIndex = 0;
+            this.lblDetail.Text = "Détail";
+            // 
+            // FrmProduit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -247,7 +247,7 @@
             this.Controls.Add(this.pnlDetail);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.addProduct);
-            this.Name = "Produit";
+            this.Name = "FrmProduit";
             this.Text = "Produits";
             this.Load += new System.EventHandler(this.Produit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
