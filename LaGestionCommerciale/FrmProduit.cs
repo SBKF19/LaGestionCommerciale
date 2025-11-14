@@ -34,6 +34,11 @@ namespace GUI
                 string chaine = cs.ConnectionString;
                 GestionProduits.SetchaineConnexion(chaine);
 
+                cmbCategorie.DataSource = GestionProduits.GetCategories();
+                cmbCategorie.DisplayMember = "NomCategorie";
+                cmbCategorie.ValueMember = "IdCategorie"; // Même si tu ne l’utilises pas, c'est propre
+
+
                 //Étape 2 : récupérer la liste des produits depuis la BLL
                 List<ProduitBO> lesProduits = GestionProduits.GetProduits();
 
@@ -73,7 +78,14 @@ namespace GUI
                 var row = dataGridView1.SelectedRows[0];
                 txtCode.Text = row.Cells["Code"].Value?.ToString() ?? string.Empty;
                 txtLibelle.Text = row.Cells["Libellé"].Value?.ToString() ?? string.Empty;
-                cmbCategorie.Text = row.Cells["Catégorie"].Value?.ToString() ?? string.Empty;
+                var nomCat = row.Cells["Catégorie"].Value?.ToString();
+
+                var categorie = cmbCategorie.Items
+                    .Cast<Categorie>()
+                    .FirstOrDefault(c => c.NomCategorie == nomCat);
+
+                cmbCategorie.SelectedItem = categorie;
+
 
                 var prixVal = row.Cells["Prix"].Value?.ToString() ?? string.Empty;
                 if (prixVal.EndsWith(" €"))
