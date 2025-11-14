@@ -83,7 +83,7 @@ namespace LaGestionCommerciale
 
                 Categorie categorie = (Categorie)cmbCategorie.SelectedItem;
 
-                // Création du ProduitBO (utiliser float si ta BO attend float)
+                // Création du ProduitBO 
                 ProduitBO produit = new ProduitBO(0, libelle, categorie, prix);
 
                 // Appel à la BLL
@@ -98,10 +98,6 @@ namespace LaGestionCommerciale
                 {
                     MessageBox.Show("Aucun produit ajouté.");
                 }
-            }
-            catch (FormatException fex)
-            {
-                MessageBox.Show("Erreur de format : " + fex.Message);
             }
             catch (Exception ex)
             {

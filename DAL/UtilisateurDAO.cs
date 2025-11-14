@@ -60,7 +60,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@nom", nom);
                 cmd.Parameters.AddWithValue("@mdp", motDePasse);
 
-                int nb = (int)cmd.ExecuteScalar();
+                int nb = (int)cmd.ExecuteScalar(); // Exécute la requête et récupère le nombre retourné (COUNT(*))
                 estValide = (nb > 0);
             }
 
