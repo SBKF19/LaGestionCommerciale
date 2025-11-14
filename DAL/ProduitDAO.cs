@@ -214,9 +214,9 @@ namespace DAL
         {
             int nbEnr;
 
-            if (unProduit == null || unProduit.Libelle == null || unProduit.Prix == 0 || unProduit.Categorie == null)
+            if (unProduit == null || unProduit.Libelle == null || unProduit.Prix == 0 || unProduit.Prix < 0 || unProduit.Categorie == null)
             {
-                if (unProduit.Prix == 0)
+                if (unProduit.Prix == 0 || unProduit.Prix < 0)
                 {
                     nbEnr = -1;
                     return nbEnr;
