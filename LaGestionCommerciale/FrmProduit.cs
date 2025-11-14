@@ -36,7 +36,7 @@ namespace GUI
 
                 cmbCategorie.DataSource = GestionProduits.GetCategories();
                 cmbCategorie.DisplayMember = "NomCategorie";
-                cmbCategorie.ValueMember = "IdCategorie"; // Même si tu ne l’utilises pas, c'est propre
+                cmbCategorie.ValueMember = "IdCategorie"; 
 
 
                 //Étape 2 : récupérer la liste des produits depuis la BLL
