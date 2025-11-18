@@ -8,6 +8,9 @@ namespace BO
 {
     public class Categorie
     {
+        private int idCategorie;
+        private string nomCategorie;
+
         public int IdCategorie { get; set; }
         public string NomCategorie { get; set; }
 
