@@ -4,6 +4,11 @@ namespace BO
 {
     public class ProduitBO
     {
+        private int code;
+        private string name;
+        private string description;
+        private float prix;
+
         public int Code { get; set; }
         public string Libelle { get; set; }
         public Categorie Categorie { get; set; }
