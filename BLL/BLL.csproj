@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GestionClients.cs" />
     <Compile Include="GestionProduits.cs" />
     <Compile Include="LoginUtilisateur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

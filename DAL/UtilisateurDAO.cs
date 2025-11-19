@@ -32,7 +32,7 @@ namespace DAL
 
                 while (monReader.Read())
                 {
-                    int id = Convert.ToInt32(monReader["id_user"]);
+                    int id = (int)monReader["id_user"];
                     string nom = monReader["nom_user"].ToString();
                     string mdp = monReader["password_user"].ToString();
 
