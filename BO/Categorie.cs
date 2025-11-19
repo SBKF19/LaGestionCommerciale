@@ -14,11 +14,14 @@ namespace BO
         public int IdCategorie { get; set; }
         public string NomCategorie { get; set; }
 
-        public Categorie() { }
-
         public Categorie(int idCategorie, string nomCategorie)
         {
             IdCategorie = idCategorie;
+            NomCategorie = nomCategorie;
+        }
+
+        public Categorie(string nomCategorie)
+        {
             NomCategorie = nomCategorie;
         }
     }

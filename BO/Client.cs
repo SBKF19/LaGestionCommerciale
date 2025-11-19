@@ -44,5 +44,23 @@ namespace BO
             NumRueLivraison = numRueLivraison;
             NomRueLivraison = nomRueLivraison;
         }
+
+        public Client(string nomClient, string numFaxClient, string mailClient, string numPhoneClient,
+              string codePostalFacture, string villeFacture, int numRueFacture, string nomRueFacture,
+              string codePostalLivraison, string villeLivraison, int numRueLivraison, string nomRueLivraison)
+        {
+            NomClient = nomClient;
+            NumFaxClient = numFaxClient;
+            MailClient = mailClient;
+            NumPhoneClient = numPhoneClient;
+            CodePostalFacture = codePostalFacture;
+            VilleFacture = villeFacture;
+            NumRueFacture = numRueFacture;
+            NomRueFacture = nomRueFacture;
+            CodePostalLivraison = codePostalLivraison;
+            VilleLivraison = villeLivraison;
+            NumRueLivraison = numRueLivraison;
+            NomRueLivraison = nomRueLivraison;
+        }
     }
 }

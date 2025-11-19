@@ -21,5 +21,12 @@ namespace BO
             Categorie = categorie;
             Prix = prix;
         }
+
+        public ProduitBO(string libelle, Categorie categorie, float prix)
+        {
+            Libelle = libelle;
+            Categorie = categorie;
+            Prix = prix;
+        }
     }
 }

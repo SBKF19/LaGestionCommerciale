@@ -108,15 +108,14 @@ namespace GUI
                 MessageBox.Show("Le libellé est requis.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-
             float prix;
             var cultureFr = new CultureInfo("fr-FR"); // accepte les virgules comme séparateurs décimaux
+            string prixTxt = txtPrix.Text.Replace('.', ',');
 
-            if (!float.TryParse(txtPrix.Text, NumberStyles.Float, cultureFr, out prix))
+            if (!float.TryParse(prixTxt, NumberStyles.Float, cultureFr, out prix) || prix <= 0)
             {
                 MessageBox.Show(
-                    "Prix invalide. Utilisez un format numérique (ex : 14,99).",
+                    "Prix invalide. Utilisez un format numérique (ex : 14,99) et supérieur à 0€.",
                     "Erreur",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
@@ -133,14 +132,18 @@ namespace GUI
                     macat,
                     prix
                 );
-                GestionProduits.ModifierProduit(monprod);
 
+                int nbLines = GestionProduits.ModifierProduit(monprod);
+                if ((nbLines == 0))
+                {
+                    throw new Exception("Le produit n'existe pas");
+                }
                 var row = dataGridView1.SelectedRows[0];
                 row.Cells["Libellé"].Value = txtLibelle.Text;
                 row.Cells["Catégorie"].Value = cmbCategorie.Text;
                 row.Cells["Prix"].Value = $"{prix} €";
 
-                MessageBox.Show($"Produit modifié : {txtLibelle.Text} ({cmbCategorie.Text}) - {prix} €", "Modifier", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Produit modifié : {txtLibelle.Text} ({cmbCategorie.Text}) | {prix} €", "Modifier", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -162,15 +165,26 @@ namespace GUI
                 try
                 {
                     int codeProduit = int.Parse(txtCode.Text);
-                    GestionProduits.SupprimerProduit(codeProduit);
 
-                    dataGridView1.Rows.RemoveAt(dataGridView1.SelectedRows[0].Index);
-                    txtCode.Text = "";
-                    txtLibelle.Text = "";
-                    cmbCategorie.SelectedIndex = -1;
-                    txtPrix.Text = "";
+                    if (GestionProduits.ProduitUtilise(codeProduit) == true)
+                    {
+                        throw new Exception("Impossible de supprimer ce produit car il est utilisé présent dans un devis client.");
+                    }
 
-                    MessageBox.Show("Produit supprimé avec succès.", "Suppression", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int nbLines = GestionProduits.SupprimerProduit(codeProduit);
+                    if (nbLines > 0) {
+                        dataGridView1.Rows.RemoveAt(dataGridView1.SelectedRows[0].Index);
+                        txtCode.Text = "";
+                        txtLibelle.Text = "";
+                        cmbCategorie.SelectedIndex = -1;
+                        txtPrix.Text = "";
+
+                        MessageBox.Show("Produit supprimé avec succès.", "Suppression", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        throw new Exception("Le produit n'existe pas");
+                    }
                 }
                 catch (Exception ex)
                 {
