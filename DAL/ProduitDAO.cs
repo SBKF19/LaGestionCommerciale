@@ -120,33 +120,6 @@ namespace DAL
             return lesProduits;
         }
 
-        public static bool ProduitEstUtilise(int code)
-        {
-            // Connexion à la BD et commande sécurisée
-            using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
-            using (SqlCommand cmd = maConnexion.CreateCommand())
-            {
-                cmd.CommandText = "SELECT COUNT(*) FROM contenir WHERE id_produit = @code";
-                cmd.Parameters.Add("@code", SqlDbType.Int).Value = code;
-
-                object result = cmd.ExecuteScalar();
-                int nbEnr;
-                if (result == null || result == DBNull.Value)
-                {
-                    nbEnr = 0;
-                }
-                else
-                {
-                    nbEnr = Convert.ToInt32(result);
-                }
-
-                if (nbEnr > 0)
-                    return true;
-                else
-                    return false;
-            }
-        }
-
         public static int AddProduit(ProduitBO produit)
         {
             int nbEnr = 0;
@@ -212,49 +185,40 @@ namespace DAL
         public static int UpdateProduit(ProduitBO unProduit)
         {
             int nbEnr;
+            SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion();
+            SqlCommand cmd = new SqlCommand(@"UPDATE Produit SET libelle_produit = @lib,id_categorie = @cat,
+            prix_vente_HT_produit = @prix 
+            WHERE id_produit = @id", maConnexion);
+            cmd.Parameters.AddWithValue("@lib", unProduit.Libelle);
+            cmd.Parameters.AddWithValue("@cat", unProduit.Categorie.IdCategorie);
+            cmd.Parameters.AddWithValue("@id", unProduit.Code);
 
-            if (unProduit == null || unProduit.Libelle == null || unProduit.Prix == 0 || unProduit.Prix < 0 || unProduit.Categorie == null)
+            // Gestion propre du prix (float)
+            SqlParameter paramPrix = new SqlParameter("@prix", SqlDbType.Float)
             {
-                if (unProduit.Prix == 0 || unProduit.Prix < 0)
-                {
-                    nbEnr = -1;
-                    return nbEnr;
-                }
-                else
-                nbEnr = 69;
-                return nbEnr;  
-            }
-            else
+                Value = unProduit.Prix
+            };
+            cmd.Parameters.Add(paramPrix);
+            nbEnr = cmd.ExecuteNonQuery();
+            maConnexion.Close();
+            return nbEnr;
+        }
+
+        // MÉTHODE : Vérifie si un produit est utilisé dans des commandes
+        public static bool ProduitEstUtilise(int code)
+        {
+            int nbEnr;
+            // Connexion à la BD et commande sécurisée
+            using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
+            using (SqlCommand cmd = maConnexion.CreateCommand())
             {
-                using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.Connection = maConnexion;
-                        cmd.CommandText = @"
-                    UPDATE Produit 
-                    SET libelle_produit = @lib, 
-                        id_categorie = @cat, 
-                        prix_vente_HT_produit = @prix 
-                    WHERE id_produit = @id";
+                cmd.CommandText = "SELECT COUNT(*) FROM contenir WHERE id_produit = @code";
+                cmd.Parameters.Add("@code", SqlDbType.Int).Value = code;
 
-                        cmd.Parameters.AddWithValue("@lib", unProduit.Libelle);
-                        cmd.Parameters.AddWithValue("@cat", unProduit.Categorie.IdCategorie);
-                        cmd.Parameters.AddWithValue("@id", unProduit.Code);
+                nbEnr = (int)cmd.ExecuteScalar();
 
-                        // Gestion propre du prix (float)
-                        SqlParameter paramPrix = new SqlParameter("@prix", SqlDbType.Float)
-                        {
-                            Value = unProduit.Prix
-                        };
-                        cmd.Parameters.Add(paramPrix);
-
-                        nbEnr = cmd.ExecuteNonQuery();
-                        return nbEnr;
-                    }
-                }
+                return nbEnr > 0;
             }
-               
         }
 
         // MÉTHODE : Supprime un produit par son identifiant
