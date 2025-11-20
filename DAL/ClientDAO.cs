@@ -61,7 +61,7 @@ namespace DAL
 
         public static int InsertClient(Client client)
         {
-            int nbEnr = 0;
+            int nbEnr;
 
             // Connexion à la base
             SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion();
@@ -88,7 +88,8 @@ namespace DAL
             cmd.Parameters.AddWithValue("@numRueLiv", client.NumRueLivraison);
             cmd.Parameters.AddWithValue("@nomRueLiv", client.NomRueLivraison);
 
-            return nbEnr = cmd.ExecuteNonQuery();
+            nbEnr = cmd.ExecuteNonQuery();
+            return nbEnr;
         }
     }
 }

@@ -24,43 +24,41 @@ namespace BO
         public int NumRueLivraison { get; set; }
         public string NomRueLivraison { get; set; }
 
-        public Client() { }
-
         public Client(int idClient, string nomClient, string numFaxClient, string mailClient, string numPhoneClient,
                       string codePostalFacture, string villeFacture, int numRueFacture, string nomRueFacture,
                       string codePostalLivraison, string villeLivraison, int numRueLivraison, string nomRueLivraison)
         {
-            IdClient = idClient;
-            NomClient = nomClient;
-            NumFaxClient = numFaxClient;
-            MailClient = mailClient;
-            NumPhoneClient = numPhoneClient;
-            CodePostalFacture = codePostalFacture;
-            VilleFacture = villeFacture;
-            NumRueFacture = numRueFacture;
-            NomRueFacture = nomRueFacture;
-            CodePostalLivraison = codePostalLivraison;
-            VilleLivraison = villeLivraison;
-            NumRueLivraison = numRueLivraison;
-            NomRueLivraison = nomRueLivraison;
+            this.IdClient = idClient;
+            this.NomClient = nomClient;
+            this.NumFaxClient = numFaxClient;
+            this.MailClient = mailClient;
+            this.NumPhoneClient = numPhoneClient;
+            this.CodePostalFacture = codePostalFacture;
+            this.VilleFacture = villeFacture;
+            this.NumRueFacture = numRueFacture;
+            this.NomRueFacture = nomRueFacture;
+            this.CodePostalLivraison = codePostalLivraison;
+            this.VilleLivraison = villeLivraison;
+            this.NumRueLivraison = numRueLivraison;
+            this.NomRueLivraison = nomRueLivraison;
         }
 
         public Client(string nomClient, string numFaxClient, string mailClient, string numPhoneClient,
               string codePostalFacture, string villeFacture, int numRueFacture, string nomRueFacture,
               string codePostalLivraison, string villeLivraison, int numRueLivraison, string nomRueLivraison)
         {
-            NomClient = nomClient;
-            NumFaxClient = numFaxClient;
-            MailClient = mailClient;
-            NumPhoneClient = numPhoneClient;
-            CodePostalFacture = codePostalFacture;
-            VilleFacture = villeFacture;
-            NumRueFacture = numRueFacture;
-            NomRueFacture = nomRueFacture;
-            CodePostalLivraison = codePostalLivraison;
-            VilleLivraison = villeLivraison;
-            NumRueLivraison = numRueLivraison;
-            NomRueLivraison = nomRueLivraison;
+            this.NomClient = nomClient;
+            this.NumFaxClient = numFaxClient;
+            this.MailClient = mailClient;
+            this.NumPhoneClient = numPhoneClient;
+            this.CodePostalFacture = codePostalFacture;
+            this.VilleFacture = villeFacture;
+            this.NumRueFacture = numRueFacture;
+            this.NomRueFacture = nomRueFacture;
+            this.CodePostalLivraison = codePostalLivraison;
+            this.VilleLivraison = villeLivraison;
+            this.NumRueLivraison = numRueLivraison;
+            this.NomRueLivraison = nomRueLivraison;
         }
     }
 }

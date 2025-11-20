@@ -5,28 +5,28 @@ namespace BO
     public class ProduitBO
     {
         private int code;
-        private string name;
-        private string description;
+        private string libelle;
+        private Categorie categorie;
         private float prix;
 
-        public int Code { get; set; }
-        public string Libelle { get; set; }
-        public Categorie Categorie { get; set; }
-        public float Prix { get; set; }
+        public int Code { get => code; set => code = value; }
+        public string Libelle { get => libelle; set => libelle = value; }
+        public Categorie Categorie { get => categorie; set => categorie = value; }
+        public float Prix { get => prix; set => prix = value; }
 
         public ProduitBO(int code, string libelle, Categorie categorie, float prix)
         {
-            Code = code;
-            Libelle = libelle;
-            Categorie = categorie;
-            Prix = prix;
+            this.code = code;
+            this.libelle = libelle;
+            this.categorie = categorie;
+            this.prix = prix;
         }
 
         public ProduitBO(string libelle, Categorie categorie, float prix)
         {
-            Libelle = libelle;
-            Categorie = categorie;
-            Prix = prix;
+            this.libelle = libelle;
+            this.categorie = categorie;
+            this.prix = prix;
         }
     }
 }
