@@ -11,6 +11,7 @@ namespace BLL
     public class GestionClients
     {
         private static GestionClients uneGestionClients;
+      
         public static GestionClients GetGestionClients()
         {
             if (uneGestionClients == null)
@@ -21,6 +22,17 @@ namespace BLL
         public static int AjouterClient(Client client)
         {
             return DAL.ClientDAO.InsertClient(client);
+        }
+            // Définit la chaîne de connexion à la base de données
+        public static void SetchaineConnexion(ConnectionStringSettings chset)
+        {
+            string chaine = chset.ConnectionString;
+            ConnexionBD.GetConnexionBD().SetchaineConnexion(chaine);
+        }
+
+        public static List<Client> GetClients()
+        {
+            return ClientDAO.GetClients();
         }
     }
 }

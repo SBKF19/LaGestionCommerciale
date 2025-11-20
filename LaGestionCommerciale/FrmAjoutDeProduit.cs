@@ -76,6 +76,7 @@ namespace LaGestionCommerciale
                     throw new Exception("Veuillez sélectionner une catégorie.");
                 }
 
+                //Cela permet de prendre ce que l’utilisateur a choisi dans la liste, et le met dans une variable appelée categorie.
                 Categorie categorie = (Categorie)cmbCategorie.SelectedItem;
 
                 // Création du ProduitBO 
