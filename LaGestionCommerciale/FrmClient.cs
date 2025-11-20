@@ -39,27 +39,62 @@ namespace LaGestionCommerciale
 
             // Active le retour à la ligne
             dgvClient.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
             // Autoriser les lignes à s’ajuster en hauteur
             dgvClient.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            // Permet de ne pas modifier une case du DataGridView
+            dgvClient.ReadOnly = true;
+
+            // Permet de sélectionner une ligne entière
+            dgvClient.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // Permet de ne sélectionner qu'une seule ligne à la fois
+            dgvClient.MultiSelect = false;
+
+            // Empêche l'ajout manuel de lignes
+            dgvClient.AllowUserToAddRows = false;
 
             // Afficher les données dans le DataGridView
             dgvClient.Rows.Clear();
 
             foreach (var c in lesClients)
             {
-                dgvClient.Rows.Add(c.IdClient, c.NomClient, c.NumRueFacture + " " + c.NomRueFacture + ", " + c.VilleFacture + " " + c.CodePostalFacture, c.NumRueLivraison 
-                    + " " + c.NomRueLivraison + ", " + c.VilleLivraison + " " + c.CodePostalLivraison, c.NumPhoneClient, c.NumFaxClient, c.MailClient);
+                dgvClient.Rows.Add(
+                     c.IdClient,
+                     c.NomClient,
+
+                     // Adresse facturation visible
+                     c.NumRueFacture + " " + c.NomRueFacture + ", " + c.VilleFacture + " " + c.CodePostalFacture,
+
+                     // Adresse livraison visible
+                     c.NumRueLivraison + " " + c.NomRueLivraison + ", " + c.VilleLivraison + " " + c.CodePostalLivraison,
+
+                     c.NumPhoneClient,
+                     c.NumFaxClient,
+                     c.MailClient,
+
+                     // Colonnes cachées (dans le même ordre que ton DataGridView)
+                     c.NumRueFacture,
+                     c.NomRueFacture,
+                     c.VilleFacture,
+                     c.CodePostalFacture,
+
+                     c.NumRueLivraison,
+                     c.NomRueLivraison,
+                     c.VilleLivraison,
+                     c.CodePostalLivraison
+                 );
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        // Remplit les champs de texte dans le menu "détail" lorsque l'utilisateur clique sur une ligne du DataGridView
+        private void dgvClient_SelectionChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void dgvClient_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            if (dgvClient.CurrentRow != null)
+            {
+                RemplirChampsDepuisLigne(dgvClient.CurrentRow.Index);
+            }
         }
 
         private void btnModifier_Click(object sender, EventArgs e)
@@ -171,7 +206,30 @@ namespace LaGestionCommerciale
             }
         }
 
+        // Méthode pour remplir les champs dans le menu "détail" quand on clique sur une ligne du DataGridView
+        private void RemplirChampsDepuisLigne(int index)
+        {
+            // Rows[index] permet d'accéder à la ligne cliquée
+            DataGridViewRow row = dgvClient.Rows[index];
 
+            // row.Cells["NomClient"] correspond au nom de la colonne dans le DataGridView
+            // .Value?.ToString() permet de récupérer la valeur de la cellule en tant que chaîne de caractères
+            // Le "?." gère le cas où la valeur serait null pour éviter une exception
+            // toString() convertit la valeur en chaîne de caractères
+            txtNom.Text = row.Cells["NomClient"].Value?.ToString();
+            txtTelephone.Text = row.Cells["Téléphone"].Value?.ToString();
+            txtFax.Text = row.Cells["Fax"].Value?.ToString();
+            txtEmail.Text = row.Cells["Email"].Value?.ToString();
 
+            txtNumeroRueFacturation.Text = row.Cells["NumRueFact"].Value?.ToString();
+            txtRueFacturation.Text = row.Cells["RueFact"].Value?.ToString();
+            txtVilleFacturation.Text = row.Cells["VilleFact"].Value?.ToString();
+            txtCodePostalFacturation.Text = row.Cells["CodePostalFact"].Value?.ToString();
+
+            txtNumeroRueLivraison.Text = row.Cells["NumRueLiv"].Value?.ToString();
+            txtRueLivraison.Text = row.Cells["RueLiv"].Value?.ToString();
+            txtVilleLivraison.Text = row.Cells["VilleLiv"].Value?.ToString();
+            txtCodePostalLivraison.Text = row.Cells["CodePostalLiv"].Value?.ToString();
+        }
     }
 }

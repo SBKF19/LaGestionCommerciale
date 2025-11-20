@@ -70,6 +70,14 @@
             this.Téléphone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumRueFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RueFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VilleFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodePostalFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumRueLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RueLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VilleLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodePostalLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
             this.pnlDetail.SuspendLayout();
             this.SuspendLayout();
@@ -97,13 +105,22 @@
             this.AdresseLivraison,
             this.Téléphone,
             this.Fax,
-            this.Email});
-            this.dgvClient.Location = new System.Drawing.Point(25, 94);
+            this.Email,
+            this.NumRueFact,
+            this.RueFact,
+            this.VilleFact,
+            this.CodePostalFact,
+            this.NumRueLiv,
+            this.RueLiv,
+            this.VilleLiv,
+            this.CodePostalLiv});
+            this.dgvClient.Location = new System.Drawing.Point(25, 82);
             this.dgvClient.Name = "dgvClient";
             this.dgvClient.RowHeadersVisible = false;
-            this.dgvClient.Size = new System.Drawing.Size(977, 581);
+            this.dgvClient.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvClient.Size = new System.Drawing.Size(932, 581);
             this.dgvClient.TabIndex = 0;
-            this.dgvClient.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClient_CellContentClick);
+            this.dgvClient.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClient_SelectionChanged);
             // 
             // pnlDetail
             // 
@@ -140,7 +157,7 @@
             this.pnlDetail.Controls.Add(this.txtNom);
             this.pnlDetail.Controls.Add(this.lblNom);
             this.pnlDetail.Controls.Add(this.lblDetail);
-            this.pnlDetail.Location = new System.Drawing.Point(1058, 68);
+            this.pnlDetail.Location = new System.Drawing.Point(1003, 82);
             this.pnlDetail.Name = "pnlDetail";
             this.pnlDetail.Size = new System.Drawing.Size(380, 680);
             this.pnlDetail.TabIndex = 2;
@@ -456,6 +473,54 @@
             this.Email.Name = "Email";
             this.Email.Width = 175;
             // 
+            // NumRueFact
+            // 
+            this.NumRueFact.HeaderText = "Numéro de rue de facturation";
+            this.NumRueFact.Name = "NumRueFact";
+            this.NumRueFact.Visible = false;
+            // 
+            // RueFact
+            // 
+            this.RueFact.HeaderText = "Nom de la rue de facturation";
+            this.RueFact.Name = "RueFact";
+            this.RueFact.Visible = false;
+            // 
+            // VilleFact
+            // 
+            this.VilleFact.HeaderText = "Ville de facturation";
+            this.VilleFact.Name = "VilleFact";
+            this.VilleFact.Visible = false;
+            // 
+            // CodePostalFact
+            // 
+            this.CodePostalFact.HeaderText = "Code postal de facturation";
+            this.CodePostalFact.Name = "CodePostalFact";
+            this.CodePostalFact.Visible = false;
+            // 
+            // NumRueLiv
+            // 
+            this.NumRueLiv.HeaderText = "Numéro de rue de livraison";
+            this.NumRueLiv.Name = "NumRueLiv";
+            this.NumRueLiv.Visible = false;
+            // 
+            // RueLiv
+            // 
+            this.RueLiv.HeaderText = "Nom de la rue de livraison";
+            this.RueLiv.Name = "RueLiv";
+            this.RueLiv.Visible = false;
+            // 
+            // VilleLiv
+            // 
+            this.VilleLiv.HeaderText = "Ville de livraison";
+            this.VilleLiv.Name = "VilleLiv";
+            this.VilleLiv.Visible = false;
+            // 
+            // CodePostalLiv
+            // 
+            this.CodePostalLiv.HeaderText = "Code postal de livraison";
+            this.CodePostalLiv.Name = "CodePostalLiv";
+            this.CodePostalLiv.Visible = false;
+            // 
             // FrmClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -518,5 +583,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Téléphone;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fax;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumRueFact;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RueFact;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VilleFact;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodePostalFact;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumRueLiv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RueLiv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VilleLiv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodePostalLiv;
     }
 }
