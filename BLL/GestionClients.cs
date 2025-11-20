@@ -33,5 +33,22 @@ namespace BLL
         {
             return ClientDAO.GetClients();
         }
+
+        public static int ModifierClient(Client client)
+        {
+            return ClientDAO.ModifierClient(client);
+        }
+
+        public static bool ClientEstUtilise(int idClient)
+        {
+            return ClientDAO.ClientEstUtilise(idClient);
+        }
+
+        public static int DeleteClient(int idClient)
+        {
+            return ClientDAO.DeleteClient(idClient);
+        }
+
+
     }
 }
