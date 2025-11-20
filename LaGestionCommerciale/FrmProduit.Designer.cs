@@ -303,15 +303,17 @@
             // 
             // gérerLesClientsToolStripMenuItem
             // 
+            this.gérerLesClientsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.gérerLesClientsToolStripMenuItem.Name = "gérerLesClientsToolStripMenuItem";
-            this.gérerLesClientsToolStripMenuItem.Size = new System.Drawing.Size(179, 24);
+            this.gérerLesClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.gérerLesClientsToolStripMenuItem.Text = "Gérer les clients";
             this.gérerLesClientsToolStripMenuItem.Click += new System.EventHandler(this.gérerLesClientsToolStripMenuItem_Click);
             // 
             // ajouterUnClientToolStripMenuItem
             // 
+            this.ajouterUnClientToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ajouterUnClientToolStripMenuItem.Name = "ajouterUnClientToolStripMenuItem";
-            this.ajouterUnClientToolStripMenuItem.Size = new System.Drawing.Size(179, 24);
+            this.ajouterUnClientToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.ajouterUnClientToolStripMenuItem.Text = "Ajouter un client";
             this.ajouterUnClientToolStripMenuItem.Click += new System.EventHandler(this.ajouterUnClientToolStripMenuItem_Click);
             // 
@@ -328,12 +330,14 @@
             // 
             // gérerLesProduitsToolStripMenuItem
             // 
+            this.gérerLesProduitsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.gérerLesProduitsToolStripMenuItem.Name = "gérerLesProduitsToolStripMenuItem";
             this.gérerLesProduitsToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
             this.gérerLesProduitsToolStripMenuItem.Text = "Gérer les produits";
             // 
             // ajouterUnProduitToolStripMenuItem
             // 
+            this.ajouterUnProduitToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ajouterUnProduitToolStripMenuItem.Name = "ajouterUnProduitToolStripMenuItem";
             this.ajouterUnProduitToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
             this.ajouterUnProduitToolStripMenuItem.Text = "Ajouter un produit";
