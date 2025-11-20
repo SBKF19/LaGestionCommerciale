@@ -1,5 +1,6 @@
 ﻿using BLL;
 using BO;
+using GUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,6 +56,9 @@ namespace LaGestionCommerciale
             // Empêche l'ajout manuel de lignes
             dgvClient.AllowUserToAddRows = false;
 
+            // Désactive l'événement pour éviter les mises à jour incomplètes
+            dgvClient.SelectionChanged -= dgvClient_SelectionChanged;
+
             // Afficher les données dans le DataGridView
             dgvClient.Rows.Clear();
 
@@ -86,15 +90,32 @@ namespace LaGestionCommerciale
                      c.CodePostalLivraison
                  );
             }
+
+            // Sélectionne la première ligne
+            if (dgvClient.Rows.Count > 0)
+                dgvClient.Rows[0].Selected = true;
+
+            // Réactive l'événement
+            dgvClient.SelectionChanged += dgvClient_SelectionChanged;
+
+            // Remplit les champs pour la première ligne
+            RemplirChampsDepuisLigne(0);
         }
 
-        // Remplit les champs de texte dans le menu "détail" lorsque l'utilisateur clique sur une ligne du DataGridView
+        // Événement déclenché lors de la sélection d'une ligne dans le DataGridView
         private void dgvClient_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvClient.CurrentRow != null)
             {
                 RemplirChampsDepuisLigne(dgvClient.CurrentRow.Index);
             }
+        }
+
+        private void btnAddClient_Click(object sender, EventArgs e)
+        {
+            LaGestionCommerciale.FrmAjoutDeClients frm = new LaGestionCommerciale.FrmAjoutDeClients();
+            frm.Show();
+            this.Hide();
         }
 
         private void btnModifier_Click(object sender, EventArgs e)
@@ -230,6 +251,28 @@ namespace LaGestionCommerciale
             txtRueLivraison.Text = row.Cells["RueLiv"].Value?.ToString();
             txtVilleLivraison.Text = row.Cells["VilleLiv"].Value?.ToString();
             txtCodePostalLivraison.Text = row.Cells["CodePostalLiv"].Value?.ToString();
+        }
+
+        // Menu pour accéder aux autres formulaires
+        private void ajouterUnClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmAjoutDeClients frm = new FrmAjoutDeClients();
+            frm.Show();
+            this.Hide();
+        }
+
+        private void gérerLesProduitsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmProduit frm = new FrmProduit();
+            frm.Show();
+            this.Hide();
+        }
+
+        private void ajouterUnProduitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmAjoutDeProduit frm = new FrmAjoutDeProduit();
+            frm.Show();
+            this.Hide();
         }
     }
 }

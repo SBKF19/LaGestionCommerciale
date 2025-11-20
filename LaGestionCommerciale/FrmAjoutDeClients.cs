@@ -1,5 +1,6 @@
 ﻿using BLL;
 using BO;
+using GUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -121,11 +122,41 @@ namespace LaGestionCommerciale
                 GestionClients.AjouterClient(nouveauClient);
 
                 MessageBox.Show("Client ajouté avec succès !");
+                ViderChamps();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erreur lors de l'ajout du client : " + ex.Message);
             }
+        }
+
+        private void btnRetour_Click(object sender, EventArgs e)
+        {
+            // Ouvre le formulaire FrmClient
+            FrmClient Client = new FrmClient();
+            Client.Show();
+
+            // Ferme le formulaire actuel
+            this.Close();
+        }
+
+        private void ViderChamps()
+        {
+            txtNom.Clear();
+            txtPhone.Clear();
+            txtFax.Clear();
+            txtMail.Clear();
+            txtNumRueFacture.Clear();
+            txtNomRueFacture.Clear();
+            txtCodePostalFacture.Clear();
+            txtNomVilleFacture.Clear();
+            txtNumRueLivre.Clear();
+            txtNomRueLivre.Clear();
+            txtCodePostalLivre.Clear();
+            txtNomVilleLivre.Clear();
+            txtNumRueLivre.Clear();
+            txtCodePostalLivre.Clear();
+            txtNomVilleLivre.Clear();
         }
 
         private void FrmAjoutDeClients_Load(object sender, EventArgs e)

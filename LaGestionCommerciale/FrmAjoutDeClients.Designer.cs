@@ -56,6 +56,7 @@
             this.lblNomVilleLivre = new System.Windows.Forms.Label();
             this.txtNomVilleLivre = new System.Windows.Forms.TextBox();
             this.btnAjoutClient = new System.Windows.Forms.Button();
+            this.btnRetour = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblAjoutDeProduit
@@ -280,7 +281,8 @@
             // 
             // btnAjoutClient
             // 
-            this.btnAjoutClient.Location = new System.Drawing.Point(326, 362);
+            this.btnAjoutClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnAjoutClient.Location = new System.Drawing.Point(230, 350);
             this.btnAjoutClient.Name = "btnAjoutClient";
             this.btnAjoutClient.Size = new System.Drawing.Size(130, 46);
             this.btnAjoutClient.TabIndex = 28;
@@ -288,11 +290,23 @@
             this.btnAjoutClient.UseVisualStyleBackColor = true;
             this.btnAjoutClient.Click += new System.EventHandler(this.btnAjoutClient_Click);
             // 
+            // btnRetour
+            // 
+            this.btnRetour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btnRetour.Location = new System.Drawing.Point(405, 350);
+            this.btnRetour.Name = "btnRetour";
+            this.btnRetour.Size = new System.Drawing.Size(129, 46);
+            this.btnRetour.TabIndex = 29;
+            this.btnRetour.Text = "Retour";
+            this.btnRetour.UseVisualStyleBackColor = true;
+            this.btnRetour.Click += new System.EventHandler(this.btnRetour_Click);
+            // 
             // FrmAjoutDeClients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 450);
+            this.Controls.Add(this.btnRetour);
             this.Controls.Add(this.btnAjoutClient);
             this.Controls.Add(this.txtNomVilleLivre);
             this.Controls.Add(this.lblNomVilleLivre);
@@ -360,5 +374,6 @@
         private System.Windows.Forms.Label lblNomVilleLivre;
         private System.Windows.Forms.TextBox txtNomVilleLivre;
         private System.Windows.Forms.Button btnAjoutClient;
+        private System.Windows.Forms.Button btnRetour;
     }
 }

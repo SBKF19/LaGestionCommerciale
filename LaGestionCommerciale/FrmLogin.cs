@@ -1,7 +1,8 @@
-﻿using System;
+﻿using BO;
+using LaGestionCommerciale;
+using System;
 using System.Configuration;
 using System.Windows.Forms;
-using BO;
 using UtilisateursBLL;
 
 namespace GUI
@@ -55,8 +56,8 @@ namespace GUI
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
 
-                FrmProduit Produit = new FrmProduit();
-                Produit.Show();
+                FrmClient Client = new FrmClient();
+                Client.Show();
                 this.Hide();
             }
         }
