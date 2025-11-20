@@ -16,6 +16,7 @@ using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 
 namespace GUI
+
 {
     public partial class FrmProduit : Form
     {
