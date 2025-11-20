@@ -288,7 +288,7 @@
             this.btnAjoutClient.UseVisualStyleBackColor = true;
             this.btnAjoutClient.Click += new System.EventHandler(this.btnAjoutClient_Click);
             // 
-            // FormAjoutDeClients
+            // FrmAjoutDeClients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -321,9 +321,10 @@
             this.Controls.Add(this.txtNom);
             this.Controls.Add(this.lblNom);
             this.Controls.Add(this.lblAjoutDeProduit);
-            this.Name = "FormAjoutDeClients";
+            this.Name = "FrmAjoutDeClients";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "FormAjoutDeClients";
+            this.Load += new System.EventHandler(this.FrmAjoutDeClients_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
