@@ -13,10 +13,9 @@ namespace BO
         private string nom_utilisateur;
         private string mot_de_passe_utilisateur;
 
-
-        public int Id_utilisateur { get; set; }
-        public string Nom_utilisateur { get; set; }
-        public string Mot_de_passe_utilisateur { get; set; }
+        public int Id_utilisateur { get => id_utilisateur; set => id_utilisateur = value; }
+        public string Nom_utilisateur { get => nom_utilisateur; set => nom_utilisateur = value; }
+        public string Mot_de_passe_utilisateur { get => mot_de_passe_utilisateur; set => mot_de_passe_utilisateur = value; }
 
         public Utilisateur(int id_utilisateur, string nom_utilisateur, string mot_de_passe_utilisateur)
         {

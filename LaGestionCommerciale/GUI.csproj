@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormAjoutDeClients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAjoutDeClients.Designer.cs">
+      <DependentUpon>FormAjoutDeClients.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAjoutDeProduit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormAjoutDeClients.resx">
+      <DependentUpon>FormAjoutDeClients.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAjoutDeProduit.resx">
       <DependentUpon>FrmAjoutDeProduit.cs</DependentUpon>
     </EmbeddedResource>
