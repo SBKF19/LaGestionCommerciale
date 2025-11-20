@@ -168,7 +168,7 @@ namespace GUI
 
                     if (GestionProduits.ProduitUtilise(codeProduit) == true)
                     {
-                        throw new Exception("Impossible de supprimer ce produit car il est utilisé présent dans un devis client.");
+                        throw new Exception("Impossible de supprimer ce produit car il est utilisé dans un devis client.");
                     }
 
                     int nbLines = GestionProduits.SupprimerProduit(codeProduit);
