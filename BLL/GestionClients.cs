@@ -11,6 +11,8 @@ namespace BLL
     public class GestionClients
     {
         private static GestionClients uneGestionClients;
+
+        // Accesseur en lecture 
       
         public static GestionClients GetGestionClients()
         {

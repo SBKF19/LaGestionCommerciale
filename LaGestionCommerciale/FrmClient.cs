@@ -32,17 +32,32 @@ namespace LaGestionCommerciale
             GestionClients.SetchaineConnexion(chset);
         }
 
+        private void FrmClient_Load(object sender, EventArgs e)
+        {
+            // Récupérer la liste des produits depuis la BLL
+            List<Client> lesClients = GestionClients.GetClients();
+
+            // Active le retour à la ligne
+            dgvClient.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            // Autoriser les lignes à s’ajuster en hauteur
+            dgvClient.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            // Afficher les données dans le DataGridView
+            dgvClient.Rows.Clear();
+
+            foreach (var c in lesClients)
+            {
+                dgvClient.Rows.Add(c.IdClient, c.NomClient, c.NumRueFacture + " " + c.NomRueFacture + ", " + c.VilleFacture + " " + c.CodePostalFacture, c.NumRueLivraison 
+                    + " " + c.NomRueLivraison + ", " + c.VilleLivraison + " " + c.CodePostalLivraison, c.NumPhoneClient, c.NumFaxClient, c.MailClient);
+            }
+        }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
         private void dgvClient_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void FrmClient_Load(object sender, EventArgs e)
         {
 
         }
