@@ -14,7 +14,7 @@ namespace BLL
         private static GestionClients uneGestionClients;
 
         // Accesseur en lecture 
-        public static GestionClients GetGestionUtilisateurs()
+        public static GestionClients GetGestionClients()
         {
             if (uneGestionClients == null)
                 uneGestionClients = new GestionClients();

@@ -28,6 +28,7 @@ namespace LaGestionCommerciale
                 // Récupération des catégories depuis la BLL
                 List<Categorie> lesCategories = GestionProduits.GetCategories();
 
+                // Récupérer toutes les catégories 
                 cmbCategorie.DataSource = lesCategories;
                 cmbCategorie.DisplayMember = "NomCategorie"; 
                 cmbCategorie.ValueMember = "IdCategorie";
