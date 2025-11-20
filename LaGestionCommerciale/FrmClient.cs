@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BLL;
+using BO;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace LaGestionCommerciale
