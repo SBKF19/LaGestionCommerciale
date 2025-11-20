@@ -122,76 +122,117 @@ namespace LaGestionCommerciale
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtNom.Text))
+                // Récupération et trim des champs
+                string nom = txtNom.Text.Trim();
+                string phone = txtTelephone.Text.Trim();
+                string fax = txtFax.Text.Trim();
+                string email = txtEmail.Text.Trim();
+
+                string numRueFactureStr = txtNumeroRueFacturation.Text.Trim();
+                string nomRueFacture = txtRueFacturation.Text.Trim();
+                string postalFacture = txtCodePostalFacturation.Text.Trim();
+                string nomVilleFacture = txtVilleFacturation.Text.Trim();
+
+                string numRueLivraisonStr = txtNumeroRueLivraison.Text.Trim();
+                string nomRueLivraison = txtRueLivraison.Text.Trim();
+                string postalLivraison = txtCodePostalLivraison.Text.Trim();
+                string nomVilleLivraison = txtVilleLivraison.Text.Trim();
+
+                // Vérification des champs obligatoires
+                if (string.IsNullOrWhiteSpace(nom) ||
+                    string.IsNullOrWhiteSpace(phone) ||
+                    string.IsNullOrWhiteSpace(fax) ||
+                    string.IsNullOrWhiteSpace(email) ||
+                    string.IsNullOrWhiteSpace(numRueFactureStr) ||
+                    string.IsNullOrWhiteSpace(nomRueFacture) ||
+                    string.IsNullOrWhiteSpace(postalFacture) ||
+                    string.IsNullOrWhiteSpace(nomVilleFacture) ||
+                    string.IsNullOrWhiteSpace(numRueLivraisonStr) ||
+                    string.IsNullOrWhiteSpace(nomRueLivraison) ||
+                    string.IsNullOrWhiteSpace(postalLivraison) ||
+                    string.IsNullOrWhiteSpace(nomVilleLivraison))
                 {
-                    MessageBox.Show("Le nom du client est obligatoire.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    throw new Exception("Veuillez remplir tous les champs.");
                 }
 
+                // Vérifications numériques
+                if (!phone.All(char.IsDigit) || phone.Length != 10)
+                    throw new Exception("Le numéro de téléphone doit contenir 10 chiffres.");
+                if (!fax.All(char.IsDigit))
+                    throw new Exception("Le numéro de fax doit contenir uniquement des chiffres.");
+                if (!postalFacture.All(char.IsDigit) || postalFacture.Length != 5)
+                    throw new Exception("Le code postal de facturation doit contenir 5 chiffres.");
+                if (!postalLivraison.All(char.IsDigit) || postalLivraison.Length != 5)
+                    throw new Exception("Le code postal de livraison doit contenir 5 chiffres.");
+                if (!numRueFactureStr.All(char.IsDigit))
+                    throw new Exception("Le numéro de rue de facturation doit contenir uniquement des chiffres.");
+                if (!numRueLivraisonStr.All(char.IsDigit))
+                    throw new Exception("Le numéro de rue de livraison doit contenir uniquement des chiffres.");
+
+                // Vérification qu'aucun chiffre n’est présent dans les noms et villes
+                if (nomRueFacture.Any(char.IsDigit) || nomRueLivraison.Any(char.IsDigit))
+                    throw new Exception("Le nom de la rue ne doit pas contenir de chiffres.");
+                if (nomVilleFacture.Any(char.IsDigit) || nomVilleLivraison.Any(char.IsDigit))
+                    throw new Exception("Le nom de la ville ne doit pas contenir de chiffres.");
+                if (nom.Any(char.IsDigit))
+                    throw new Exception("Le nom du client ne doit pas contenir de chiffres.");
+
+                // Vérifier qu'une ligne est sélectionnée
                 if (dgvClient.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Veuillez sélectionner un client à modifier.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                    throw new Exception("Veuillez sélectionner un client à modifier.");
 
                 int idClient = Convert.ToInt32(dgvClient.SelectedRows[0].Cells[0].Value);
 
-                // Conversion sécurisée des champs numériques
-                string codePostalFact = txtCodePostalFacturation.Text.Trim();
-                string codePostalLiv = txtCodePostalLivraison.Text.Trim();
+                // Conversion des numéros de rue
+                int numRueFacture = int.Parse(numRueFactureStr);
+                int numRueLivraison = int.Parse(numRueLivraisonStr);
 
-                int numRueFact = int.TryParse(txtNumeroRueFacturation.Text.Trim(), out int nrf) ? nrf : 0;
-                int numRueLiv = int.TryParse(txtNumeroRueLivraison.Text.Trim(), out int nrl) ? nrl : 0;
-
+                // Création de l'objet Client
                 Client client = new Client(
                     idClient,
-                    txtNom.Text,
-                    txtFax.Text,
-                    txtEmail.Text,
-                    txtTelephone.Text,
-                    codePostalFact,
-                    txtVilleFacturation.Text,
-                    numRueFact,
-                    txtRueFacturation.Text,
-                    codePostalLiv,
-                    txtVilleLivraison.Text,
-                    numRueLiv,
-                    txtRueLivraison.Text
+                    nom,
+                    fax,
+                    email,
+                    phone,
+                    postalFacture,
+                    nomVilleFacture,
+                    numRueFacture,
+                    nomRueFacture,
+                    postalLivraison,
+                    nomVilleLivraison,
+                    numRueLivraison,
+                    nomRueLivraison
                 );
 
+                // Modification en base
                 int nb = GestionClients.ModifierClient(client);
-
                 if (nb == 0)
                     throw new Exception("La modification a échoué : ID introuvable ou problème SQL.");
 
-                // Mise à jour du DataGridView seulement si SQL OK
+                // Mise à jour du DataGridView
                 var row = dgvClient.SelectedRows[0];
+                row.Cells["NomClient"].Value = nom;
+                row.Cells["Téléphone"].Value = phone;
+                row.Cells["Fax"].Value = fax;
+                row.Cells["Email"].Value = email;
 
-                row.Cells["NomClient"].Value = txtNom.Text;
-                row.Cells["Téléphone"].Value = txtTelephone.Text;
-                row.Cells["Fax"].Value = txtFax.Text;
-                row.Cells["Email"].Value = txtEmail.Text;
+                row.Cells["NumRueFact"].Value = numRueFactureStr;
+                row.Cells["RueFact"].Value = nomRueFacture;
+                row.Cells["VilleFact"].Value = nomVilleFacture;
+                row.Cells["CodePostalFact"].Value = postalFacture;
 
-                row.Cells["NumRueFact"].Value = txtNumeroRueFacturation.Text;
-                row.Cells["RueFact"].Value = txtRueFacturation.Text;
-                row.Cells["VilleFact"].Value = txtVilleFacturation.Text;
-                row.Cells["CodePostalFact"].Value = txtCodePostalFacturation.Text;
+                row.Cells["NumRueLiv"].Value = numRueLivraisonStr;
+                row.Cells["RueLiv"].Value = nomRueLivraison;
+                row.Cells["VilleLiv"].Value = nomVilleLivraison;
+                row.Cells["CodePostalLiv"].Value = postalLivraison;
 
-                row.Cells["NumRueLiv"].Value = txtNumeroRueLivraison.Text;
-                row.Cells["RueLiv"].Value = txtRueLivraison.Text;
-                row.Cells["VilleLiv"].Value = txtVilleLivraison.Text;
-                row.Cells["CodePostalLiv"].Value = txtCodePostalLivraison.Text;
-
-                row.Cells["AdresseFacturation"].Value =
-                    $"{txtNumeroRueFacturation.Text} {txtRueFacturation.Text}, {txtVilleFacturation.Text} {txtCodePostalFacturation.Text}";
-
-                row.Cells["AdresseLivraison"].Value =
-                    $"{txtNumeroRueLivraison.Text} {txtRueLivraison.Text}, {txtVilleLivraison.Text} {txtCodePostalLivraison.Text}";
+                row.Cells["AdresseFacturation"].Value = $"{numRueFactureStr} {nomRueFacture}, {nomVilleFacture} {postalFacture}";
+                row.Cells["AdresseLivraison"].Value = $"{numRueLivraisonStr} {nomRueLivraison}, {nomVilleLivraison} {postalLivraison}";
 
                 MessageBox.Show("Client modifié avec succès.",
-                    "Modification",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                                "Modification",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -201,56 +242,70 @@ namespace LaGestionCommerciale
 
 
 
+
+
         private void btnSupprimer_Click(object sender, EventArgs e)
         {
+            // Vérifie qu'une ligne est sélectionnée dans le DataGridView
             if (dgvClient.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Aucun client sélectionné.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Récupération du client sélectionné
+            // Récupération de la ligne sélectionnée
             DataGridViewRow row = dgvClient.SelectedRows[0];
-            int idClient = Convert.ToInt32(row.Cells["Code"].Value);
-            string nomClient = row.Cells["NomClient"].Value.ToString();
 
+            // Récupération de l'ID et du nom du client à supprimer
+            // On prend les valeurs des colonnes 0 et 1 (attention à l'ordre des colonnes dans le DataGridView)
+            int idClient = Convert.ToInt32(row.Cells[0].Value); // IdClient
+            string nomClient = row.Cells[1].Value.ToString();   // NomClient
+
+            // Affiche une boîte de confirmation avant suppression
             var confirm = MessageBox.Show(
                 $"Confirmer la suppression du client '{nomClient}' ?",
                 "Supprimer",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
+            // Si l'utilisateur confirme la suppression
             if (confirm == DialogResult.Yes)
             {
                 try
                 {
-                    // Vérifie si le client est utilisé dans un devis
+                    // Vérifie si le client est utilisé dans un devis ou autre (clé étrangère)
                     if (GestionClients.ClientEstUtilise(idClient))
                         throw new Exception("Impossible de supprimer ce client car il est lié à un devis.");
 
-                    // Suppression
+                    // Appelle la méthode BLL pour supprimer le client dans la base
                     int nb = GestionClients.DeleteClient(idClient);
 
+                    // Si la suppression a réussi (nombre de lignes affectées > 0)
                     if (nb > 0)
                     {
+                        // Supprime la ligne correspondante du DataGridView
                         dgvClient.Rows.Remove(row);
 
+                        // Message de confirmation
                         MessageBox.Show("Client supprimé avec succès.",
-                            "Suppression",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                                        "Suppression",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information);
                     }
                     else
                     {
+                        // Si aucune ligne n'a été supprimée, lever une exception
                         throw new Exception("Le client n'existe pas ou n'a pas pu être supprimé.");
                     }
                 }
                 catch (Exception ex)
                 {
+                    // Affiche l'erreur si la suppression échoue (ex : contrainte FK, problème SQL)
                     MessageBox.Show(ex.Message, "Impossible de supprimer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
+
 
         // Méthode pour remplir les champs dans le menu "détail" quand on clique sur une ligne du DataGridView
         private void RemplirChampsDepuisLigne(int index)

@@ -92,6 +92,8 @@ namespace DAL
 
         public static int ModifierClient(Client client)
         {
+            // Requête SQL pour mettre à jour un client dans la table "client"
+            // Tous les champs sont mis à jour sauf l'ID qui sert à identifier le client
             string req = @"UPDATE client SET 
                     nom_client = @Nom,
                     num_fax_client = @Fax,
@@ -105,42 +107,35 @@ namespace DAL
                     ville_livraison = @VL,
                     num_rue_livraison = @NRL,
                     nom_rue_livraison = @NRuL
-                    WHERE id_client = @Id";
+                   WHERE id_client = @Id"; // On identifie le client par son ID
 
-
+            // Utilisation d'un bloc 'using' pour s'assurer que la connexion est correctement fermée
             using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
+                // Création de la commande SQL avec la requête et la connexion
                 SqlCommand cmd = new SqlCommand(req, cnx);
-                cmd.Parameters.AddWithValue("@Id", client.IdClient);
-                cmd.Parameters.AddWithValue("@Nom", client.NomClient);
-                cmd.Parameters.AddWithValue("@Fax", client.NumFaxClient);
-                cmd.Parameters.AddWithValue("@Mail", client.MailClient);
-                cmd.Parameters.AddWithValue("@Tel", client.NumPhoneClient);
-                cmd.Parameters.AddWithValue("@CPF", client.CodePostalFacture);
-                cmd.Parameters.AddWithValue("@VF", client.VilleFacture);
-                cmd.Parameters.AddWithValue("@NRF", client.NumRueFacture);
-                cmd.Parameters.AddWithValue("@NRuF", client.NomRueFacture);
-                cmd.Parameters.AddWithValue("@CPL", client.CodePostalLivraison);
-                cmd.Parameters.AddWithValue("@VL", client.VilleLivraison);
-                cmd.Parameters.AddWithValue("@NRL", client.NumRueLivraison);
-                cmd.Parameters.AddWithValue("@NRuL", client.NomRueLivraison);
 
+                // Association des paramètres de la requête aux propriétés de l'objet Client
+                cmd.Parameters.AddWithValue("@Id", client.IdClient);              // ID du client à modifier
+                cmd.Parameters.AddWithValue("@Nom", client.NomClient);           // Nom du client
+                cmd.Parameters.AddWithValue("@Fax", client.NumFaxClient);        // Fax
+                cmd.Parameters.AddWithValue("@Mail", client.MailClient);         // Email
+                cmd.Parameters.AddWithValue("@Tel", client.NumPhoneClient);      // Téléphone
+                cmd.Parameters.AddWithValue("@CPF", client.CodePostalFacture);   // Code postal facturation
+                cmd.Parameters.AddWithValue("@VF", client.VilleFacture);         // Ville facturation
+                cmd.Parameters.AddWithValue("@NRF", client.NumRueFacture);       // Numéro de rue facturation
+                cmd.Parameters.AddWithValue("@NRuF", client.NomRueFacture);      // Nom de rue facturation
+                cmd.Parameters.AddWithValue("@CPL", client.CodePostalLivraison); // Code postal livraison
+                cmd.Parameters.AddWithValue("@VL", client.VilleLivraison);       // Ville livraison
+                cmd.Parameters.AddWithValue("@NRL", client.NumRueLivraison);     // Numéro de rue livraison
+                cmd.Parameters.AddWithValue("@NRuL", client.NomRueLivraison);    // Nom de rue livraison
+
+                // Exécution de la commande SQL et retour du nombre de lignes affectées
+                // Si nb = 0, cela signifie qu'aucun client avec cet ID n'existe
                 return cmd.ExecuteNonQuery();
             }
         }
 
-        public static int SupprimerClient(int idClient)
-        {
-            string req = @"DELETE FROM Client WHERE IdClient = @Id";
-
-            using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
-            {
-                SqlCommand cmd = new SqlCommand(req, cnx);
-                cmd.Parameters.AddWithValue("@Id", idClient);
-
-                return cmd.ExecuteNonQuery();
-            }
-        }
 
         // Vérifie si un client est lié à un devis (ou autre table) : retourne true si utilisé
         public static bool ClientEstUtilise(int idClient)
@@ -150,7 +145,7 @@ namespace DAL
             using (SqlCommand cmd = maConnexion.CreateCommand())
             {
                 // Remplacez "devis" par le nom exact de la table qui référence client (ex : "devis", "commande", ...)
-                cmd.CommandText = "SELECT COUNT(*) FROM devis WHERE id_client = @id";
+                cmd.CommandText = "SELECT COUNT(*) FROM contenir WHERE id_devis = @id";
                 cmd.Parameters.Add("@id", SqlDbType.Int).Value = idClient;
 
                 nbEnr = (int)cmd.ExecuteScalar();

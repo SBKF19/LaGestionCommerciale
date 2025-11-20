@@ -19,39 +19,41 @@ namespace GUI
 {
     public partial class FrmProduit : Form
     {
+        // Constructeur du formulaire
         public FrmProduit()
         {
-            InitializeComponent();
+            InitializeComponent(); // Initialise les composants graphiques
         }
 
+        // Événement déclenché au chargement du formulaire
         private void Produit_Load(object sender, EventArgs e)
         {
             try
             {
-                //Étape 1 : établir la connexion à la base via la BLL
+                // --- Étape 1 : Connexion à la base via la BLL ---
                 var cs = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
                 if (cs == null)
                     throw new ConfigurationErrorsException("Connection string 'gestion_commerciale' introuvable dans le fichier de configuration.");
+
                 string chaine = cs.ConnectionString;
                 GestionProduits.SetchaineConnexion(chaine);
 
+                // Remplissage du comboBox des catégories
                 cmbCategorie.DataSource = GestionProduits.GetCategories();
-                cmbCategorie.DisplayMember = "NomCategorie";
-                cmbCategorie.ValueMember = "IdCategorie"; 
+                cmbCategorie.DisplayMember = "NomCategorie"; // ce qui est affiché
+                cmbCategorie.ValueMember = "IdCategorie";     // valeur interne
 
-
-                //Étape 2 : récupérer la liste des produits depuis la BLL
+                // --- Étape 2 : Récupération de la liste des produits depuis la BLL ---
                 List<ProduitBO> lesProduits = GestionProduits.GetProduits();
 
-                //Étape 3 : afficher dans le DataGridView
-                dataGridView1.Rows.Clear();
-
+                // --- Étape 3 : Affichage des produits dans le DataGridView ---
+                dataGridView1.Rows.Clear(); // vide le DGV avant remplissage
                 foreach (var p in lesProduits)
                 {
                     dataGridView1.Rows.Add(p.Code, p.Libelle, p.Categorie.NomCategorie, $"{p.Prix} €");
                 }
 
-                // Sélection automatique de la première ligne
+                // Sélection automatique de la première ligne et mise à jour des champs
                 if (dataGridView1.Rows.Count > 0)
                 {
                     dataGridView1.ClearSelection();
@@ -65,29 +67,33 @@ namespace GUI
             }
         }
 
+        // Bouton pour ouvrir le formulaire d'ajout de produit
         private void addProduct_Click(object sender, EventArgs e)
         {
             LaGestionCommerciale.FrmAjoutDeProduit frm = new LaGestionCommerciale.FrmAjoutDeProduit();
             frm.Show();
-            this.Hide();
+            this.Hide(); // Cache le formulaire actuel
         }
 
+        // Mise à jour des champs lorsque la sélection change dans le DataGridView
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 var row = dataGridView1.SelectedRows[0];
+
+                // Récupération des valeurs depuis la ligne sélectionnée
                 txtCode.Text = row.Cells["Code"].Value?.ToString() ?? string.Empty;
                 txtLibelle.Text = row.Cells["Libellé"].Value?.ToString() ?? string.Empty;
                 var nomCat = row.Cells["Catégorie"].Value?.ToString();
 
+                // Sélectionne la catégorie correspondante dans le ComboBox
                 var categorie = cmbCategorie.Items
                     .Cast<Categorie>()
                     .FirstOrDefault(c => c.NomCategorie == nomCat);
-
                 cmbCategorie.SelectedItem = categorie;
 
-
+                // Gestion du prix (suppression du " €")
                 var prixVal = row.Cells["Prix"].Value?.ToString() ?? string.Empty;
                 if (prixVal.EndsWith(" €"))
                     prixVal = prixVal.Substring(0, prixVal.Length - 2).Trim();
@@ -95,6 +101,7 @@ namespace GUI
             }
             else
             {
+                // Si aucune ligne sélectionnée, vide tous les champs
                 txtCode.Text = "";
                 txtLibelle.Text = "";
                 cmbCategorie.SelectedIndex = -1;
@@ -102,17 +109,20 @@ namespace GUI
             }
         }
 
+        // Bouton modifier un produit
         private void btnModifier_Click(object sender, EventArgs e)
         {
+            // Vérification des champs obligatoires
             if (string.IsNullOrWhiteSpace(txtLibelle.Text))
             {
                 MessageBox.Show("Le libellé est requis.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            float prix;
-            var cultureFr = new CultureInfo("fr-FR"); // accepte les virgules comme séparateurs décimaux
-            string prixTxt = txtPrix.Text.Replace('.', ',');
 
+            // Vérification du prix
+            float prix;
+            var cultureFr = new CultureInfo("fr-FR"); // accepte la virgule
+            string prixTxt = txtPrix.Text.Replace('.', ',');
             if (!float.TryParse(prixTxt, NumberStyles.Float, cultureFr, out prix) || prix <= 0)
             {
                 MessageBox.Show(
@@ -123,10 +133,13 @@ namespace GUI
                 );
                 return;
             }
+
             try
             {
+                // Récupération de la catégorie depuis la BLL
                 Categorie macat = GestionProduits.GetCategorieByNom(cmbCategorie.Text);
 
+                // Création de l'objet produit
                 ProduitBO monprod = new ProduitBO(
                     int.Parse(txtCode.Text),
                     txtLibelle.Text,
@@ -134,11 +147,14 @@ namespace GUI
                     prix
                 );
 
+                // Modification en base via la BLL
                 int nbLines = GestionProduits.ModifierProduit(monprod);
                 if ((nbLines == 0))
                 {
                     throw new Exception("Le produit n'existe pas");
                 }
+
+                // Mise à jour du DataGridView
                 var row = dataGridView1.SelectedRows[0];
                 row.Cells["Libellé"].Value = txtLibelle.Text;
                 row.Cells["Catégorie"].Value = cmbCategorie.Text;
@@ -152,6 +168,7 @@ namespace GUI
             }
         }
 
+        // Bouton supprimer un produit
         private void btnSupprimer_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtCode.Text))
@@ -160,6 +177,7 @@ namespace GUI
                 return;
             }
 
+            // Confirmation de la suppression
             var confirm = MessageBox.Show($"Confirmer la suppression du produit '{txtLibelle.Text}' ?", "Supprimer", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.Yes)
             {
@@ -167,14 +185,18 @@ namespace GUI
                 {
                     int codeProduit = int.Parse(txtCode.Text);
 
-                    if (GestionProduits.ProduitUtilise(codeProduit) == true)
-                    {
+                    // Vérification si le produit est utilisé dans un devis client
+                    if (GestionProduits.ProduitUtilise(codeProduit))
                         throw new Exception("Impossible de supprimer ce produit car il est utilisé dans un devis client.");
-                    }
 
+                    // Suppression via BLL
                     int nbLines = GestionProduits.SupprimerProduit(codeProduit);
-                    if (nbLines > 0) {
+                    if (nbLines > 0)
+                    {
+                        // Retrait du produit du DataGridView
                         dataGridView1.Rows.RemoveAt(dataGridView1.SelectedRows[0].Index);
+
+                        // Vide les champs
                         txtCode.Text = "";
                         txtLibelle.Text = "";
                         cmbCategorie.SelectedIndex = -1;
@@ -191,15 +213,16 @@ namespace GUI
                 {
                     MessageBox.Show(ex.Message, "Impossible de supprimer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-
             }
         }
 
+        // Redirige vers le formulaire d'ajout
         private void button1_Click(object sender, EventArgs e)
         {
             addProduct_Click(sender, e);
         }
 
+        // Gestion du clic sur une cellule du DataGridView
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.RowIndex < dataGridView1.Rows.Count)
@@ -209,7 +232,7 @@ namespace GUI
             }
         }
 
-        // Menu pour naviguer entre les formulaires
+        // Menu navigation
         private void gérerLesClientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmClient frm = new FrmClient();
@@ -232,3 +255,4 @@ namespace GUI
         }
     }
 }
+

@@ -6,24 +6,31 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    // Classe représentant un client
     public class Client
     {
+        // Identifiant unique du client dans la base
         public int IdClient { get; set; }
-        public string NomClient { get; set; }
-        public string NumFaxClient { get; set; }
-        public string MailClient { get; set; }
-        public string NumPhoneClient { get; set; }
 
-        public string CodePostalFacture { get; set; }
-        public string VilleFacture { get; set; }
-        public int NumRueFacture { get; set; }
-        public string NomRueFacture { get; set; }
+        // Informations de contact
+        public string NomClient { get; set; }      // Nom du client
+        public string NumFaxClient { get; set; }   // Numéro de fax
+        public string MailClient { get; set; }     // Email
+        public string NumPhoneClient { get; set; } // Numéro de téléphone
 
-        public string CodePostalLivraison { get; set; }
-        public string VilleLivraison { get; set; }
-        public int NumRueLivraison { get; set; }
-        public string NomRueLivraison { get; set; }
+        // Adresse de facturation
+        public string CodePostalFacture { get; set; } // Code postal facturation
+        public string VilleFacture { get; set; }      // Ville facturation
+        public int NumRueFacture { get; set; }        // Numéro de rue facturation
+        public string NomRueFacture { get; set; }     // Nom de la rue facturation
 
+        // Adresse de livraison
+        public string CodePostalLivraison { get; set; } // Code postal livraison
+        public string VilleLivraison { get; set; }      // Ville livraison
+        public int NumRueLivraison { get; set; }        // Numéro de rue livraison
+        public string NomRueLivraison { get; set; }     // Nom de la rue livraison
+
+        // Constructeur complet avec l'ID du client (pour modification)
         public Client(int idClient, string nomClient, string numFaxClient, string mailClient, string numPhoneClient,
                       string codePostalFacture, string villeFacture, int numRueFacture, string nomRueFacture,
                       string codePostalLivraison, string villeLivraison, int numRueLivraison, string nomRueLivraison)
@@ -43,6 +50,7 @@ namespace BO
             this.NomRueLivraison = nomRueLivraison;
         }
 
+        // Constructeur sans ID (pour création d'un nouveau client)
         public Client(string nomClient, string numFaxClient, string mailClient, string numPhoneClient,
               string codePostalFacture, string villeFacture, int numRueFacture, string nomRueFacture,
               string codePostalLivraison, string villeLivraison, int numRueLivraison, string nomRueLivraison)
@@ -62,3 +70,4 @@ namespace BO
         }
     }
 }
+
