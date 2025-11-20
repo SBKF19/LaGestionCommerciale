@@ -19,17 +19,6 @@ namespace LaGestionCommerciale
         public FrmClient()
         {
             InitializeComponent();
-
-            // Initialisation de la connexion à la BD
-            var chset = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
-
-            if (chset == null)
-            {
-                MessageBox.Show("Chaîne de connexion 'gestion_commerciale' introuvable dans App.config !");
-                return;
-            }
-
-            GestionClients.SetchaineConnexion(chset);
         }
 
         private void FrmClient_Load(object sender, EventArgs e)

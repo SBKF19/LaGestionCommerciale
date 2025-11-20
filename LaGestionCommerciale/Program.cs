@@ -19,7 +19,7 @@ namespace GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmClient());
+            Application.Run(new FrmLogin());
 
             SqlConnection maConnection = new SqlConnection(
     "Server=localhost;Database=gestion_commerciale;Trusted_Connection=True;Persist Security Info=False;");

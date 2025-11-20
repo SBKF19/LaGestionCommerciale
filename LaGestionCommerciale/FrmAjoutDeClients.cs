@@ -1,6 +1,9 @@
-﻿using System;
+﻿using BLL;
+using BO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -10,9 +13,9 @@ using System.Windows.Forms;
 
 namespace LaGestionCommerciale
 {
-    public partial class FormAjoutDeClients : Form
+    public partial class FrmAjoutDeClients : Form
     {
-        public FormAjoutDeClients()
+        public FrmAjoutDeClients()
         {
             InitializeComponent();
         }
@@ -54,43 +57,65 @@ namespace LaGestionCommerciale
                 }
 
                 // Conversion et vérification des champs numériques
-                int.TryParse(phone, out int phoneInt);
-
                 if (phone.Length != 10 || !phone.All(char.IsDigit))
                 {
                     throw new Exception("Le numéro de téléphone doit contenir 10 chiffres et uniquement des chiffres.");
                 }
 
-                int.TryParse(fax, out int faxInt);
                 if (!fax.All(char.IsDigit))
                 {
                     throw new Exception("Le numéro de fax doit contenir uniquement des chiffres.");
                 }
 
-                int.TryParse(postalFacture, out int postalFactureInt);
                 if (postalFacture.Length != 5 || !postalFacture.All(char.IsDigit))
                 {
                     throw new Exception("Le code postal de facturation doit contenir 5 chiffres et uniquement des chiffres.");
                 }
 
-                int.TryParse(postalLivraison, out int postalLivraisonInt);
                 if (postalLivraison.Length != 5 || !postalLivraison.All(char.IsDigit))
                 {
                     throw new Exception("Le code postal de livraison doit contenir 5 chiffres et uniquement des chiffres.");
                 }
 
-                int.TryParse(numRueFacture, out int numRueFactureInt);
                 if (!numRueFacture.All(char.IsDigit))
                 {
                     throw new Exception("Le numéro de rue de facturation doit contenir uniquement des chiffres.");
                 }
-                int.TryParse(numRueLivraison, out int numRueLivraisonInt);
+
                 if (!numRueLivraison.All(char.IsDigit))
                 {
                     throw new Exception("Le numéro de rue de livraison doit contenir uniquement des chiffres.");
                 }
 
+                // --- Conversion des valeurs numériques ---
+                int numRueFactureInt = int.Parse(numRueFacture);
+                int numRueLivraisonInt = int.Parse(numRueLivraison);
 
+                // --- Création du client ---
+                Client nouveauClient = new Client(
+                    nom,                    // nomClient
+                    fax,                    // numFaxClient
+                    email,                  // mailClient
+                    phone,                  // numPhoneClient
+                    postalFacture,          // codePostalFacture
+                    nomVilleFacture,        // villeFacture
+                    numRueFactureInt,       // numRueFacture
+                    nomRueFacture,          // nomRueFacture
+                    postalLivraison,        // codePostalLivraison
+                    nomVilleLivraison,      // villeLivraison
+                    numRueLivraisonInt,     // numRueLivraison
+                    nomRueLivraison         // nomRueLivraison
+                );
+
+                // --- Assurer que la chaîne de connexion est définie avant l'accès à la BD ---
+                string cs = ConfigurationManager.ConnectionStrings["gestion_commerciale"]?.ConnectionString;
+                if (string.IsNullOrWhiteSpace(cs))
+                    throw new Exception("La chaîne de connexion 'gestion_commerciale' n'est pas configurée.");
+                GestionClients.SetchaineConnexion(cs);
+
+                GestionClients.AjouterClient(nouveauClient);
+
+                MessageBox.Show("Client ajouté avec succès !");
             }
             catch (Exception ex)
             {

@@ -1,11 +1,8 @@
-﻿using BO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BO;
 
 namespace DAL
 {
@@ -62,36 +59,37 @@ namespace DAL
 
         public static int InsertClient(Client client)
         {
-            int nbEnr;
+            int nbEnr = 0;
 
-            // Connexion à la base
-            SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion();
-
-            SqlCommand cmd = new SqlCommand(@"INSERT INTO client (nom_client, num_fax_client, mail_client, num_phone_client,
+            using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
+            using (SqlCommand cmd = new SqlCommand(@"INSERT INTO client (nom_client, num_fax_client, mail_client, num_phone_client,
             code_postal_facture, ville_facture, num_rue_facture, nom_rue_facture,
             code_postal_livraison, ville_livraison, num_rue_livraison, nom_rue_livraison)
             VALUES(@nom, @fax, @mail, @phone,@cpFact, @villeFact, @numRueFact, @nomRueFact,@cpLiv, @villeLiv, @numRueLiv, 
-            @nomRueLiv)",maConnexion);
+            @nomRueLiv)", maConnexion))
+            {
+                // Paramètres
+                cmd.Parameters.AddWithValue("@nom", client.NomClient);
+                cmd.Parameters.AddWithValue("@fax", client.NumFaxClient);
+                cmd.Parameters.AddWithValue("@mail", client.MailClient);
+                cmd.Parameters.AddWithValue("@phone", client.NumPhoneClient);
 
-            // Paramètres
-            cmd.Parameters.AddWithValue("@nom", client.NomClient);
-            cmd.Parameters.AddWithValue("@fax", client.NumFaxClient);
-            cmd.Parameters.AddWithValue("@mail", client.MailClient);
-            cmd.Parameters.AddWithValue("@phone", client.NumPhoneClient);
+                cmd.Parameters.AddWithValue("@cpFact", client.CodePostalFacture);
+                cmd.Parameters.AddWithValue("@villeFact", client.VilleFacture);
+                cmd.Parameters.AddWithValue("@numRueFact", client.NumRueFacture);
+                cmd.Parameters.AddWithValue("@nomRueFact", client.NomRueFacture);
 
-            cmd.Parameters.AddWithValue("@cpFact", client.CodePostalFacture);
-            cmd.Parameters.AddWithValue("@villeFact", client.VilleFacture);
-            cmd.Parameters.AddWithValue("@numRueFact", client.NumRueFacture);
-            cmd.Parameters.AddWithValue("@nomRueFact", client.NomRueFacture);
+                cmd.Parameters.AddWithValue("@cpLiv", client.CodePostalLivraison);
+                cmd.Parameters.AddWithValue("@villeLiv", client.VilleLivraison);
+                cmd.Parameters.AddWithValue("@numRueLiv", client.NumRueLivraison);
+                cmd.Parameters.AddWithValue("@nomRueLiv", client.NomRueLivraison);
 
-            cmd.Parameters.AddWithValue("@cpLiv", client.CodePostalLivraison);
-            cmd.Parameters.AddWithValue("@villeLiv", client.VilleLivraison);
-            cmd.Parameters.AddWithValue("@numRueLiv", client.NumRueLivraison);
-            cmd.Parameters.AddWithValue("@nomRueLiv", client.NomRueLivraison);
+                nbEnr = cmd.ExecuteNonQuery();
+            }
 
-            nbEnr = cmd.ExecuteNonQuery();
             return nbEnr;
         }
+
         public static int ModifierClient(Client client)
         {
             string req = @"UPDATE Client
