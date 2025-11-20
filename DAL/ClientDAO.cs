@@ -92,20 +92,21 @@ namespace DAL
 
         public static int ModifierClient(Client client)
         {
-            string req = @"UPDATE Client
-                   SET NomClient = @Nom,
-                       NumFaxClient = @Fax,
-                       MailClient = @Mail,
-                       NumPhoneClient = @Tel,
-                       CodePostalFacture = @CPF,
-                       VilleFacture = @VF,
-                       NumRueFacture = @NRF,
-                       NomRueFacture = @NRuF,
-                       CodePostalLivraison = @CPL,
-                       VilleLivraison = @VL,
-                       NumRueLivraison = @NRL,
-                       NomRueLivraison = @NRuL
-                   WHERE IdClient = @Id";
+            string req = @"UPDATE client SET 
+                    nom_client = @Nom,
+                    num_fax_client = @Fax,
+                    mail_client = @Mail,
+                    num_phone_client = @Tel,
+                    code_postal_facture = @CPF,
+                    ville_facture = @VF,
+                    num_rue_facture = @NRF,
+                    nom_rue_facture = @NRuF,
+                    code_postal_livraison = @CPL,
+                    ville_livraison = @VL,
+                    num_rue_livraison = @NRL,
+                    nom_rue_livraison = @NRuL
+                    WHERE id_client = @Id";
+
 
             using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {

@@ -128,7 +128,20 @@ namespace LaGestionCommerciale
                     return;
                 }
 
-                int idClient = int.Parse(dgvClient.SelectedRows[0].Cells["Code"].Value.ToString());
+                if (dgvClient.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Veuillez sélectionner un client à modifier.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int idClient = Convert.ToInt32(dgvClient.SelectedRows[0].Cells[0].Value);
+
+                // Conversion sécurisée des champs numériques
+                string codePostalFact = txtCodePostalFacturation.Text.Trim();
+                string codePostalLiv = txtCodePostalLivraison.Text.Trim();
+
+                int numRueFact = int.TryParse(txtNumeroRueFacturation.Text.Trim(), out int nrf) ? nrf : 0;
+                int numRueLiv = int.TryParse(txtNumeroRueLivraison.Text.Trim(), out int nrl) ? nrl : 0;
 
                 Client client = new Client(
                     idClient,
@@ -136,45 +149,34 @@ namespace LaGestionCommerciale
                     txtFax.Text,
                     txtEmail.Text,
                     txtTelephone.Text,
-
-                    txtCodePostalFacturation.Text,
+                    codePostalFact,
                     txtVilleFacturation.Text,
-                    int.Parse(txtNumeroRueFacturation.Text),
+                    numRueFact,
                     txtRueFacturation.Text,
-
-                    txtCodePostalLivraison.Text,
+                    codePostalLiv,
                     txtVilleLivraison.Text,
-                    int.Parse(txtNumeroRueLivraison.Text),
+                    numRueLiv,
                     txtRueLivraison.Text
                 );
+
 
                 int nb = GestionClients.ModifierClient(client);
 
                 if (nb == 0)
-                    throw new Exception("Aucun client trouvé avec cet ID.");
-
-                // Mise à jour du DataGridView
-                var row = dgvClient.SelectedRows[0];
-
-                row.Cells["Client"].Value = txtNom.Text;
-                row.Cells["AdresseFacturation"].Value =
-                    $"{txtNumeroRueFacturation.Text} {txtRueFacturation.Text}, {txtCodePostalFacturation.Text} {txtVilleFacturation.Text}";
-                row.Cells["AdresseLivraison"].Value =
-                    $"{txtNumeroRueLivraison.Text} {txtRueLivraison.Text}, {txtCodePostalLivraison.Text} {txtVilleLivraison.Text}";
-                row.Cells["Téléphone"].Value = txtTelephone.Text;
-                row.Cells["Fax"].Value = txtFax.Text;
-                row.Cells["Email"].Value = txtEmail.Text;
+                    throw new Exception("La modification a échoué : ID introuvable ou problème SQL.");
 
                 MessageBox.Show("Client modifié avec succès.",
-                                "Modification",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+                    "Modification",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
         private void btnSupprimer_Click(object sender, EventArgs e)
         {
