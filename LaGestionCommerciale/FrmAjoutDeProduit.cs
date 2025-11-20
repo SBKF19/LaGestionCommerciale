@@ -48,16 +48,14 @@ namespace LaGestionCommerciale
                 string libelle = txtLibelle.Text?.Trim();
                 if (string.IsNullOrWhiteSpace(libelle))
                 {
-                    MessageBox.Show("Veuillez saisir un libellé.");
-                    return;
+                    throw new Exception("Veuillez saisir un libellé.");
                 }
 
                 // Vérification prix
                 string prixText = txtPrixDeVenteHT.Text?.Trim();
                 if (string.IsNullOrWhiteSpace(prixText))
                 {
-                    MessageBox.Show("Veuillez saisir un prix.");
-                    return;
+                    throw new Exception("Veuillez saisir un prix.");
                 }
 
                 // Accepter à la fois "." et "," pour les décimales
@@ -65,21 +63,18 @@ namespace LaGestionCommerciale
 
                 if (!float.TryParse(prixText, out float prix))
                 {
-                    MessageBox.Show("Le prix saisi n'est pas valide. Exemple : 12,34");
-                    return;
+                    throw new Exception("Le prix saisi n'est pas valide. Exemple : 12,34");
                 }
 
                 if (prix <= 0)
                 {
-                    MessageBox.Show("Le prix doit être supérieur à 0.");
-                    return;
+                    throw new Exception("Le prix doit être supérieur à 0.");
                 }
 
                 // Vérification catégorie sélectionnée
                 if (cmbCategorie.SelectedItem == null)
                 {
-                    MessageBox.Show("Veuillez sélectionner une catégorie.");
-                    return;
+                    throw new Exception("Veuillez sélectionner une catégorie.");
                 }
 
                 //Cela permet de prendre ce que l’utilisateur a choisi dans la liste, et le met dans une variable appelée categorie.

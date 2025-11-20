@@ -44,47 +44,21 @@ namespace BLL
 
         public static int ModifierProduit(ProduitBO p)
         {
-            if (ProduitDAO.UpdateProduit(p) != -1 && ProduitDAO.UpdateProduit(p) != 69)
-            {
-                return ProduitDAO.UpdateProduit(p);
-            }
-            else if (ProduitDAO.UpdateProduit(p) == 69)
-            {
-                throw new Exception("Veuillez remplir tous les champs");
-            }
-            else if (ProduitDAO.UpdateProduit(p) == -1)
-            {
-                throw new Exception("Veuillez saisir un prix supérieur à 0");
-            }
-            else
-            {
-                throw new Exception("Une erreur est survenue lors de la modification du produit.");
-            }
+            return ProduitDAO.UpdateProduit(p);
+        }
+
+        public static bool ProduitUtilise(int code)
+        {
+            return ProduitDAO.ProduitEstUtilise(code);
         }
 
         public static int SupprimerProduit(int code)
         {
-            if (ProduitDAO.ProduitEstUtilise(code) == false) { 
             return ProduitDAO.DeleteProduit(code);
-            }
-            else             {
-                throw new Exception("Le produit est utilisé et ne peut pas être supprimé.");
-            }
         }
 
         public static int AjouterProduit(ProduitBO produit)
         {
-            // Validation métier (couche BLL)
-            if (string.IsNullOrWhiteSpace(produit.Libelle))
-                throw new Exception("Le libellé du produit est obligatoire.");
-
-            if (produit.Prix <= 0)
-                throw new Exception("Le prix doit être supérieur à 0.");
-
-            if (produit.Categorie == null)
-                throw new Exception("Une catégorie doit être sélectionnée.");
-
-            // Appel à la DAL
             return ProduitDAO.AddProduit(produit);
         }
     }

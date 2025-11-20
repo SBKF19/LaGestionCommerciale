@@ -11,15 +11,18 @@ namespace BO
         private int idCategorie;
         private string nomCategorie;
 
-        public int IdCategorie { get; set; }
-        public string NomCategorie { get; set; }
-
-        public Categorie() { }
+        public int IdCategorie { get => idCategorie; set => idCategorie = value; }
+        public string NomCategorie { get => nomCategorie; set => nomCategorie = value; }
 
         public Categorie(int idCategorie, string nomCategorie)
         {
-            IdCategorie = idCategorie;
-            NomCategorie = nomCategorie;
+            this.IdCategorie = idCategorie;
+            this.NomCategorie = nomCategorie;
+        }
+
+        public Categorie(string nomCategorie)
+        {
+            this.NomCategorie = nomCategorie;
         }
     }
 }
