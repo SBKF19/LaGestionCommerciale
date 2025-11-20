@@ -13,24 +13,19 @@ namespace BLL
     {
         private static GestionClients uneGestionClients;
 
-        // Accesseur en lecture 
-      
         public static GestionClients GetGestionClients()
         {
             if (uneGestionClients == null)
                 uneGestionClients = new GestionClients();
             return uneGestionClients;
         }
-
+        public static void SetchaineConnexion(string chaine)
+        {
+            ConnexionBD.GetConnexionBD().SetchaineConnexion(chaine);
+        }
         public static int AjouterClient(Client client)
         {
             return DAL.ClientDAO.InsertClient(client);
-        }
-            // Définit la chaîne de connexion à la base de données
-        public static void SetchaineConnexion(ConnectionStringSettings chset)
-        {
-            string chaine = chset.ConnectionString;
-            ConnexionBD.GetConnexionBD().SetchaineConnexion(chaine);
         }
 
         public static List<Client> GetClients()

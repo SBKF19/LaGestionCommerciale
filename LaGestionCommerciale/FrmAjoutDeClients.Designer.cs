@@ -1,6 +1,6 @@
 ﻿namespace LaGestionCommerciale
 {
-    partial class FormAjoutDeClients
+    partial class FrmAjoutDeClients
     {
         /// <summary>
         /// Required designer variable.
@@ -286,6 +286,7 @@
             this.btnAjoutClient.TabIndex = 28;
             this.btnAjoutClient.Text = "Ajouter le client";
             this.btnAjoutClient.UseVisualStyleBackColor = true;
+            this.btnAjoutClient.Click += new System.EventHandler(this.btnAjoutClient_Click);
             // 
             // FormAjoutDeClients
             // 
