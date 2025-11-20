@@ -1,17 +1,18 @@
-﻿using System;
+﻿using BLL;
+using BO;
+using LaGestionCommerciale;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
-using BLL;
-using BO;
-using System.Configuration;
-using System.Globalization;
 
 
 namespace GUI
@@ -206,6 +207,28 @@ namespace GUI
                 dataGridView1.Rows[e.RowIndex].Selected = true;
                 dataGridView1_SelectionChanged(sender, e);
             }
+        }
+
+        // Menu pour naviguer entre les formulaires
+        private void gérerLesClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmClient frm = new FrmClient();
+            frm.Show();
+            this.Hide();
+        }
+
+        private void ajouterUnClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmAjoutDeClients frm = new FrmAjoutDeClients();
+            frm.Show();
+            this.Hide();
+        }
+
+        private void ajouterUnProduitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmAjoutDeProduit frm = new FrmAjoutDeProduit();
+            frm.Show();
+            this.Hide();
         }
     }
 }

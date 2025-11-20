@@ -30,6 +30,21 @@
         {
             this.btnAddClient = new System.Windows.Forms.Button();
             this.dgvClient = new System.Windows.Forms.DataGridView();
+            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NomClient = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AdresseFacturation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Téléphone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumRueFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RueFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VilleFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodePostalFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumRueLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RueLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VilleLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodePostalLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDetail = new System.Windows.Forms.Panel();
             this.btnSupprimer = new System.Windows.Forms.Button();
             this.btnModifier = new System.Windows.Forms.Button();
@@ -63,23 +78,21 @@
             this.txtNom = new System.Windows.Forms.TextBox();
             this.lblNom = new System.Windows.Forms.Label();
             this.lblDetail = new System.Windows.Forms.Label();
-            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NomClient = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AdresseFacturation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Téléphone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumRueFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RueFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VilleFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CodePostalFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumRueLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RueLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VilleLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CodePostalLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblTitre = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.listeDesClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gérerLesClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ajouterUnClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listeDesProduitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gérerLesProduitsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ajouterUnProduitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.listeDesDevisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gérerLesDevisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ajouterUnDevisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.synthèseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
             this.pnlDetail.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddClient
@@ -87,12 +100,13 @@
             this.btnAddClient.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnAddClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.btnAddClient.ForeColor = System.Drawing.Color.White;
-            this.btnAddClient.Location = new System.Drawing.Point(25, 26);
+            this.btnAddClient.Location = new System.Drawing.Point(25, 63);
             this.btnAddClient.Name = "btnAddClient";
             this.btnAddClient.Size = new System.Drawing.Size(152, 35);
             this.btnAddClient.TabIndex = 1;
             this.btnAddClient.Text = "Ajouter un client";
             this.btnAddClient.UseVisualStyleBackColor = false;
+            this.btnAddClient.Click += new System.EventHandler(this.btnAddClient_Click);
             // 
             // dgvClient
             // 
@@ -114,13 +128,101 @@
             this.RueLiv,
             this.VilleLiv,
             this.CodePostalLiv});
-            this.dgvClient.Location = new System.Drawing.Point(25, 82);
+            this.dgvClient.Location = new System.Drawing.Point(25, 115);
             this.dgvClient.Name = "dgvClient";
             this.dgvClient.RowHeadersVisible = false;
             this.dgvClient.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvClient.Size = new System.Drawing.Size(932, 581);
             this.dgvClient.TabIndex = 0;
             this.dgvClient.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClient_SelectionChanged);
+            // 
+            // Code
+            // 
+            this.Code.HeaderText = "Code";
+            this.Code.Name = "Code";
+            this.Code.Width = 50;
+            // 
+            // NomClient
+            // 
+            this.NomClient.HeaderText = "Nom client";
+            this.NomClient.Name = "NomClient";
+            this.NomClient.Width = 150;
+            // 
+            // AdresseFacturation
+            // 
+            this.AdresseFacturation.HeaderText = "Adresse fact.";
+            this.AdresseFacturation.Name = "AdresseFacturation";
+            this.AdresseFacturation.Width = 175;
+            // 
+            // AdresseLivraison
+            // 
+            this.AdresseLivraison.HeaderText = "Adresse livr.";
+            this.AdresseLivraison.Name = "AdresseLivraison";
+            this.AdresseLivraison.Width = 175;
+            // 
+            // Téléphone
+            // 
+            this.Téléphone.HeaderText = "tél.";
+            this.Téléphone.Name = "Téléphone";
+            // 
+            // Fax
+            // 
+            this.Fax.HeaderText = "Fax";
+            this.Fax.Name = "Fax";
+            // 
+            // Email
+            // 
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.Width = 175;
+            // 
+            // NumRueFact
+            // 
+            this.NumRueFact.HeaderText = "Numéro de rue de facturation";
+            this.NumRueFact.Name = "NumRueFact";
+            this.NumRueFact.Visible = false;
+            // 
+            // RueFact
+            // 
+            this.RueFact.HeaderText = "Nom de la rue de facturation";
+            this.RueFact.Name = "RueFact";
+            this.RueFact.Visible = false;
+            // 
+            // VilleFact
+            // 
+            this.VilleFact.HeaderText = "Ville de facturation";
+            this.VilleFact.Name = "VilleFact";
+            this.VilleFact.Visible = false;
+            // 
+            // CodePostalFact
+            // 
+            this.CodePostalFact.HeaderText = "Code postal de facturation";
+            this.CodePostalFact.Name = "CodePostalFact";
+            this.CodePostalFact.Visible = false;
+            // 
+            // NumRueLiv
+            // 
+            this.NumRueLiv.HeaderText = "Numéro de rue de livraison";
+            this.NumRueLiv.Name = "NumRueLiv";
+            this.NumRueLiv.Visible = false;
+            // 
+            // RueLiv
+            // 
+            this.RueLiv.HeaderText = "Nom de la rue de livraison";
+            this.RueLiv.Name = "RueLiv";
+            this.RueLiv.Visible = false;
+            // 
+            // VilleLiv
+            // 
+            this.VilleLiv.HeaderText = "Ville de livraison";
+            this.VilleLiv.Name = "VilleLiv";
+            this.VilleLiv.Visible = false;
+            // 
+            // CodePostalLiv
+            // 
+            this.CodePostalLiv.HeaderText = "Code postal de livraison";
+            this.CodePostalLiv.Name = "CodePostalLiv";
+            this.CodePostalLiv.Visible = false;
             // 
             // pnlDetail
             // 
@@ -157,7 +259,7 @@
             this.pnlDetail.Controls.Add(this.txtNom);
             this.pnlDetail.Controls.Add(this.lblNom);
             this.pnlDetail.Controls.Add(this.lblDetail);
-            this.pnlDetail.Location = new System.Drawing.Point(1003, 82);
+            this.pnlDetail.Location = new System.Drawing.Point(1002, 115);
             this.pnlDetail.Name = "pnlDetail";
             this.pnlDetail.Size = new System.Drawing.Size(380, 680);
             this.pnlDetail.TabIndex = 2;
@@ -433,110 +535,127 @@
             this.lblDetail.TabIndex = 0;
             this.lblDetail.Text = "Détail";
             // 
-            // Code
+            // lblTitre
             // 
-            this.Code.HeaderText = "Code";
-            this.Code.Name = "Code";
-            this.Code.Width = 50;
+            this.lblTitre.AutoSize = true;
+            this.lblTitre.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.lblTitre.Location = new System.Drawing.Point(585, 63);
+            this.lblTitre.Name = "lblTitre";
+            this.lblTitre.Size = new System.Drawing.Size(185, 29);
+            this.lblTitre.TabIndex = 3;
+            this.lblTitre.Text = "Liste des clients";
             // 
-            // NomClient
+            // menuStrip1
             // 
-            this.NomClient.HeaderText = "Nom client";
-            this.NomClient.Name = "NomClient";
-            this.NomClient.Width = 150;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.listeDesClientsToolStripMenuItem,
+            this.listeDesProduitsToolStripMenuItem,
+            this.listeDesDevisToolStripMenuItem,
+            this.synthèseToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1484, 27);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // AdresseFacturation
+            // listeDesClientsToolStripMenuItem
             // 
-            this.AdresseFacturation.HeaderText = "Adresse fact.";
-            this.AdresseFacturation.Name = "AdresseFacturation";
-            this.AdresseFacturation.Width = 175;
+            this.listeDesClientsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gérerLesClientsToolStripMenuItem,
+            this.ajouterUnClientToolStripMenuItem});
+            this.listeDesClientsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.listeDesClientsToolStripMenuItem.Name = "listeDesClientsToolStripMenuItem";
+            this.listeDesClientsToolStripMenuItem.Size = new System.Drawing.Size(62, 23);
+            this.listeDesClientsToolStripMenuItem.Text = "Clients";
             // 
-            // AdresseLivraison
+            // gérerLesClientsToolStripMenuItem
             // 
-            this.AdresseLivraison.HeaderText = "Adresse livr.";
-            this.AdresseLivraison.Name = "AdresseLivraison";
-            this.AdresseLivraison.Width = 175;
+            this.gérerLesClientsToolStripMenuItem.Name = "gérerLesClientsToolStripMenuItem";
+            this.gérerLesClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.gérerLesClientsToolStripMenuItem.Text = "Gérer les clients";
             // 
-            // Téléphone
+            // ajouterUnClientToolStripMenuItem
             // 
-            this.Téléphone.HeaderText = "tél.";
-            this.Téléphone.Name = "Téléphone";
+            this.ajouterUnClientToolStripMenuItem.Name = "ajouterUnClientToolStripMenuItem";
+            this.ajouterUnClientToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.ajouterUnClientToolStripMenuItem.Text = "Ajouter un client";
+            this.ajouterUnClientToolStripMenuItem.Click += new System.EventHandler(this.ajouterUnClientToolStripMenuItem_Click);
             // 
-            // Fax
+            // listeDesProduitsToolStripMenuItem
             // 
-            this.Fax.HeaderText = "Fax";
-            this.Fax.Name = "Fax";
+            this.listeDesProduitsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gérerLesProduitsToolStripMenuItem1,
+            this.ajouterUnProduitToolStripMenuItem1});
+            this.listeDesProduitsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.listeDesProduitsToolStripMenuItem.Name = "listeDesProduitsToolStripMenuItem";
+            this.listeDesProduitsToolStripMenuItem.Size = new System.Drawing.Size(72, 23);
+            this.listeDesProduitsToolStripMenuItem.Text = "Produits";
             // 
-            // Email
+            // gérerLesProduitsToolStripMenuItem1
             // 
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.Width = 175;
+            this.gérerLesProduitsToolStripMenuItem1.Name = "gérerLesProduitsToolStripMenuItem1";
+            this.gérerLesProduitsToolStripMenuItem1.Size = new System.Drawing.Size(192, 24);
+            this.gérerLesProduitsToolStripMenuItem1.Text = "Gérer les produits";
+            this.gérerLesProduitsToolStripMenuItem1.Click += new System.EventHandler(this.gérerLesProduitsToolStripMenuItem1_Click);
             // 
-            // NumRueFact
+            // ajouterUnProduitToolStripMenuItem1
             // 
-            this.NumRueFact.HeaderText = "Numéro de rue de facturation";
-            this.NumRueFact.Name = "NumRueFact";
-            this.NumRueFact.Visible = false;
+            this.ajouterUnProduitToolStripMenuItem1.Name = "ajouterUnProduitToolStripMenuItem1";
+            this.ajouterUnProduitToolStripMenuItem1.Size = new System.Drawing.Size(192, 24);
+            this.ajouterUnProduitToolStripMenuItem1.Text = "Ajouter un produit";
+            this.ajouterUnProduitToolStripMenuItem1.Click += new System.EventHandler(this.ajouterUnProduitToolStripMenuItem1_Click);
             // 
-            // RueFact
+            // listeDesDevisToolStripMenuItem
             // 
-            this.RueFact.HeaderText = "Nom de la rue de facturation";
-            this.RueFact.Name = "RueFact";
-            this.RueFact.Visible = false;
+            this.listeDesDevisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gérerLesDevisToolStripMenuItem,
+            this.ajouterUnDevisToolStripMenuItem});
+            this.listeDesDevisToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.listeDesDevisToolStripMenuItem.Name = "listeDesDevisToolStripMenuItem";
+            this.listeDesDevisToolStripMenuItem.Size = new System.Drawing.Size(54, 23);
+            this.listeDesDevisToolStripMenuItem.Text = "Devis";
             // 
-            // VilleFact
+            // gérerLesDevisToolStripMenuItem
             // 
-            this.VilleFact.HeaderText = "Ville de facturation";
-            this.VilleFact.Name = "VilleFact";
-            this.VilleFact.Visible = false;
+            this.gérerLesDevisToolStripMenuItem.Name = "gérerLesDevisToolStripMenuItem";
+            this.gérerLesDevisToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.gérerLesDevisToolStripMenuItem.Text = "Gérer les devis";
             // 
-            // CodePostalFact
+            // ajouterUnDevisToolStripMenuItem
             // 
-            this.CodePostalFact.HeaderText = "Code postal de facturation";
-            this.CodePostalFact.Name = "CodePostalFact";
-            this.CodePostalFact.Visible = false;
+            this.ajouterUnDevisToolStripMenuItem.Name = "ajouterUnDevisToolStripMenuItem";
+            this.ajouterUnDevisToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.ajouterUnDevisToolStripMenuItem.Text = "Ajouter un devis";
             // 
-            // NumRueLiv
+            // synthèseToolStripMenuItem
             // 
-            this.NumRueLiv.HeaderText = "Numéro de rue de livraison";
-            this.NumRueLiv.Name = "NumRueLiv";
-            this.NumRueLiv.Visible = false;
-            // 
-            // RueLiv
-            // 
-            this.RueLiv.HeaderText = "Nom de la rue de livraison";
-            this.RueLiv.Name = "RueLiv";
-            this.RueLiv.Visible = false;
-            // 
-            // VilleLiv
-            // 
-            this.VilleLiv.HeaderText = "Ville de livraison";
-            this.VilleLiv.Name = "VilleLiv";
-            this.VilleLiv.Visible = false;
-            // 
-            // CodePostalLiv
-            // 
-            this.CodePostalLiv.HeaderText = "Code postal de livraison";
-            this.CodePostalLiv.Name = "CodePostalLiv";
-            this.CodePostalLiv.Visible = false;
+            this.synthèseToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.synthèseToolStripMenuItem.Name = "synthèseToolStripMenuItem";
+            this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(76, 23);
+            this.synthèseToolStripMenuItem.Text = "Synthèse";
             // 
             // FrmClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1484, 826);
+            this.Controls.Add(this.lblTitre);
             this.Controls.Add(this.pnlDetail);
             this.Controls.Add(this.btnAddClient);
             this.Controls.Add(this.dgvClient);
+            this.Controls.Add(this.menuStrip1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmClient";
             this.Text = "FrmClient";
             this.Load += new System.EventHandler(this.FrmClient_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).EndInit();
             this.pnlDetail.ResumeLayout(false);
             this.pnlDetail.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -591,5 +710,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RueLiv;
         private System.Windows.Forms.DataGridViewTextBoxColumn VilleLiv;
         private System.Windows.Forms.DataGridViewTextBoxColumn CodePostalLiv;
+        private System.Windows.Forms.Label lblTitre;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem listeDesClientsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gérerLesClientsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ajouterUnClientToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listeDesProduitsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gérerLesProduitsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ajouterUnProduitToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem listeDesDevisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem synthèseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gérerLesDevisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ajouterUnDevisToolStripMenuItem;
     }
 }
