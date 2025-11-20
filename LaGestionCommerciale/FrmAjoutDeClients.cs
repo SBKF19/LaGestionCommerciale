@@ -18,6 +18,17 @@ namespace LaGestionCommerciale
         public FrmAjoutDeClients()
         {
             InitializeComponent();
+
+            // Initialisation de la connexion à la BD
+            var chset = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
+
+            if (chset == null)
+            {
+                MessageBox.Show("Chaîne de connexion 'gestion_commerciale' introuvable dans App.config !");
+                return;
+            }
+
+            GestionClients.SetchaineConnexion(chset);
         }
 
         private void btnAjoutClient_Click(object sender, EventArgs e)
@@ -107,12 +118,6 @@ namespace LaGestionCommerciale
                     nomRueLivraison         // nomRueLivraison
                 );
 
-                // --- Assurer que la chaîne de connexion est définie avant l'accès à la BD ---
-                string cs = ConfigurationManager.ConnectionStrings["gestion_commerciale"]?.ConnectionString;
-                if (string.IsNullOrWhiteSpace(cs))
-                    throw new Exception("La chaîne de connexion 'gestion_commerciale' n'est pas configurée.");
-                GestionClients.SetchaineConnexion(cs);
-
                 GestionClients.AjouterClient(nouveauClient);
 
                 MessageBox.Show("Client ajouté avec succès !");
@@ -121,6 +126,11 @@ namespace LaGestionCommerciale
             {
                 MessageBox.Show("Erreur lors de l'ajout du client : " + ex.Message);
             }
+        }
+
+        private void FrmAjoutDeClients_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -19,10 +19,12 @@ namespace BLL
                 uneGestionClients = new GestionClients();
             return uneGestionClients;
         }
-        public static void SetchaineConnexion(string chaine)
+        public static void SetchaineConnexion(ConnectionStringSettings chset)
         {
+            string chaine = chset.ConnectionString;
             ConnexionBD.GetConnexionBD().SetchaineConnexion(chaine);
         }
+
         public static int AjouterClient(Client client)
         {
             return DAL.ClientDAO.InsertClient(client);
