@@ -292,6 +292,7 @@
             // 
             // listeDesClientsToolStripMenuItem
             // 
+            this.listeDesClientsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.listeDesClientsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gérerLesClientsToolStripMenuItem,
             this.ajouterUnClientToolStripMenuItem});
@@ -316,6 +317,7 @@
             // 
             // produitToolStripMenuItem
             // 
+            this.produitToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.produitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gérerLesProduitsToolStripMenuItem,
             this.ajouterUnProduitToolStripMenuItem});
@@ -339,6 +341,7 @@
             // 
             // devisToolStripMenuItem
             // 
+            this.devisToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.devisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gérerLesDevisToolStripMenuItem,
             this.ajouterUnDevisToolStripMenuItem});
@@ -361,6 +364,7 @@
             // 
             // synthèseToolStripMenuItem
             // 
+            this.synthèseToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.synthèseToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.synthèseToolStripMenuItem.Name = "synthèseToolStripMenuItem";
             this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(76, 23);
