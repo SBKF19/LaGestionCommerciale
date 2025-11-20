@@ -159,11 +159,34 @@ namespace LaGestionCommerciale
                     txtRueLivraison.Text
                 );
 
-
                 int nb = GestionClients.ModifierClient(client);
 
                 if (nb == 0)
                     throw new Exception("La modification a échoué : ID introuvable ou problème SQL.");
+
+                // Mise à jour du DataGridView seulement si SQL OK
+                var row = dgvClient.SelectedRows[0];
+
+                row.Cells["NomClient"].Value = txtNom.Text;
+                row.Cells["Téléphone"].Value = txtTelephone.Text;
+                row.Cells["Fax"].Value = txtFax.Text;
+                row.Cells["Email"].Value = txtEmail.Text;
+
+                row.Cells["NumRueFact"].Value = txtNumeroRueFacturation.Text;
+                row.Cells["RueFact"].Value = txtRueFacturation.Text;
+                row.Cells["VilleFact"].Value = txtVilleFacturation.Text;
+                row.Cells["CodePostalFact"].Value = txtCodePostalFacturation.Text;
+
+                row.Cells["NumRueLiv"].Value = txtNumeroRueLivraison.Text;
+                row.Cells["RueLiv"].Value = txtRueLivraison.Text;
+                row.Cells["VilleLiv"].Value = txtVilleLivraison.Text;
+                row.Cells["CodePostalLiv"].Value = txtCodePostalLivraison.Text;
+
+                row.Cells["AdresseFacturation"].Value =
+                    $"{txtNumeroRueFacturation.Text} {txtRueFacturation.Text}, {txtVilleFacturation.Text} {txtCodePostalFacturation.Text}";
+
+                row.Cells["AdresseLivraison"].Value =
+                    $"{txtNumeroRueLivraison.Text} {txtRueLivraison.Text}, {txtVilleLivraison.Text} {txtCodePostalLivraison.Text}";
 
                 MessageBox.Show("Client modifié avec succès.",
                     "Modification",
@@ -275,6 +298,11 @@ namespace LaGestionCommerciale
             FrmAjoutDeProduit frm = new FrmAjoutDeProduit();
             frm.Show();
             this.Hide();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
