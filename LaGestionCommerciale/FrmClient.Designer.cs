@@ -611,12 +611,14 @@
             // 
             // gérerLesClientsToolStripMenuItem
             // 
+            this.gérerLesClientsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.gérerLesClientsToolStripMenuItem.Name = "gérerLesClientsToolStripMenuItem";
             this.gérerLesClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.gérerLesClientsToolStripMenuItem.Text = "Gérer les clients";
             // 
             // ajouterUnClientToolStripMenuItem
             // 
+            this.ajouterUnClientToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ajouterUnClientToolStripMenuItem.Name = "ajouterUnClientToolStripMenuItem";
             this.ajouterUnClientToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.ajouterUnClientToolStripMenuItem.Text = "Ajouter un client";
@@ -635,6 +637,7 @@
             // 
             // gérerLesProduitsToolStripMenuItem1
             // 
+            this.gérerLesProduitsToolStripMenuItem1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.gérerLesProduitsToolStripMenuItem1.Name = "gérerLesProduitsToolStripMenuItem1";
             this.gérerLesProduitsToolStripMenuItem1.Size = new System.Drawing.Size(192, 24);
             this.gérerLesProduitsToolStripMenuItem1.Text = "Gérer les produits";
@@ -642,6 +645,7 @@
             // 
             // ajouterUnProduitToolStripMenuItem1
             // 
+            this.ajouterUnProduitToolStripMenuItem1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ajouterUnProduitToolStripMenuItem1.Name = "ajouterUnProduitToolStripMenuItem1";
             this.ajouterUnProduitToolStripMenuItem1.Size = new System.Drawing.Size(192, 24);
             this.ajouterUnProduitToolStripMenuItem1.Text = "Ajouter un produit";
