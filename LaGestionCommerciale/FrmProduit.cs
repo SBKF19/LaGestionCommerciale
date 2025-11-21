@@ -114,6 +114,18 @@ namespace GUI
         private void btnModifier_Click(object sender, EventArgs e)
         {
             // Vérification des champs obligatoires
+            if (string.IsNullOrEmpty(txtLibelle.Text) && string.IsNullOrEmpty(txtPrix.Text))
+            {
+                MessageBox.Show("Veuillez remplir tous les champs obligatoires.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtPrix.Text))
+            {
+                MessageBox.Show("Veuillez saisir un prix, utilisez un format numérique (ex : 14,99) et supérieur à 0€.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(txtLibelle.Text))
             {
                 MessageBox.Show("Le libellé est requis.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);

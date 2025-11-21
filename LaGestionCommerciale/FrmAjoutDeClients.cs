@@ -68,7 +68,7 @@ namespace LaGestionCommerciale
                     throw new Exception("Veuillez remplir tous les champs.");
                 }
 
-                // Conversion et vérification des champs numériques
+                // vérification des champs numériques
                 if (phone.Length != 10 || !phone.All(char.IsDigit))
                 {
                     throw new Exception("Le numéro de téléphone doit contenir 10 chiffres et uniquement des chiffres.");
@@ -99,7 +99,7 @@ namespace LaGestionCommerciale
                     throw new Exception("Le numéro de rue de livraison doit contenir uniquement des chiffres.");
                 }
 
-                // --- Conversion des valeurs numériques ---
+                // Conversion des valeurs numériques en string pour la creation du client
                 int numRueFactureInt = int.Parse(numRueFacture);
                 int numRueLivraisonInt = int.Parse(numRueLivraison);
 
@@ -119,6 +119,7 @@ namespace LaGestionCommerciale
                     nomRueLivraison         // nomRueLivraison
                 );
 
+                // Ajout du client
                 GestionClients.AjouterClient(nouveauClient);
 
                 MessageBox.Show("Client ajouté avec succès !");
