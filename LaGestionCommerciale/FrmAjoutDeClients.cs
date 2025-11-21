@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -68,7 +69,15 @@ namespace LaGestionCommerciale
                     throw new Exception("Veuillez remplir tous les champs.");
                 }
 
+<<<<<<< HEAD
                 // vérification des champs numériques
+=======
+                // Conversion et vérification des champs numériques
+                string patternEmail = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+                if (!Regex.IsMatch(email, patternEmail))
+                    throw new Exception("L'adresse email n'est pas valide.");
+>>>>>>> dd759707d5de3966fa9ec44c83cff1471b5b0ec2
                 if (phone.Length != 10 || !phone.All(char.IsDigit))
                 {
                     throw new Exception("Le numéro de téléphone doit contenir 10 chiffres et uniquement des chiffres.");
