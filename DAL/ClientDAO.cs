@@ -145,7 +145,7 @@ namespace DAL
             using (SqlCommand cmd = maConnexion.CreateCommand())
             {
                 // Remplacez "devis" par le nom exact de la table qui référence client (ex : "devis", "commande", ...)
-                cmd.CommandText = "SELECT COUNT(*) FROM contenir WHERE id_devis = @id";
+                cmd.CommandText = "SELECT COUNT(*) FROM contenir WHERE id_client = @id";
                 cmd.Parameters.Add("@id", SqlDbType.Int).Value = idClient;
 
                 nbEnr = (int)cmd.ExecuteScalar();
