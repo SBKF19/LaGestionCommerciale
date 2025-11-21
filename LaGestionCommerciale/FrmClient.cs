@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UtilisateursBLL;
@@ -156,6 +157,11 @@ namespace LaGestionCommerciale
                 }
 
                 // Vérifications numériques
+
+                string patternEmail = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+                if (!Regex.IsMatch(email, patternEmail))
+                    throw new Exception("L'adresse email n'est pas valide.");
                 if (!phone.All(char.IsDigit) || phone.Length != 10)
                     throw new Exception("Le numéro de téléphone doit contenir 10 chiffres.");
                 if (!fax.All(char.IsDigit))
@@ -169,13 +175,6 @@ namespace LaGestionCommerciale
                 if (!numRueLivraisonStr.All(char.IsDigit))
                     throw new Exception("Le numéro de rue de livraison doit contenir uniquement des chiffres.");
 
-                // Vérification qu'aucun chiffre n’est présent dans les noms et villes
-                if (nomRueFacture.Any(char.IsDigit) || nomRueLivraison.Any(char.IsDigit))
-                    throw new Exception("Le nom de la rue ne doit pas contenir de chiffres.");
-                if (nomVilleFacture.Any(char.IsDigit) || nomVilleLivraison.Any(char.IsDigit))
-                    throw new Exception("Le nom de la ville ne doit pas contenir de chiffres.");
-                if (nom.Any(char.IsDigit))
-                    throw new Exception("Le nom du client ne doit pas contenir de chiffres.");
 
                 // Vérifier qu'une ligne est sélectionnée
                 if (dgvClient.SelectedRows.Count == 0)

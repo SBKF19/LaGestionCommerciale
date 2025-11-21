@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -69,6 +70,10 @@ namespace LaGestionCommerciale
                 }
 
                 // Conversion et vérification des champs numériques
+                string patternEmail = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+                if (!Regex.IsMatch(email, patternEmail))
+                    throw new Exception("L'adresse email n'est pas valide.");
                 if (phone.Length != 10 || !phone.All(char.IsDigit))
                 {
                     throw new Exception("Le numéro de téléphone doit contenir 10 chiffres et uniquement des chiffres.");
