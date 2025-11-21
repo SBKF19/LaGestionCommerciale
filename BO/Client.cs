@@ -9,26 +9,36 @@ namespace BO
     // Classe représentant un client
     public class Client
     {
-        // Identifiant unique du client dans la base
-        public int IdClient { get; set; }
+        private int idClient;
 
-        // Informations de contact
-        public string NomClient { get; set; }      // Nom du client
-        public string NumFaxClient { get; set; }   // Numéro de fax
-        public string MailClient { get; set; }     // Email
-        public string NumPhoneClient { get; set; } // Numéro de téléphone
+        private string nomClient;
+        private string numFaxClient;
+        private string mailClient;
+        private string numPhoneClient;
 
-        // Adresse de facturation
-        public string CodePostalFacture { get; set; } // Code postal facturation
-        public string VilleFacture { get; set; }      // Ville facturation
-        public int NumRueFacture { get; set; }        // Numéro de rue facturation
-        public string NomRueFacture { get; set; }     // Nom de la rue facturation
+        private string codePostalFacture;
+        private string villeFacture;
+        private int numRueFacture;
+        private string nomRueFacture;
 
-        // Adresse de livraison
-        public string CodePostalLivraison { get; set; } // Code postal livraison
-        public string VilleLivraison { get; set; }      // Ville livraison
-        public int NumRueLivraison { get; set; }        // Numéro de rue livraison
-        public string NomRueLivraison { get; set; }     // Nom de la rue livraison
+        private string codePostalLivraison;
+        private string villeLivraison;
+        private int numRueLivraison;
+        private string nomRueLivraison;
+
+        public int IdClient { get => idClient; set => idClient = value; }
+        public string NomClient { get => nomClient; set => nomClient = value; }
+        public string NumFaxClient { get => numFaxClient; set => numFaxClient = value; }
+        public string MailClient { get => mailClient; set => mailClient = value; }
+        public string NumPhoneClient { get => numPhoneClient; set => numPhoneClient = value; }
+        public string CodePostalFacture { get => codePostalFacture; set => codePostalFacture = value; }
+        public string VilleFacture { get => villeFacture; set => villeFacture = value; }
+        public int NumRueFacture { get => numRueFacture; set => numRueFacture = value; }
+        public string NomRueFacture { get => nomRueFacture; set => nomRueFacture = value; }
+        public string CodePostalLivraison { get => codePostalLivraison; set => codePostalLivraison = value; }
+        public string VilleLivraison { get => villeLivraison; set => villeLivraison = value; }
+        public int NumRueLivraison { get => numRueLivraison; set => numRueLivraison = value; }
+        public string NomRueLivraison { get => nomRueLivraison; set => nomRueLivraison = value; }
 
         // Constructeur complet avec l'ID du client (pour modification)
         public Client(int idClient, string nomClient, string numFaxClient, string mailClient, string numPhoneClient,
