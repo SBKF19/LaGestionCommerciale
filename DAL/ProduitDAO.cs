@@ -243,5 +243,22 @@ namespace DAL
 
             return nbEnr;
         }
+
+        public static bool ProduitExiste(string libelle)
+        {
+            using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT COUNT(*) FROM Produit WHERE libelle_produit = @libelle",
+                    maConnexion
+                );
+
+                cmd.Parameters.AddWithValue("@libelle", libelle);
+
+                int nb = (int)cmd.ExecuteScalar();
+
+                return nb > 0;
+            }
+        }
     }
 }

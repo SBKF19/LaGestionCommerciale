@@ -44,46 +44,51 @@ namespace LaGestionCommerciale
         {
             try
             {
-                // Vérification du libellé
+                // Récupération des valeurs
                 string libelle = txtLibelle.Text?.Trim();
-                if (string.IsNullOrWhiteSpace(libelle))
-                {
-                    throw new Exception("Veuillez saisir un libellé.");
-                }
-
-                // Vérification prix
                 string prixText = txtPrixDeVenteHT.Text?.Trim();
-                if (string.IsNullOrWhiteSpace(prixText))
+                var categorie = cmbCategorie.SelectedItem;
+
+                // Vérification des champs vides
+                if (string.IsNullOrWhiteSpace(libelle) ||
+                    string.IsNullOrWhiteSpace(prixText) ||
+                    categorie == null)
                 {
-                    throw new Exception("Veuillez saisir un prix.");
+                    MessageBox.Show("Veuillez remplir les champs vides.",
+                                    "Champs manquants",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
                 }
 
-                // Accepter à la fois "." et "," pour les décimales
+                // Vérification si le produit existe déjà
+                if (GestionProduits.ProduitExiste(libelle))
+                {
+                    MessageBox.Show("Un produit portant ce libellé existe déjà.",
+                                    "Doublon",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Vérification et conversion du prix
                 prixText = prixText.Replace('.', ',');
-
-                if (!float.TryParse(prixText, out float prix))
+                if (!float.TryParse(prixText, out float prix) || prix <= 0)
                 {
-                    throw new Exception("Le prix saisi n'est pas valide. Exemple : 12,34");
+                    MessageBox.Show("Le prix saisi n'est pas valide (ex : 12,34).",
+                                    "Prix invalide",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
                 }
 
-                if (prix <= 0)
-                {
-                    throw new Exception("Le prix doit être supérieur à 0.");
-                }
+                // Cast catégorie
+                Categorie cat = (Categorie)categorie;
 
-                // Vérification catégorie sélectionnée
-                if (cmbCategorie.SelectedItem == null)
-                {
-                    throw new Exception("Veuillez sélectionner une catégorie.");
-                }
+                // Création du produit
+                ProduitBO produit = new ProduitBO(0, libelle, cat, prix);
 
-                //Cela permet de prendre ce que l’utilisateur a choisi dans la liste, et le met dans une variable appelée categorie.
-                Categorie categorie = (Categorie)cmbCategorie.SelectedItem;
-
-                // Création du ProduitBO 
-                ProduitBO produit = new ProduitBO(0, libelle, categorie, prix);
-
-                // Appel à la BLL
+                // Enregistrement
                 int resultat = GestionProduits.AjouterProduit(produit);
 
                 if (resultat > 0)
