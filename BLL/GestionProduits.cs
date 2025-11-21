@@ -61,5 +61,11 @@ namespace BLL
         {
             return ProduitDAO.AddProduit(produit);
         }
+
+        public static bool ProduitExiste(string libelle)
+        {
+            return ProduitDAO.ProduitExiste(libelle);
+        }
+
     }
 }
