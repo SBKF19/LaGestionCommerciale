@@ -35,9 +35,6 @@ namespace UtilisateursBLL
         // Méthode de vérification du login
         public static bool VerifierConnexion(string nomUser, string motDePasse)
         {
-            if (string.IsNullOrWhiteSpace(nomUser) || string.IsNullOrWhiteSpace(motDePasse))
-                return false;
-
             return UtilisateurDAO.VerifierConnexion(nomUser, motDePasse);
         }
     }
