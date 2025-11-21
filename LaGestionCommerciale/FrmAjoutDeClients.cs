@@ -104,7 +104,7 @@ namespace LaGestionCommerciale
                     throw new Exception("Le numéro de rue de livraison doit contenir uniquement des chiffres.");
                 }
 
-                // --- Conversion des valeurs numériques ---
+                // Conversion des valeurs numériques en string pour la creation du client
                 int numRueFactureInt = int.Parse(numRueFacture);
                 int numRueLivraisonInt = int.Parse(numRueLivraison);
 
@@ -124,6 +124,7 @@ namespace LaGestionCommerciale
                     nomRueLivraison         // nomRueLivraison
                 );
 
+                // Ajout du client
                 GestionClients.AjouterClient(nouveauClient);
 
                 MessageBox.Show("Client ajouté avec succès !");
