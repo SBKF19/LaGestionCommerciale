@@ -30,36 +30,35 @@ namespace GUI
             string nom = txtNom.Text.Trim();
             string mdp = txtMotDePasse.Text.Trim();
 
-            //Erreur si le champs est vide
+            //Erreur si un champ est vide
             if (string.IsNullOrEmpty(nom) || string.IsNullOrEmpty(mdp))
             {
                 MessageBox.Show("Veuillez insérer votre nom et votre mot de passe.",
                                 "Champs manquants",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
+                return; 
             }
 
-            //Erreur si le nom est incorrect
-            else if (!LoginUtilisateur.VerifierConnexion(nom, mdp))
+            //Erreur si le nom ou le mot de passe est incorrect
+            if (!LoginUtilisateur.VerifierConnexion(nom, mdp))
             {
                 MessageBox.Show("Nom ou mot de passe incorrect.",
                                 "Erreur",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
+                return; 
             }
 
-            //OK si les identifiants sont corrects
-            else
-            {
-                MessageBox.Show("Connexion réussie !",
-                                "Succès",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+            //Connexion OK
+            MessageBox.Show("Connexion réussie !",
+                            "Succès",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
 
-                FrmClient Client = new FrmClient();
-                Client.Show();
-                this.Hide();
-            }
+            FrmClient Client = new FrmClient();
+            Client.Show();
+            this.Hide();
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
