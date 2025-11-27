@@ -43,7 +43,10 @@
   <ItemGroup>
     <Compile Include="Categorie.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="Contenir.cs" />
+    <Compile Include="Devis.cs" />
     <Compile Include="Produit.cs" />
+    <Compile Include="Statut.cs" />
     <Compile Include="Utilisateur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
