@@ -44,8 +44,10 @@
     <Compile Include="CategorieDAO.cs" />
     <Compile Include="ClientDAO.cs" />
     <Compile Include="ConnexionBD.cs" />
+    <Compile Include="ContenirDAO.cs" />
     <Compile Include="DevisDAO.cs" />
     <Compile Include="ProduitDAO.cs" />
+    <Compile Include="StatutDAO.cs" />
     <Compile Include="UtilisateurDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
