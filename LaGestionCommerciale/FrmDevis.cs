@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL;
+using BO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,13 @@ namespace LaGestionCommerciale
         public FrmDevis()
         {
             InitializeComponent();
+        }
+
+        private void FrmDevis_Load(object sender, EventArgs e)
+        {
+            // charger la liste des devis
+            List<Devis> lesDevis = GestionDevis.GetDevis();
+
         }
 
         private void dgvClient_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -93,6 +102,11 @@ namespace LaGestionCommerciale
         }
 
         private void lblProduits_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmDevis_Load_1(object sender, EventArgs e)
         {
 
         }
