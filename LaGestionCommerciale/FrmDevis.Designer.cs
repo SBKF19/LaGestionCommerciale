@@ -85,7 +85,6 @@
             this.btnAddDevis.TabIndex = 5;
             this.btnAddDevis.Text = "Ajouter un client";
             this.btnAddDevis.UseVisualStyleBackColor = false;
-            this.btnAddDevis.Click += new System.EventHandler(this.btnAddDevis_Click);
             // 
             // dgvDevis
             // 
@@ -102,6 +101,7 @@
             this.dgvDevis.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDevis.Size = new System.Drawing.Size(428, 662);
             this.dgvDevis.TabIndex = 6;
+            this.dgvDevis.VisibleChanged += new System.EventHandler(this.FrmDevis_Load);
             // 
             // Code
             // 
@@ -217,7 +217,6 @@
             this.lblProduits.Size = new System.Drawing.Size(45, 13);
             this.lblProduits.TabIndex = 20;
             this.lblProduits.Text = "Produits";
-            this.lblProduits.Click += new System.EventHandler(this.lblProduits_Click);
             // 
             // numRemiseGlobale
             // 
@@ -225,7 +224,6 @@
             this.numRemiseGlobale.Name = "numRemiseGlobale";
             this.numRemiseGlobale.Size = new System.Drawing.Size(126, 20);
             this.numRemiseGlobale.TabIndex = 19;
-            this.numRemiseGlobale.ValueChanged += new System.EventHandler(this.numRemiseGlobale_ValueChanged);
             // 
             // lblRemiseGlobale
             // 
@@ -235,7 +233,6 @@
             this.lblRemiseGlobale.Size = new System.Drawing.Size(133, 13);
             this.lblRemiseGlobale.TabIndex = 18;
             this.lblRemiseGlobale.Text = "Taux de remise globale (%)";
-            this.lblRemiseGlobale.Click += new System.EventHandler(this.lblRemiseGlobale_Click);
             // 
             // numTVA
             // 
@@ -248,7 +245,6 @@
             0,
             0,
             0});
-            this.numTVA.ValueChanged += new System.EventHandler(this.numTVA_ValueChanged);
             // 
             // lblTVA
             // 
@@ -258,7 +254,6 @@
             this.lblTVA.Size = new System.Drawing.Size(87, 13);
             this.lblTVA.TabIndex = 16;
             this.lblTVA.Text = "Taux de TVA (%)";
-            this.lblTVA.Click += new System.EventHandler(this.lblTVA_Click);
             // 
             // pnlClient
             // 
@@ -311,7 +306,6 @@
             this.lblMail.Size = new System.Drawing.Size(41, 13);
             this.lblMail.TabIndex = 6;
             this.lblMail.Text = "E-mail :";
-            this.lblMail.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // lblTel
             // 
@@ -330,7 +324,6 @@
             this.lblLivr.Size = new System.Drawing.Size(55, 13);
             this.lblLivr.TabIndex = 2;
             this.lblLivr.Text = "Livraison :";
-            this.lblLivr.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblFact
             // 
@@ -348,7 +341,6 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(260, 21);
             this.comboBox1.TabIndex = 13;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // lblClient
             // 
@@ -366,7 +358,6 @@
             this.cmbStatut.Name = "cmbStatut";
             this.cmbStatut.Size = new System.Drawing.Size(229, 21);
             this.cmbStatut.TabIndex = 11;
-            this.cmbStatut.SelectedIndexChanged += new System.EventHandler(this.cmbStatut_SelectedIndexChanged);
             // 
             // lblSatut
             // 
@@ -383,7 +374,6 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(272, 20);
             this.dateTimePicker1.TabIndex = 9;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // lblDate
             // 
@@ -410,7 +400,6 @@
             this.lblCode.Size = new System.Drawing.Size(32, 13);
             this.lblCode.TabIndex = 6;
             this.lblCode.Text = "Code";
-            this.lblCode.Click += new System.EventHandler(this.lblCode_Click);
             // 
             // lblDetail
             // 
@@ -421,7 +410,6 @@
             this.lblDetail.Size = new System.Drawing.Size(56, 21);
             this.lblDetail.TabIndex = 1;
             this.lblDetail.Text = "Détail";
-            this.lblDetail.Click += new System.EventHandler(this.lblDetail_Click);
             // 
             // FrmDevis
             // 
@@ -433,7 +421,7 @@
             this.Controls.Add(this.btnAddDevis);
             this.Name = "FrmDevis";
             this.Text = "FrmDevis";
-            this.Load += new System.EventHandler(this.FrmDevis_Load_1);
+            this.Load += new System.EventHandler(this.FrmDevis_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).EndInit();
             this.pnlDevis.ResumeLayout(false);
             this.pnlDevis.PerformLayout();

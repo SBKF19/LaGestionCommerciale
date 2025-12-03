@@ -3,12 +3,14 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UtilisateursBLL;
 
 namespace LaGestionCommerciale
 {
@@ -17,22 +19,37 @@ namespace LaGestionCommerciale
         public FrmDevis()
         {
             InitializeComponent();
+
+            // Initialisation de la connexion à la BD
+            var chset = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
+
+            if (chset == null)
+            {
+                MessageBox.Show("Chaîne de connexion 'gestion_commerciale' introuvable dans App.config !");
+                return;
+            }
+
+            GestionDevis.SetchaineConnexion(chset);
         }
 
         private void FrmDevis_Load(object sender, EventArgs e)
         {
             // charger la liste des devis
             List<Devis> lesDevis = GestionDevis.GetDevis();
+            dgvDevis.ReadOnly = true;
+            dgvDevis.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvDevis.AllowUserToAddRows = false;
 
-        }
-
-        private void dgvClient_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+            dgvDevis.Rows.Clear();
+            foreach (Devis devis in lesDevis)
+            {
+                dgvDevis.Rows.Add(
+                    devis.IdDevis,
+                    devis.Client.NomClient,
+                    devis.Date_devis,
+                    devis.Montant_HT_devis
+                );
+            }
 
         }
 
@@ -41,67 +58,7 @@ namespace LaGestionCommerciale
 
         }
 
-        private void lblDetail_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblCode_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmbStatut_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void pnlDevis_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void lblTVA_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblRemiseGlobale_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numTVA_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numRemiseGlobale_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblProduits_Click(object sender, EventArgs e)
         {
 
         }

@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 
 namespace DAL
 {
@@ -16,9 +13,7 @@ namespace DAL
         public static DevisDAO GetDevisDAO()
         {
             if (unDevisDAO == null)
-            {
                 unDevisDAO = new DevisDAO();
-            }
             return unDevisDAO;
         }
 
@@ -27,14 +22,14 @@ namespace DAL
             List<Devis> lesDevis = new List<Devis>();
             using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
-                SqlCommand cmd = new SqlCommand("SELECT id_devis, date_devis, TVA_devis, taux_remise_global_devis, montant_devis, " + 
-                    "id_client, nom_client, num_fax_client, mail_client, num_phone_client, " + 
+                SqlCommand cmd = new SqlCommand("SELECT id_devis, date_devis, TVA_devis, taux_remise_global_devis, montant_HT_devis, " + 
+                    "client.id_client, nom_client, num_fax_client, mail_client, num_phone_client, " + 
                     "code_postal_facture, ville_facture, num_rue_facture, nom_rue_facture, " + 
                     "code_postal_livraison, ville_livraison, num_rue_livraison, nom_rue_livraison, " +  
-                    "nom_statut" + 
-                    "FROM devis" + 
-                    "JOIN client on devis.id_client = client.id_client" + 
-                    "JOIN statut on devis.id_statut = statut.id_statut", maConnexion);
+                    "nom_statut " + 
+                    "FROM devis " + 
+                    " JOIN client on devis.id_client = client.id_client " + 
+                    " JOIN statut on devis.id_statut = statut.id_statut", maConnexion);
                 SqlDataReader monReader = cmd.ExecuteReader();
 
                 while (monReader.Read())

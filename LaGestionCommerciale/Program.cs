@@ -1,10 +1,7 @@
-﻿using LaGestionCommerciale;
+﻿using BLL; // Nécessaire pour appeler GestionDevis
+using LaGestionCommerciale;
 using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Configuration; // Nécessaire pour ConfigurationManager
 using System.Windows.Forms;
 
 namespace GUI
@@ -17,13 +14,24 @@ namespace GUI
         [STAThread]
         static void Main()
         {
+            // 1. Initialisation de la chaîne de connexion à partir du fichier de configuration
+            var chset = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
+
+            if (chset == null)
+            {
+                MessageBox.Show("Chaîne de connexion 'gestion_commerciale' introuvable dans App.config ! L'application va s'arrêter.");
+                return; // Arrête l'application si la config est manquante
+            }
+
+            // 2. Transférer la chaîne de connexion à la couche BLL/DAL
+            GestionDevis.SetchaineConnexion(chset);
+
+            // 3. Démarrage de l'application (CETTE PARTIE DOIT VENIR EN DERNIER)
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmLogin());
+            Application.Run(new FrmClient());
 
-            SqlConnection maConnection = new SqlConnection(
-    "Server=localhost;Database=gestion_commerciale;Trusted_Connection=True;Persist Security Info=False;");
-
+            // REMARQUE : La ligne de connexion directe n'est plus nécessaire ici.
         }
     }
 }
