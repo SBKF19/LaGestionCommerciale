@@ -30,6 +30,10 @@
         {
             this.btnAddDevis = new System.Windows.Forms.Button();
             this.dgvDevis = new System.Windows.Forms.DataGridView();
+            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NomClient = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDevis = new System.Windows.Forms.Panel();
             this.dgvModify = new System.Windows.Forms.DataGridView();
             this.select_produit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,7 +57,7 @@
             this.lblTel = new System.Windows.Forms.Label();
             this.lblLivr = new System.Windows.Forms.Label();
             this.lblFact = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbClient = new System.Windows.Forms.ComboBox();
             this.lblClient = new System.Windows.Forms.Label();
             this.cmbStatut = new System.Windows.Forms.ComboBox();
             this.lblSatut = new System.Windows.Forms.Label();
@@ -62,10 +66,6 @@
             this.txtCode = new System.Windows.Forms.TextBox();
             this.lblCode = new System.Windows.Forms.Label();
             this.lblDetail = new System.Windows.Forms.Label();
-            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NomClient = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
@@ -103,6 +103,29 @@
             this.dgvDevis.TabIndex = 6;
             this.dgvDevis.VisibleChanged += new System.EventHandler(this.FrmDevis_Load);
             // 
+            // Code
+            // 
+            this.Code.HeaderText = "Code";
+            this.Code.Name = "Code";
+            this.Code.Width = 50;
+            // 
+            // NomClient
+            // 
+            this.NomClient.HeaderText = "Nom client";
+            this.NomClient.Name = "NomClient";
+            this.NomClient.Width = 150;
+            // 
+            // Date
+            // 
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.Width = 125;
+            // 
+            // AdresseLivraison
+            // 
+            this.AdresseLivraison.HeaderText = "Prix";
+            this.AdresseLivraison.Name = "AdresseLivraison";
+            // 
             // pnlDevis
             // 
             this.pnlDevis.Controls.Add(this.dgvModify);
@@ -113,7 +136,7 @@
             this.pnlDevis.Controls.Add(this.numTVA);
             this.pnlDevis.Controls.Add(this.lblTVA);
             this.pnlDevis.Controls.Add(this.pnlClient);
-            this.pnlDevis.Controls.Add(this.comboBox1);
+            this.pnlDevis.Controls.Add(this.cmbClient);
             this.pnlDevis.Controls.Add(this.lblClient);
             this.pnlDevis.Controls.Add(this.cmbStatut);
             this.pnlDevis.Controls.Add(this.lblSatut);
@@ -311,13 +334,13 @@
             this.lblFact.TabIndex = 0;
             this.lblFact.Text = "Facture :";
             // 
-            // comboBox1
+            // cmbClient
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(698, 54);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(260, 21);
-            this.comboBox1.TabIndex = 13;
+            this.cmbClient.FormattingEnabled = true;
+            this.cmbClient.Location = new System.Drawing.Point(698, 54);
+            this.cmbClient.Name = "cmbClient";
+            this.cmbClient.Size = new System.Drawing.Size(260, 21);
+            this.cmbClient.TabIndex = 13;
             // 
             // lblClient
             // 
@@ -388,29 +411,6 @@
             this.lblDetail.TabIndex = 1;
             this.lblDetail.Text = "Détail";
             // 
-            // Code
-            // 
-            this.Code.HeaderText = "Code";
-            this.Code.Name = "Code";
-            this.Code.Width = 50;
-            // 
-            // NomClient
-            // 
-            this.NomClient.HeaderText = "Nom client";
-            this.NomClient.Name = "NomClient";
-            this.NomClient.Width = 150;
-            // 
-            // Date
-            // 
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.Width = 125;
-            // 
-            // AdresseLivraison
-            // 
-            this.AdresseLivraison.HeaderText = "Prix";
-            this.AdresseLivraison.Name = "AdresseLivraison";
-            // 
             // FrmDevis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -443,7 +443,7 @@
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label lblCode;
         private System.Windows.Forms.DateTimePicker dtpDevis;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbClient;
         private System.Windows.Forms.Label lblClient;
         private System.Windows.Forms.ComboBox cmbStatut;
         private System.Windows.Forms.Label lblSatut;

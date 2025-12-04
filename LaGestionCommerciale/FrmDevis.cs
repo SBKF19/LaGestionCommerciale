@@ -37,8 +37,12 @@ namespace LaGestionCommerciale
         private void FrmDevis_Load(object sender, EventArgs e)
         {
             cmbStatut.DataSource = GestionDevis.GetStatuts();
-            cmbStatut.DisplayMember = "nom_statut";
-            cmbStatut.ValueMember = "id_statut";
+            cmbStatut.DisplayMember = "Nom_statut";
+            cmbStatut.ValueMember = "IdStatut";
+
+            cmbClient.DataSource = GestionClients.GetClients();
+            cmbClient.DisplayMember = "NomClient";
+            cmbClient.ValueMember = "IdClient";
 
             // charger la liste des devis
             List<Devis> lesDevis = GestionDevis.GetDevis();
