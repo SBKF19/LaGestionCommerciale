@@ -70,11 +70,6 @@
     <Compile Include="FrmClient.Designer.cs">
       <DependentUpon>FrmClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmDevisModifSup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmDevisModifSup.Designer.cs">
-      <DependentUpon>FrmDevisModifSup.cs</DependentUpon>
     <Compile Include="FrmDevis.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,8 +140,6 @@
     <EmbeddedResource Include="FrmClient.resx">
       <DependentUpon>FrmClient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmDevisModifSup.resx">
-      <DependentUpon>FrmDevisModifSup.cs</DependentUpon>
     <EmbeddedResource Include="FrmDevis.resx">
       <DependentUpon>FrmDevis.cs</DependentUpon>
     </EmbeddedResource>
