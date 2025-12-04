@@ -52,6 +52,12 @@
     <Compile Include="FrmAjoutDeClients.Designer.cs">
       <DependentUpon>FrmAjoutDeClients.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAjoutDeDevis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAjoutDeDevis.Designer.cs">
+      <DependentUpon>FrmAjoutDeDevis.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAjoutDeProduit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,15 @@
     <Compile Include="FrmClient.Designer.cs">
       <DependentUpon>FrmClient.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="FrmDevis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDevis.Designer.cs">
+      <DependentUpon>FrmDevis.cs</DependentUpon>
+    </Compile>
+>>>>>>> master
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,7 +111,7 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="gestion_commercialeDataSet.xsc">
@@ -119,12 +134,21 @@
     <EmbeddedResource Include="FrmAjoutDeClients.resx">
       <DependentUpon>FrmAjoutDeClients.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmAjoutDeDevis.resx">
+      <DependentUpon>FrmAjoutDeDevis.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAjoutDeProduit.resx">
       <DependentUpon>FrmAjoutDeProduit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmClient.resx">
       <DependentUpon>FrmClient.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
+=======
+    <EmbeddedResource Include="FrmDevis.resx">
+      <DependentUpon>FrmDevis.cs</DependentUpon>
+    </EmbeddedResource>
+>>>>>>> master
     <EmbeddedResource Include="FrmProduit.resx">
       <DependentUpon>FrmProduit.cs</DependentUpon>
     </EmbeddedResource>
