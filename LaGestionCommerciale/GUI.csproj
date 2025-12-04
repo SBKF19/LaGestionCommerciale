@@ -76,6 +76,12 @@
     <Compile Include="FrmDevis.Designer.cs">
       <DependentUpon>FrmDevis.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmDevisAjoutSup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDevisAjoutSup.Designer.cs">
+      <DependentUpon>FrmDevisAjoutSup.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
