@@ -51,6 +51,10 @@ namespace BLL
             return StatutDAO.GetStatuts();
         }
 
+        public static List<Contenir> GetLignesDuDevis(int idDevis)
+        {
+            return DevisDAO.GetLignesDuDevis(idDevis);
+        }
         //public static int ModifierLigneContenir(Contenir c)
         //{
         //    return ContenirDAO.GetContenirDAO().ModifierContenir(c);

@@ -27,7 +27,7 @@ namespace DAL
                     "client.id_client, nom_client, num_fax_client, mail_client, num_phone_client, " + 
                     "code_postal_facture, ville_facture, num_rue_facture, nom_rue_facture, " + 
                     "code_postal_livraison, ville_livraison, num_rue_livraison, nom_rue_livraison, " +  
-                    "nom_statut " + 
+                    "nom_statut, statut.id_statut " + 
                     "FROM devis " + 
                     " JOIN client on devis.id_client = client.id_client " + 
                     " JOIN statut on devis.id_statut = statut.id_statut", maConnexion);
@@ -54,8 +54,9 @@ namespace DAL
                     code_postal_livraison, ville_livraison, num_rue_livraison, nom_rue_livraison);
                     // Statut
                     string nom_statut = monReader["nom_statut"].ToString();
+                    int id_statut = (int)monReader["id_statut"];
                     // Objet Statut
-                    Statut unStatut = new Statut(nom_statut);
+                    Statut unStatut = new Statut(id_statut, nom_statut);
                     // Devis
                     int id_devis = (int)monReader["id_devis"];
                     DateTime date_devis = (DateTime)monReader["date_devis"];
@@ -79,6 +80,63 @@ namespace DAL
             }
             return lesDevis;
         }
+
+        public static List<Contenir> GetLignesDuDevis(int idDevis)
+        {
+            List<Contenir> lesLignes = new List<Contenir>();
+
+            // On récupère les infos de la ligne + les infos du produit + la catégorie
+            string req = @"SELECT c.id_produit, c.quantite_commandee, c.remise_par_ligne, 
+                          p.libelle_produit, p.prix_vente_HT_produit, 
+                          cat.id_categorie, cat.nom_categorie
+                   FROM contenir c
+                   JOIN produit p ON c.id_produit = p.id_produit
+                   JOIN categorie cat ON p.id_categorie = cat.id_categorie
+                   WHERE c.id_devis = @idDevis";
+
+            using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
+            {
+                // Ouverture préventive
+                if (cnx.State == ConnectionState.Closed) cnx.Open();
+
+                SqlCommand cmd = new SqlCommand(req, cnx);
+                cmd.Parameters.AddWithValue("@idDevis", idDevis);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    // 1. Reconstitution de l'objet Categorie
+                    int idCat = (int)reader["id_categorie"];
+                    string nomCat = reader["nom_categorie"].ToString();
+                    Categorie uneCat = new Categorie(idCat, nomCat);
+
+                    // 2. Reconstitution de l'objet ProduitBO
+                    int idProd = (int)reader["id_produit"];
+                    string libelle = reader["libelle_produit"].ToString();
+                    // Attention : SQL float -> C# double -> on cast en float pour ton objet
+                    float prix = Convert.ToSingle(reader["prix_vente_HT_produit"]);
+
+                    ProduitBO unProduit = new ProduitBO(idProd, libelle, uneCat, prix);
+
+                    // 3. Reconstitution de la ligne (Contenir)
+                    int qte = (int)reader["quantite_commandee"];
+                    float remise = Convert.ToSingle(reader["remise_par_ligne"]);
+
+                    // On crée un Devis "vide" juste pour satisfaire le constructeur de Contenir
+                    // (On a seulement besoin de l'ID ici)
+                    Devis leDevis = new Devis();
+                    leDevis.IdDevis = idDevis;
+
+                    Contenir uneLigne = new Contenir(unProduit, leDevis, qte, remise);
+
+                    lesLignes.Add(uneLigne);
+                }
+                reader.Close();
+            }
+            return lesLignes;
+        }
+
         public static int ModifierDevis(Devis devis)
         {
             string req = @"UPDATE DEVIS SET 

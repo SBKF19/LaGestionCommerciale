@@ -35,6 +35,12 @@
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDevis = new System.Windows.Forms.Panel();
+            this.txtTTC = new System.Windows.Forms.TextBox();
+            this.lblTTC = new System.Windows.Forms.Label();
+            this.txtMontantTVA = new System.Windows.Forms.TextBox();
+            this.lblMontantTVA = new System.Windows.Forms.Label();
+            this.txtHT = new System.Windows.Forms.TextBox();
+            this.lblHT = new System.Windows.Forms.Label();
             this.dgvModify = new System.Windows.Forms.DataGridView();
             this.select_produit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categorie = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,22 +48,22 @@
             this.quantite = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.remise = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deleteProduit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAjouter = new System.Windows.Forms.Button();
             this.lblProduits = new System.Windows.Forms.Label();
             this.numRemiseGlobale = new System.Windows.Forms.NumericUpDown();
             this.lblRemiseGlobale = new System.Windows.Forms.Label();
-            this.numTVA = new System.Windows.Forms.NumericUpDown();
             this.lblTVA = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtLivre = new System.Windows.Forms.TextBox();
+            this.txtPhone = new System.Windows.Forms.TextBox();
+            this.txtMail = new System.Windows.Forms.TextBox();
+            this.txtFacture = new System.Windows.Forms.TextBox();
             this.lblMail = new System.Windows.Forms.Label();
             this.lblTel = new System.Windows.Forms.Label();
             this.lblLivr = new System.Windows.Forms.Label();
             this.lblFact = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbClient = new System.Windows.Forms.ComboBox();
             this.lblClient = new System.Windows.Forms.Label();
             this.cmbStatut = new System.Windows.Forms.ComboBox();
             this.lblSatut = new System.Windows.Forms.Label();
@@ -66,11 +72,11 @@
             this.txtCode = new System.Windows.Forms.TextBox();
             this.lblCode = new System.Windows.Forms.Label();
             this.lblDetail = new System.Windows.Forms.Label();
+            this.numTVA = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRemiseGlobale)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTVA)).BeginInit();
             this.pnlClient.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,15 +134,21 @@
             // 
             // pnlDevis
             // 
+            this.pnlDevis.Controls.Add(this.numTVA);
+            this.pnlDevis.Controls.Add(this.txtTTC);
+            this.pnlDevis.Controls.Add(this.lblTTC);
+            this.pnlDevis.Controls.Add(this.txtMontantTVA);
+            this.pnlDevis.Controls.Add(this.lblMontantTVA);
+            this.pnlDevis.Controls.Add(this.txtHT);
+            this.pnlDevis.Controls.Add(this.lblHT);
             this.pnlDevis.Controls.Add(this.dgvModify);
             this.pnlDevis.Controls.Add(this.btnAjouter);
             this.pnlDevis.Controls.Add(this.lblProduits);
             this.pnlDevis.Controls.Add(this.numRemiseGlobale);
             this.pnlDevis.Controls.Add(this.lblRemiseGlobale);
-            this.pnlDevis.Controls.Add(this.numTVA);
             this.pnlDevis.Controls.Add(this.lblTVA);
             this.pnlDevis.Controls.Add(this.pnlClient);
-            this.pnlDevis.Controls.Add(this.comboBox1);
+            this.pnlDevis.Controls.Add(this.cmbClient);
             this.pnlDevis.Controls.Add(this.lblClient);
             this.pnlDevis.Controls.Add(this.cmbStatut);
             this.pnlDevis.Controls.Add(this.lblSatut);
@@ -151,6 +163,57 @@
             this.pnlDevis.TabIndex = 7;
             this.pnlDevis.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDevis_Paint);
             // 
+            // txtTTC
+            // 
+            this.txtTTC.Location = new System.Drawing.Point(437, 593);
+            this.txtTTC.Name = "txtTTC";
+            this.txtTTC.ReadOnly = true;
+            this.txtTTC.Size = new System.Drawing.Size(172, 20);
+            this.txtTTC.TabIndex = 29;
+            // 
+            // lblTTC
+            // 
+            this.lblTTC.AutoSize = true;
+            this.lblTTC.Location = new System.Drawing.Point(463, 577);
+            this.lblTTC.Name = "lblTTC";
+            this.lblTTC.Size = new System.Drawing.Size(70, 13);
+            this.lblTTC.TabIndex = 28;
+            this.lblTTC.Text = "Montant TTC";
+            // 
+            // txtMontantTVA
+            // 
+            this.txtMontantTVA.Location = new System.Drawing.Point(223, 593);
+            this.txtMontantTVA.Name = "txtMontantTVA";
+            this.txtMontantTVA.ReadOnly = true;
+            this.txtMontantTVA.Size = new System.Drawing.Size(161, 20);
+            this.txtMontantTVA.TabIndex = 27;
+            // 
+            // lblMontantTVA
+            // 
+            this.lblMontantTVA.AutoSize = true;
+            this.lblMontantTVA.Location = new System.Drawing.Point(247, 577);
+            this.lblMontantTVA.Name = "lblMontantTVA";
+            this.lblMontantTVA.Size = new System.Drawing.Size(70, 13);
+            this.lblMontantTVA.TabIndex = 26;
+            this.lblMontantTVA.Text = "Montant TVA";
+            // 
+            // txtHT
+            // 
+            this.txtHT.Location = new System.Drawing.Point(25, 593);
+            this.txtHT.Name = "txtHT";
+            this.txtHT.ReadOnly = true;
+            this.txtHT.Size = new System.Drawing.Size(151, 20);
+            this.txtHT.TabIndex = 25;
+            // 
+            // lblHT
+            // 
+            this.lblHT.AutoSize = true;
+            this.lblHT.Location = new System.Drawing.Point(38, 577);
+            this.lblHT.Name = "lblHT";
+            this.lblHT.Size = new System.Drawing.Size(64, 13);
+            this.lblHT.TabIndex = 24;
+            this.lblHT.Text = "Montant HT";
+            // 
             // dgvModify
             // 
             this.dgvModify.BackgroundColor = System.Drawing.SystemColors.Window;
@@ -161,12 +224,13 @@
             this.prixUnitaire,
             this.quantite,
             this.remise,
-            this.TotalHT});
+            this.TotalHT,
+            this.deleteProduit});
             this.dgvModify.Location = new System.Drawing.Point(25, 343);
             this.dgvModify.Name = "dgvModify";
             this.dgvModify.RowHeadersVisible = false;
             this.dgvModify.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvModify.Size = new System.Drawing.Size(933, 289);
+            this.dgvModify.Size = new System.Drawing.Size(933, 193);
             this.dgvModify.TabIndex = 23;
             this.dgvModify.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvModify_CellContentClick);
             // 
@@ -174,7 +238,7 @@
             // 
             this.select_produit.HeaderText = "Produit";
             this.select_produit.Name = "select_produit";
-            this.select_produit.Width = 430;
+            this.select_produit.Width = 330;
             // 
             // categorie
             // 
@@ -201,6 +265,11 @@
             this.TotalHT.HeaderText = "Total HT";
             this.TotalHT.Name = "TotalHT";
             // 
+            // deleteProduit
+            // 
+            this.deleteProduit.HeaderText = "supprimer";
+            this.deleteProduit.Name = "deleteProduit";
+            // 
             // btnAjouter
             // 
             this.btnAjouter.Location = new System.Drawing.Point(839, 312);
@@ -209,6 +278,7 @@
             this.btnAjouter.TabIndex = 22;
             this.btnAjouter.Text = "Ajouter un produit";
             this.btnAjouter.UseVisualStyleBackColor = true;
+            this.btnAjouter.Click += new System.EventHandler(this.btnAddProduit_Click);
             // 
             // lblProduits
             // 
@@ -235,18 +305,6 @@
             this.lblRemiseGlobale.TabIndex = 18;
             this.lblRemiseGlobale.Text = "Taux de remise globale (%)";
             // 
-            // numTVA
-            // 
-            this.numTVA.Location = new System.Drawing.Point(25, 272);
-            this.numTVA.Name = "numTVA";
-            this.numTVA.Size = new System.Drawing.Size(126, 20);
-            this.numTVA.TabIndex = 17;
-            this.numTVA.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            // 
             // lblTVA
             // 
             this.lblTVA.AutoSize = true;
@@ -258,10 +316,10 @@
             // 
             // pnlClient
             // 
-            this.pnlClient.Controls.Add(this.textBox4);
-            this.pnlClient.Controls.Add(this.textBox3);
-            this.pnlClient.Controls.Add(this.textBox2);
-            this.pnlClient.Controls.Add(this.textBox1);
+            this.pnlClient.Controls.Add(this.txtLivre);
+            this.pnlClient.Controls.Add(this.txtPhone);
+            this.pnlClient.Controls.Add(this.txtMail);
+            this.pnlClient.Controls.Add(this.txtFacture);
             this.pnlClient.Controls.Add(this.lblMail);
             this.pnlClient.Controls.Add(this.lblTel);
             this.pnlClient.Controls.Add(this.lblLivr);
@@ -271,33 +329,37 @@
             this.pnlClient.Size = new System.Drawing.Size(933, 154);
             this.pnlClient.TabIndex = 15;
             // 
-            // textBox4
+            // txtLivre
             // 
-            this.textBox4.Location = new System.Drawing.Point(69, 43);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(828, 20);
-            this.textBox4.TabIndex = 3;
+            this.txtLivre.Location = new System.Drawing.Point(69, 43);
+            this.txtLivre.Name = "txtLivre";
+            this.txtLivre.ReadOnly = true;
+            this.txtLivre.Size = new System.Drawing.Size(828, 20);
+            this.txtLivre.TabIndex = 3;
             // 
-            // textBox3
+            // txtPhone
             // 
-            this.textBox3.Location = new System.Drawing.Point(78, 80);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(819, 20);
-            this.textBox3.TabIndex = 5;
+            this.txtPhone.Location = new System.Drawing.Point(78, 80);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.ReadOnly = true;
+            this.txtPhone.Size = new System.Drawing.Size(819, 20);
+            this.txtPhone.TabIndex = 5;
             // 
-            // textBox2
+            // txtMail
             // 
-            this.textBox2.Location = new System.Drawing.Point(55, 113);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(842, 20);
-            this.textBox2.TabIndex = 7;
+            this.txtMail.Location = new System.Drawing.Point(55, 113);
+            this.txtMail.Name = "txtMail";
+            this.txtMail.ReadOnly = true;
+            this.txtMail.Size = new System.Drawing.Size(842, 20);
+            this.txtMail.TabIndex = 7;
             // 
-            // textBox1
+            // txtFacture
             // 
-            this.textBox1.Location = new System.Drawing.Point(63, 11);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(834, 20);
-            this.textBox1.TabIndex = 1;
+            this.txtFacture.Location = new System.Drawing.Point(63, 11);
+            this.txtFacture.Name = "txtFacture";
+            this.txtFacture.ReadOnly = true;
+            this.txtFacture.Size = new System.Drawing.Size(834, 20);
+            this.txtFacture.TabIndex = 1;
             // 
             // lblMail
             // 
@@ -335,13 +397,13 @@
             this.lblFact.TabIndex = 0;
             this.lblFact.Text = "Facture :";
             // 
-            // comboBox1
+            // cmbClient
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(698, 54);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(260, 21);
-            this.comboBox1.TabIndex = 13;
+            this.cmbClient.FormattingEnabled = true;
+            this.cmbClient.Location = new System.Drawing.Point(698, 54);
+            this.cmbClient.Name = "cmbClient";
+            this.cmbClient.Size = new System.Drawing.Size(260, 21);
+            this.cmbClient.TabIndex = 13;
             // 
             // lblClient
             // 
@@ -412,6 +474,14 @@
             this.lblDetail.TabIndex = 1;
             this.lblDetail.Text = "Détail";
             // 
+            // numTVA
+            // 
+            this.numTVA.Location = new System.Drawing.Point(25, 272);
+            this.numTVA.Name = "numTVA";
+            this.numTVA.ReadOnly = true;
+            this.numTVA.Size = new System.Drawing.Size(100, 20);
+            this.numTVA.TabIndex = 17;
+            // 
             // FrmDevis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -428,7 +498,6 @@
             this.pnlDevis.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRemiseGlobale)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTVA)).EndInit();
             this.pnlClient.ResumeLayout(false);
             this.pnlClient.PerformLayout();
             this.ResumeLayout(false);
@@ -444,7 +513,7 @@
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label lblCode;
         private System.Windows.Forms.DateTimePicker dtpDevis;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbClient;
         private System.Windows.Forms.Label lblClient;
         private System.Windows.Forms.ComboBox cmbStatut;
         private System.Windows.Forms.Label lblSatut;
@@ -453,26 +522,33 @@
         private System.Windows.Forms.Label lblFact;
         private System.Windows.Forms.Label lblMail;
         private System.Windows.Forms.Label lblTel;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtLivre;
+        private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.TextBox txtMail;
+        private System.Windows.Forms.TextBox txtFacture;
         private System.Windows.Forms.Label lblTVA;
-        private System.Windows.Forms.NumericUpDown numTVA;
         private System.Windows.Forms.NumericUpDown numRemiseGlobale;
         private System.Windows.Forms.Label lblRemiseGlobale;
         private System.Windows.Forms.Label lblProduits;
         private System.Windows.Forms.Button btnAjouter;
         private System.Windows.Forms.DataGridView dgvModify;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Code;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NomClient;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AdresseLivraison;
         private System.Windows.Forms.DataGridViewTextBoxColumn select_produit;
         private System.Windows.Forms.DataGridViewTextBoxColumn categorie;
         private System.Windows.Forms.DataGridViewTextBoxColumn prixUnitaire;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantite;
         private System.Windows.Forms.DataGridViewTextBoxColumn remise;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Code;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NomClient;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AdresseLivraison;
+        private System.Windows.Forms.DataGridViewTextBoxColumn deleteProduit;
+        private System.Windows.Forms.Label lblMontantTVA;
+        private System.Windows.Forms.TextBox txtHT;
+        private System.Windows.Forms.Label lblHT;
+        private System.Windows.Forms.TextBox txtTTC;
+        private System.Windows.Forms.Label lblTTC;
+        private System.Windows.Forms.TextBox txtMontantTVA;
+        private System.Windows.Forms.TextBox numTVA;
     }
 }
