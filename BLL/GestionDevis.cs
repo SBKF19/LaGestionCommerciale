@@ -26,6 +26,11 @@ namespace BLL
             ConnexionBD.GetConnexionBD().SetchaineConnexion(chaine);
         }
 
+        public static List<Devis> GetDevis()
+        {
+            return DevisDAO.GetDevis();
+        }
+
         public static int ModifierDevis(Devis idDevis)
         {
             return DevisDAO.ModifierDevis(idDevis);
@@ -34,6 +39,16 @@ namespace BLL
         public static int SupprimerDevis(int idDevis)
         {
             return DevisDAO.SupprimerDevis(idDevis);
+        }
+
+        public static int AjouterDevis(Devis devis)
+        {
+            return DevisDAO.AjouterDevis(devis);
+        }
+
+        public static List<Statut> GetStatuts()
+        {
+            return StatutDAO.GetStatuts();
         }
     }
 }
