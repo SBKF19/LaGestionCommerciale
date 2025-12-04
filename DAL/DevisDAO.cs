@@ -135,18 +135,18 @@ namespace DAL
         {
             using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
-                cnx.Open();
+                // CORRECTION MAJEURE : On ne réouvre pas si c'est déjà ouvert
+                if (cnx.State == ConnectionState.Closed) cnx.Open();
+
                 SqlTransaction transaction = cnx.BeginTransaction();
 
                 try
                 {
-                    // 1. Insert Devis
                     string reqDevis = @"INSERT INTO DEVIS (date_devis, TVA_devis, taux_remise_global_devis, montant_HT_devis, id_client, id_statut)
-                                VALUES (@date, @tva, @remise, @montant, @idClient, @idStatut);
-                                SELECT SCOPE_IDENTITY();";
+                                        VALUES (@date, @tva, @remise, @montant, @idClient, @idStatut);
+                                        SELECT SCOPE_IDENTITY();";
 
                     SqlCommand cmd = new SqlCommand(reqDevis, cnx, transaction);
-                    // ... (Paramètres identiques à avant) ...
                     cmd.Parameters.AddWithValue("@date", devis.Date_devis);
                     cmd.Parameters.AddWithValue("@tva", devis.TVA_devis);
                     cmd.Parameters.AddWithValue("@remise", devis.Taux_remise_global_devis);
@@ -155,24 +155,18 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@idStatut", devis.Statut.IdStatut);
 
                     int idDevisGenere = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    // 2. Mise à jour de l'ID du devis dans l'objet Devis
                     devis.IdDevis = idDevisGenere;
 
-                    // 3. Insert Lignes via ContenirDAO
                     foreach (Contenir ligne in devis.Lignes)
                     {
-                        // Important : On lie la ligne au nouveau Devis créé
                         ligne.Devis = devis;
-
-                        // Appel de ta méthode DAO
                         ContenirDAO.GetContenirDAO().AjouterContenir(ligne, cnx, transaction);
                     }
 
                     transaction.Commit();
                     return idDevisGenere;
                 }
-                catch (Exception)
+                catch
                 {
                     transaction.Rollback();
                     throw;
