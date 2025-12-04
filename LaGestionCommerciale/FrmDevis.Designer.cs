@@ -35,6 +35,9 @@
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDevis = new System.Windows.Forms.Panel();
+            this.btnSupprimer = new System.Windows.Forms.Button();
+            this.btnModifier = new System.Windows.Forms.Button();
+            this.numTVA = new System.Windows.Forms.TextBox();
             this.txtTTC = new System.Windows.Forms.TextBox();
             this.lblTTC = new System.Windows.Forms.Label();
             this.txtMontantTVA = new System.Windows.Forms.TextBox();
@@ -72,7 +75,6 @@
             this.txtCode = new System.Windows.Forms.TextBox();
             this.lblCode = new System.Windows.Forms.Label();
             this.lblDetail = new System.Windows.Forms.Label();
-            this.numTVA = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
@@ -134,6 +136,8 @@
             // 
             // pnlDevis
             // 
+            this.pnlDevis.Controls.Add(this.btnSupprimer);
+            this.pnlDevis.Controls.Add(this.btnModifier);
             this.pnlDevis.Controls.Add(this.numTVA);
             this.pnlDevis.Controls.Add(this.txtTTC);
             this.pnlDevis.Controls.Add(this.lblTTC);
@@ -162,6 +166,38 @@
             this.pnlDevis.Size = new System.Drawing.Size(978, 662);
             this.pnlDevis.TabIndex = 7;
             this.pnlDevis.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDevis_Paint);
+            // 
+            // btnSupprimer
+            // 
+            this.btnSupprimer.BackColor = System.Drawing.Color.Red;
+            this.btnSupprimer.ForeColor = System.Drawing.Color.White;
+            this.btnSupprimer.Location = new System.Drawing.Point(455, 256);
+            this.btnSupprimer.Name = "btnSupprimer";
+            this.btnSupprimer.Size = new System.Drawing.Size(108, 39);
+            this.btnSupprimer.TabIndex = 31;
+            this.btnSupprimer.Text = "Supprimer";
+            this.btnSupprimer.UseVisualStyleBackColor = false;
+            this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click);
+            // 
+            // btnModifier
+            // 
+            this.btnModifier.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnModifier.ForeColor = System.Drawing.Color.White;
+            this.btnModifier.Location = new System.Drawing.Point(325, 256);
+            this.btnModifier.Name = "btnModifier";
+            this.btnModifier.Size = new System.Drawing.Size(111, 40);
+            this.btnModifier.TabIndex = 30;
+            this.btnModifier.Text = "Modifier";
+            this.btnModifier.UseVisualStyleBackColor = false;
+            this.btnModifier.Click += new System.EventHandler(this.btnModifier_Click);
+            // 
+            // numTVA
+            // 
+            this.numTVA.Location = new System.Drawing.Point(25, 272);
+            this.numTVA.Name = "numTVA";
+            this.numTVA.ReadOnly = true;
+            this.numTVA.Size = new System.Drawing.Size(100, 20);
+            this.numTVA.TabIndex = 17;
             // 
             // txtTTC
             // 
@@ -474,14 +510,6 @@
             this.lblDetail.TabIndex = 1;
             this.lblDetail.Text = "Détail";
             // 
-            // numTVA
-            // 
-            this.numTVA.Location = new System.Drawing.Point(25, 272);
-            this.numTVA.Name = "numTVA";
-            this.numTVA.ReadOnly = true;
-            this.numTVA.Size = new System.Drawing.Size(100, 20);
-            this.numTVA.TabIndex = 17;
-            // 
             // FrmDevis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -550,5 +578,7 @@
         private System.Windows.Forms.Label lblTTC;
         private System.Windows.Forms.TextBox txtMontantTVA;
         private System.Windows.Forms.TextBox numTVA;
+        private System.Windows.Forms.Button btnSupprimer;
+        private System.Windows.Forms.Button btnModifier;
     }
 }

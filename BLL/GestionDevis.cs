@@ -55,14 +55,20 @@ namespace BLL
         {
             return DevisDAO.GetLignesDuDevis(idDevis);
         }
-        //public static int ModifierLigneContenir(Contenir c)
-        //{
-        //    return ContenirDAO.GetContenirDAO().ModifierContenir(c);
-        //}
 
-        //public static int SupprimerLigneContenir(int idProduit, int idDevis)
-        //{
-        //    return ContenirDAO.GetContenirDAO().SupprimerContenir(idProduit, idDevis);
-        //}
+        public static int AjouterLigneContenir(Contenir c)
+        {
+            return ContenirDAO.GetContenirDAO().AjouterContenir(c);
+        }
+
+        public static int ModifierLigneContenir(Contenir c)
+        {
+            return ContenirDAO.GetContenirDAO().ModifierContenir(c);
+        }
+
+        public static int SupprimerLigneContenir(int idProduit, int idDevis)
+        {
+            return ContenirDAO.GetContenirDAO().SupprimerContenir(idProduit, idDevis);
+        }
     }
 }

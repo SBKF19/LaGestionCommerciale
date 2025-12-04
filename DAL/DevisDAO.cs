@@ -140,16 +140,21 @@ namespace DAL
         public static int ModifierDevis(Devis devis)
         {
             string req = @"UPDATE DEVIS SET 
-                    date_devis = @dateDevis,
-                    TVA_devis = @tvaDevis,
-                    taux_remise_global_devis = @tauxRemiseGlobalDevis,
-                    montant_HT_devis = @montantHorsTaxeDevis,
-                    id_client = @client,
-                    id_statut = @statut
-                    WHERE id_devis = @id";
+                date_devis = @dateDevis,
+                TVA_devis = @tvaDevis,
+                taux_remise_global_devis = @tauxRemiseGlobalDevis,
+                montant_HT_devis = @montantHorsTaxeDevis,
+                id_client = @client,
+                id_statut = @statut
+                WHERE id_devis = @id";
+
             using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
-                cnx.Open();
+                if (cnx.State == ConnectionState.Closed)
+                {
+                    cnx.Open();
+                }
+
                 using (SqlCommand cmd = new SqlCommand(req, cnx))
                 {
                     cmd.Parameters.AddWithValue("@id", devis.IdDevis);
@@ -159,8 +164,8 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@montantHorsTaxeDevis", devis.Montant_HT_devis);
                     cmd.Parameters.AddWithValue("@client", devis.Client.IdClient);
                     cmd.Parameters.AddWithValue("@statut", devis.Statut.IdStatut);
-                    
-                    return cmd.ExecuteNonQuery(); 
+
+                    return cmd.ExecuteNonQuery();
                 }
             }
         }
