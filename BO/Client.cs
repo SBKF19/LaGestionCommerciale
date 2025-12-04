@@ -78,6 +78,10 @@ namespace BO
             this.NumRueLivraison = numRueLivraison;
             this.NomRueLivraison = nomRueLivraison;
         }
+
+        public Client()
+        {
+        }
     }
 }
 
