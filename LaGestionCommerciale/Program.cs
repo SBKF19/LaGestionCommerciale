@@ -29,7 +29,7 @@ namespace GUI
             // 3. Démarrage de l'application (CETTE PARTIE DOIT VENIR EN DERNIER)
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmDevis());
+            Application.Run(new FrmAjoutDeDevis());
 
             // REMARQUE : La ligne de connexion directe n'est plus nécessaire ici.
         }

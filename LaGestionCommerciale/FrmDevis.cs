@@ -102,5 +102,10 @@ namespace LaGestionCommerciale
         {
 
         }
+
+        private void dgvModify_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

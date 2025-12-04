@@ -30,6 +30,10 @@
         {
             this.btnAddDevis = new System.Windows.Forms.Button();
             this.dgvDevis = new System.Windows.Forms.DataGridView();
+            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NomClient = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDevis = new System.Windows.Forms.Panel();
             this.dgvModify = new System.Windows.Forms.DataGridView();
             this.select_produit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,10 +66,6 @@
             this.txtCode = new System.Windows.Forms.TextBox();
             this.lblCode = new System.Windows.Forms.Label();
             this.lblDetail = new System.Windows.Forms.Label();
-            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NomClient = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
@@ -102,6 +102,29 @@
             this.dgvDevis.Size = new System.Drawing.Size(428, 662);
             this.dgvDevis.TabIndex = 6;
             this.dgvDevis.VisibleChanged += new System.EventHandler(this.FrmDevis_Load);
+            // 
+            // Code
+            // 
+            this.Code.HeaderText = "Code";
+            this.Code.Name = "Code";
+            this.Code.Width = 50;
+            // 
+            // NomClient
+            // 
+            this.NomClient.HeaderText = "Nom client";
+            this.NomClient.Name = "NomClient";
+            this.NomClient.Width = 150;
+            // 
+            // Date
+            // 
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.Width = 125;
+            // 
+            // AdresseLivraison
+            // 
+            this.AdresseLivraison.HeaderText = "Prix";
+            this.AdresseLivraison.Name = "AdresseLivraison";
             // 
             // pnlDevis
             // 
@@ -145,6 +168,7 @@
             this.dgvModify.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvModify.Size = new System.Drawing.Size(933, 289);
             this.dgvModify.TabIndex = 23;
+            this.dgvModify.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvModify_CellContentClick);
             // 
             // select_produit
             // 
@@ -387,29 +411,6 @@
             this.lblDetail.Size = new System.Drawing.Size(56, 21);
             this.lblDetail.TabIndex = 1;
             this.lblDetail.Text = "Détail";
-            // 
-            // Code
-            // 
-            this.Code.HeaderText = "Code";
-            this.Code.Name = "Code";
-            this.Code.Width = 50;
-            // 
-            // NomClient
-            // 
-            this.NomClient.HeaderText = "Nom client";
-            this.NomClient.Name = "NomClient";
-            this.NomClient.Width = 150;
-            // 
-            // Date
-            // 
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.Width = 125;
-            // 
-            // AdresseLivraison
-            // 
-            this.AdresseLivraison.HeaderText = "Prix";
-            this.AdresseLivraison.Name = "AdresseLivraison";
             // 
             // FrmDevis
             // 
