@@ -460,9 +460,5 @@ namespace LaGestionCommerciale
         //        MessageBox.Show(ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
         //    }
         //}
-        private void dgvModify_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
