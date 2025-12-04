@@ -3,14 +3,7 @@ using BO;
 using GUI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using UtilisateursBLL;
 
@@ -22,100 +15,120 @@ namespace LaGestionCommerciale
         {
             InitializeComponent();
 
-            // Initialisation de la connexion à la BD
             var chset = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
-
             if (chset == null)
             {
-                MessageBox.Show("Chaîne de connexion 'gestion_commerciale' introuvable dans App.config !");
+                MessageBox.Show("Chaîne de connexion introuvable !");
                 return;
             }
-
             GestionClients.SetchaineConnexion(chset);
         }
 
         private void FrmDevis_Load(object sender, EventArgs e)
         {
+            dgvModify.CellValueChanged += dgvModify_CellValueChanged; // Pour recalculer
+            dgvModify.CurrentCellDirtyStateChanged += dgvModify_CurrentCellDirtyStateChanged; // Pour valider le clic immédiatement
+
             dgvModify.AllowUserToAddRows = false;
-            dgvModify.Columns.Clear();
+            dgvModify.AutoGenerateColumns = false;
+            dgvModify.Columns.Clear(); // On efface tout ce qui vient du Designer pour recréer proprement
 
-            // 1. Nettoyage
-            dgvModify.AllowUserToAddRows = false;
-            dgvModify.Columns.Clear();
+            dgvModify.DataError += dgvModify_DataError;
 
-            // --- Colonne PRODUIT (ComboBox) ---
-            DataGridViewComboBoxColumn dgvCmbProduit = new DataGridViewComboBoxColumn();
-            dgvCmbProduit.HeaderText = "Produit";
-            dgvCmbProduit.Name = "ProduitCol";
-            dgvCmbProduit.DataPropertyName = "Produit";
-            dgvCmbProduit.DataSource = GestionProduits.GetProduits();
-            dgvCmbProduit.DisplayMember = "Libelle";
-            dgvCmbProduit.ValueMember = "Code";
-            dgvModify.Columns.Add(dgvCmbProduit);
+            // --- 2. CRÉATION DES COLONNES PAR LE CODE ---
 
-            // --- Colonne CATÉGORIE (Readonly) ---
-            DataGridViewTextBoxColumn dgvTxtCat = new DataGridViewTextBoxColumn();
-            dgvTxtCat.HeaderText = "Catégorie";
-            dgvTxtCat.Name = "CatCol";
-            dgvTxtCat.ReadOnly = true;
-            dgvModify.Columns.Add(dgvTxtCat);
+            // A. Colonne PRODUIT (ComboBox)
+            DataGridViewComboBoxColumn colProd = new DataGridViewComboBoxColumn();
+            colProd.HeaderText = "Produit";
+            colProd.Name = "ProduitCol";
+            colProd.DataSource = GestionProduits.GetProduits();
+            colProd.DisplayMember = "Libelle";
+            colProd.ValueMember = "Code";
+            colProd.Width = 330;
+            dgvModify.Columns.Add(colProd);
+            
 
-            // --- Colonne PRIX U. HT (Readonly) ---
-            DataGridViewTextBoxColumn dgvTxtPrix = new DataGridViewTextBoxColumn();
-            dgvTxtPrix.HeaderText = "Prix U. HT";
-            dgvTxtPrix.Name = "PrixCol";
-            dgvTxtPrix.ReadOnly = true;
-            dgvModify.Columns.Add(dgvTxtPrix);
+            // B. Colonne CATÉGORIE (Texte Lecture Seule)
+            DataGridViewTextBoxColumn colCat = new DataGridViewTextBoxColumn();
+            colCat.HeaderText = "Catégorie";
+            colCat.Name = "CatCol";
+            colCat.ReadOnly = true;
+            dgvModify.Columns.Add(colCat);
 
-            // --- Colonne QUANTITÉ (COMBOBOX) ---
-            DataGridViewComboBoxColumn dgvCmbQuantite = new DataGridViewComboBoxColumn();
-            dgvCmbQuantite.HeaderText = "Qté";
-            dgvCmbQuantite.Name = "QuantiteCol";
-            // On remplit la combobox avec des chiffres de 1 à 100
-            for (int i = 1; i <= 100; i++) dgvCmbQuantite.Items.Add(i);
-            dgvModify.Columns.Add(dgvCmbQuantite);
+            // C. Colonne PRIX (Texte Lecture Seule)
+            DataGridViewTextBoxColumn colPrix = new DataGridViewTextBoxColumn();
+            colPrix.HeaderText = "Prix U. HT";
+            colPrix.Name = "PrixCol";
+            colPrix.ReadOnly = true;
+            dgvModify.Columns.Add(colPrix);
 
-            // --- Colonne REMISE % (COMBOBOX) ---
-            DataGridViewComboBoxColumn dgvCmbRemise = new DataGridViewComboBoxColumn();
-            dgvCmbRemise.HeaderText = "Rem.%";
-            dgvCmbRemise.Name = "RemiseCol";
-            // On remplit avec des valeurs fixes (0, 5, 10, 20...)
-            dgvCmbRemise.Items.AddRange(0, 5, 10, 15, 20, 25, 30, 40, 50);
-            dgvModify.Columns.Add(dgvCmbRemise);
+            // D. Colonne QUANTITÉ (ComboBox - Remplie en String pour sécurité)
+            DataGridViewComboBoxColumn colQte = new DataGridViewComboBoxColumn();
+            colQte.HeaderText = "Qté";
+            colQte.Name = "QuantiteCol";
+            for (int i = 1; i <= 100; i++) colQte.Items.Add(i.ToString());
+            dgvModify.Columns.Add(colQte);
 
-            // --- Colonne TOTAL HT (Readonly) ---
-            DataGridViewTextBoxColumn dgvTxtTotal = new DataGridViewTextBoxColumn();
-            dgvTxtTotal.HeaderText = "Total HT";
-            dgvTxtTotal.Name = "TotalCol";
-            dgvTxtTotal.ReadOnly = true;
-            dgvModify.Columns.Add(dgvTxtTotal);
+            // E. Colonne REMISE (ComboBox - Remplie en String de 0 à 100)
+            DataGridViewComboBoxColumn colRem = new DataGridViewComboBoxColumn();
+            colRem.HeaderText = "Rem.%";
+            colRem.Name = "RemiseCol";
 
-            // --- Colonne SUPPRIMER ---
-            DataGridViewButtonColumn dgvBtnDel = new DataGridViewButtonColumn();
-            dgvBtnDel.HeaderText = "Sup.";
-            dgvBtnDel.Name = "DeleteCol";
-            dgvBtnDel.Text = "X";
-            dgvBtnDel.UseColumnTextForButtonValue = true;
-            dgvModify.Columns.Add(dgvBtnDel);
+            // Boucle automatique de 0 à 100 (plus simple que de tout écrire)
+            for (int i = 0; i <= 100; i++)
+            {
+                colRem.Items.Add(i.ToString());
+            }
+            dgvModify.Columns.Add(colRem);
 
-            // chargement combobox Statuts
+            // F. Colonne TOTAL (Texte Lecture Seule)
+            DataGridViewTextBoxColumn colTotal = new DataGridViewTextBoxColumn();
+            colTotal.HeaderText = "Total HT";
+            colTotal.Name = "TotalCol";
+            colTotal.ReadOnly = true;
+            dgvModify.Columns.Add(colTotal);
+
+            // G. Colonne SUPPRIMER (Bouton)
+            DataGridViewButtonColumn colDel = new DataGridViewButtonColumn();
+            colDel.HeaderText = "Sup.";
+            colDel.Name = "DeleteCol";
+            colDel.Text = "X";
+            colDel.UseColumnTextForButtonValue = true;
+            dgvModify.Columns.Add(colDel);
+
+
+            // --- 3. CHARGEMENT DES DONNÉES EXTERNES ---
             cmbStatut.DataSource = GestionDevis.GetStatuts();
             cmbStatut.DisplayMember = "Nom_statut";
             cmbStatut.ValueMember = "IdStatut";
 
-            // chargement combobox utilisateurs
             cmbClient.DataSource = GestionClients.GetClients();
             cmbClient.DisplayMember = "NomClient";
             cmbClient.ValueMember = "IdClient";
-            // chargement
 
-            // charger la liste des devis
+            // --- 4. CHARGEMENT DE LA LISTE DES DEVIS ---
+            ChargerListeDevis();
+        }
+
+        private void dgvModify_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.ThrowException = false; // "Ne plante pas"
+            e.Cancel = false;         // "Garde la valeur même si tu penses qu'elle est fausse"
+        }
+
+        private void ChargerListeDevis()
+        {
             List<Devis> lesDevis = GestionDevis.GetDevis();
+
+            // On désactive l'event pour le chargement
+            dgvDevis.SelectionChanged -= dgvDevis_SelectionChanged;
+
+            dgvDevis.Rows.Clear();
             dgvDevis.ReadOnly = true;
             dgvDevis.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDevis.AllowUserToAddRows = false;
-            dgvDevis.Rows.Clear();
 
+            // Dans FrmDevis_Load, remplacez votre boucle foreach par celle-ci :
             foreach (Devis devis in lesDevis)
             {
                 // On ajoute la ligne et on récupère son index
@@ -125,22 +138,21 @@ namespace LaGestionCommerciale
                     devis.Date_devis,
                     devis.Montant_HT_devis
                 );
+
+                // IMPORTANT : On cache l'objet complet dans la propriété Tag de la ligne
                 dgvDevis.Rows[index].Tag = devis;
             }
 
-            // Sélectionne la première ligne
-            if (dgvDevis.Rows.Count > 0) { 
+            // Gestion de la sélection initiale
+            if (dgvDevis.Rows.Count > 0)
+            {
                 dgvDevis.Rows[0].Selected = true;
-
-            // Réactive l'événement
-            dgvDevis.SelectionChanged += dgvDevis_SelectionChanged;
-
-            // Remplit les champs pour la première ligne
-            RemplirChampsDepuisLigne(0);
+                RemplirChampsDepuisLigne(0);
             }
+
+            dgvDevis.SelectionChanged += dgvDevis_SelectionChanged;
         }
 
-        // Événement déclenché lors de la sélection d'une ligne dans le DataGridView
         private void dgvDevis_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvDevis.CurrentRow != null)
@@ -151,151 +163,174 @@ namespace LaGestionCommerciale
 
         private void RemplirChampsDepuisLigne(int index)
         {
-            // Rows[index] permet d'accéder à la ligne cliquée
             DataGridViewRow row = dgvDevis.Rows[index];
 
-            // On récupère l'objet Devis complet stocké dans le Tag
-            if (row.Tag is Devis devisSelectionne)
+            if (row.Tag is Devis devis)
             {
-                // --- 1. Champs existants ---
-                txtCode.Text = devisSelectionne.IdDevis.ToString();
-                dtpDevis.Value = devisSelectionne.Date_devis;
+                // Infos Générales
+                txtCode.Text = devis.IdDevis.ToString();
+                dtpDevis.Value = devis.Date_devis;
 
-                // Sélection des ComboBox
-                if (devisSelectionne.Client != null)
-                    cmbClient.SelectedValue = devisSelectionne.Client.IdClient;
+                if (devis.Client != null) cmbClient.SelectedValue = devis.Client.IdClient;
+                if (devis.Statut != null) cmbStatut.SelectedValue = devis.Statut.IdStatut;
 
-                if (devisSelectionne.Statut != null)
-                    cmbStatut.SelectedValue = devisSelectionne.Statut.IdStatut;
-
-                // --- 2. Infos Client (Téléphone & Mail) ---
-                // Vérifiez le nom de vos TextBox dans le Design (ici j'utilise txtPhone et txtMail)
-                if (devisSelectionne.Client != null)
+                // Infos Client
+                if (devis.Client != null)
                 {
-                    txtPhone.Text = devisSelectionne.Client.NumPhoneClient;
-                    txtMail.Text = devisSelectionne.Client.MailClient;
-
-                    // --- 3. Adresses (Concaténation) ---
-                    // On combine : N° + Rue + CP + Ville pour faire une belle phrase
-
-                    // Adresse de Facturation
-                    txtFacture.Text = string.Format("{0} {1}, {2} {3}",
-                        devisSelectionne.Client.NumRueFacture,
-                        devisSelectionne.Client.NomRueFacture,
-                        devisSelectionne.Client.CodePostalFacture,
-                        devisSelectionne.Client.VilleFacture).Trim();
-
-                    // Adresse de Livraison
-                    txtLivre.Text = string.Format("{0} {1}, {2} {3}",
-                        devisSelectionne.Client.NumRueLivraison,
-                        devisSelectionne.Client.NomRueLivraison,
-                        devisSelectionne.Client.CodePostalLivraison,
-                        devisSelectionne.Client.VilleLivraison).Trim();
+                    txtPhone.Text = devis.Client.NumPhoneClient;
+                    txtMail.Text = devis.Client.MailClient;
+                    txtFacture.Text = $"{devis.Client.NumRueFacture} {devis.Client.NomRueFacture}, {devis.Client.CodePostalFacture} {devis.Client.VilleFacture}";
+                    txtLivre.Text = $"{devis.Client.NumRueLivraison} {devis.Client.NomRueLivraison}, {devis.Client.CodePostalLivraison} {devis.Client.VilleLivraison}";
                 }
-
-                // --- 4. Taux (NumericUpDown) ---
-                // Les NumericUpDown demandent des types 'decimal'. Votre objet a surement des 'float' ou 'double'.
-                // Il faut donc convertir (caster).
 
                 try
                 {
-                    numTVA.Value = (decimal)devisSelectionne.TVA_devis;
-                    numRemiseGlobale.Value = (decimal)devisSelectionne.Taux_remise_global_devis;
+                    numTVA.Value = (decimal)devis.TVA_devis;
+                    numRemiseGlobale.Value = (decimal)devis.Taux_remise_global_devis;
                 }
-                catch
-                {
-                    // Sécurité au cas où la valeur dépasse le max du NumericUpDown
-                    numTVA.Value = 0;
-                    numRemiseGlobale.Value = 0;
-                }
+                catch { numTVA.Value = 0; numRemiseGlobale.Value = 0; }
 
-                // --- PARTIE 2 : REMPLISSAGE DU TABLEAU PRODUITS ---
-
-                // 1. Vider le tableau
+                // --- REMPLISSAGE DU TABLEAU PRODUITS ---
                 dgvModify.Rows.Clear();
+                List<Contenir> lesLignes = GestionDevis.GetLignesDuDevis(devis.IdDevis);
 
-                // 2. Récupérer les lignes depuis la base
-                // Note : On utilise l'ID du devis sélectionné
-                List<Contenir> lesLignes = GestionDevis.GetLignesDuDevis(devisSelectionne.IdDevis);
-
-                // 3. Remplir la grille
+                dgvModify.CellValueChanged -= dgvModify_CellValueChanged;
                 foreach (Contenir ligne in lesLignes)
                 {
-                    int i = dgvModify.Rows.Add(); // Ajoute une ligne vide
+                    int i = dgvModify.Rows.Add();
                     DataGridViewRow r = dgvModify.Rows[i];
 
-                    // A. Produit (ComboBox) : On sélectionne via l'ID (Code)
+                    // 1. Produit
                     r.Cells["ProduitCol"].Value = ligne.ProduitBO.Code;
 
-                    // B. Infos Lecture Seule (Catégorie & Prix)
+                    // 2. Infos ReadOnly
                     if (ligne.ProduitBO.Categorie != null)
-                        r.Cells["CatCol"].Value = ligne.ProduitBO.Categorie.NomCategorie; // Assure-toi que NomCategorie existe dans ta classe Categorie
-
+                        r.Cells["CatCol"].Value = ligne.ProduitBO.Categorie.NomCategorie;
                     r.Cells["PrixCol"].Value = ligne.ProduitBO.Prix;
 
-                    // C. Quantité (ComboBox)
-                    // Sécurité : Si la quantité de la BDD n'est pas dans la liste (1-100), on l'ajoute temporairement pour éviter le crash
+                    // 3. QUANTITÉ (Sécurisée avec String)
+                    string qteStr = ligne.Quantite_commandee.ToString();
                     DataGridViewComboBoxCell cellQte = (DataGridViewComboBoxCell)r.Cells["QuantiteCol"];
-                    if (!cellQte.Items.Contains(ligne.Quantite_commandee))
-                    {
-                        cellQte.Items.Add(ligne.Quantite_commandee);
-                    }
-                    cellQte.Value = ligne.Quantite_commandee;
+                    // Si la quantité (ex: 150) n'est pas dans la liste (1-100), on l'ajoute pour ne pas planter
+                    if (!cellQte.Items.Contains(qteStr)) cellQte.Items.Add(qteStr);
+                    cellQte.Value = qteStr;
 
-                    // D. Remise (ComboBox)
-                    // Sécurité : Idem pour la remise. Tes remises en BDD sont des float (ex: 5.0), 
-                    // ta combo attend peut-être des int (5). On convertit.
-                    int remiseInt = (int)ligne.Remise_par_ligne;
+                    // 4. REMISE (Sécurisée avec String)
+                    string remStr = ((int)ligne.Remise_par_ligne).ToString();
                     DataGridViewComboBoxCell cellRem = (DataGridViewComboBoxCell)r.Cells["RemiseCol"];
-                    if (!cellRem.Items.Contains(remiseInt))
-                    {
-                        cellRem.Items.Add(remiseInt);
-                    }
-                    cellRem.Value = remiseInt;
+                    // Si la remise n'est pas dans la liste standard, on l'ajoute
+                    if (!cellRem.Items.Contains(remStr)) cellRem.Items.Add(remStr);
+                    cellRem.Value = remStr;
 
-                    // E. Total HT (Calculé via ta propriété calculée dans Contenir)
-                    r.Cells["TotalCol"].Value = ligne.MontantHT_AvecRemise.ToString("F2");
+                    // 5. Total
+                    r.Cells["TotalCol"].Value = (ligne.ProduitBO.Prix * ligne.Quantite_commandee).ToString("F2");
+                    dgvModify.CellValueChanged += dgvModify_CellValueChanged;
                 }
             }
         }
 
-        // Assumons que le bouton d'ajout de produit s'appelle btnAddProduit
         private void btnAddProduit_Click(object sender, EventArgs e)
         {
-            // On permet l'ajout temporairement pour insérer une nouvelle ligne
             dgvModify.AllowUserToAddRows = true;
-
-            // Ajout d'une nouvelle ligne vide
-            // La méthode Add() renvoie l'index de la nouvelle ligne
             int rowIndex = dgvModify.Rows.Add();
+            DataGridViewRow newRow = dgvModify.Rows[rowIndex];
 
-            // Sélectionner la nouvelle ligne pour que l'utilisateur puisse la modifier immédiatement
-            dgvModify.CurrentCell = dgvModify.Rows[rowIndex].Cells["ProduitCol"];
+            // --- VALEURS PAR DÉFAUT (En String pour éviter les erreurs ComboBox) ---
+            newRow.Cells["QuantiteCol"].Value = "1";
+            newRow.Cells["RemiseCol"].Value = "0";
 
-            // Mettre le DataGridView en mode édition sur la nouvelle cellule
+            // Sélectionner le premier produit par défaut pour éviter une cellule vide
+            var colProduit = (DataGridViewComboBoxColumn)dgvModify.Columns["ProduitCol"];
+            if (colProduit.DataSource is List<ProduitBO> liste && liste.Count > 0)
+            {
+                newRow.Cells["ProduitCol"].Value = liste[0].Code;
+                newRow.Cells["PrixCol"].Value = liste[0].Prix;
+                if (liste[0].Categorie != null)
+                    newRow.Cells["CatCol"].Value = liste[0].Categorie.NomCategorie;
+            }
+
+            dgvModify.CurrentCell = newRow.Cells["ProduitCol"];
             dgvModify.BeginEdit(true);
-
-            // On désactive l'ajout pour éviter d'ajouter des lignes inutiles
             dgvModify.AllowUserToAddRows = false;
         }
 
         private void dgvModify_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // On vérifie que le clic n'est pas sur l'entête (-1) et qu'il est sur la colonne "DeleteCol"
+            // Gestion du bouton Supprimer "X"
             if (e.RowIndex >= 0 && dgvModify.Columns[e.ColumnIndex].Name == "DeleteCol")
-            {  
-                    dgvModify.Rows.RemoveAt(e.RowIndex);
+            {
+                dgvModify.Rows.RemoveAt(e.RowIndex);
             }
+        }
+
+        // 1. Cette méthode force la validation dès qu'on clique sur la liste déroulante
+        // (Sinon il faut cliquer ailleurs pour que le total change)
+        private void dgvModify_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dgvModify.IsCurrentCellDirty)
+            {
+                dgvModify.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        // 2. C'est ici que le calcul se fait en temps réel
+        private void dgvModify_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // On ignore si c'est l'entête ou si la ligne est vide
+            if (e.RowIndex < 0) return;
+
+            string colName = dgvModify.Columns[e.ColumnIndex].Name;
+
+            // On ne recalcule que si on touche à la Quantité, la Remise ou le Produit
+            if (colName == "QuantiteCol" || colName == "RemiseCol" || colName == "ProduitCol")
+            {
+                CalculerTotalLigne(e.RowIndex);
+            }
+        }
+
+        // 3. La logique mathématique isolée pour être propre
+        private void CalculerTotalLigne(int rowIndex)
+        {
+            DataGridViewRow row = dgvModify.Rows[rowIndex];
+
+            // --- A. Récupération des valeurs (Sécurisée) ---
+
+            // Prix
+            decimal prix = 0;
+            if (row.Cells["PrixCol"].Value != null)
+                decimal.TryParse(row.Cells["PrixCol"].Value.ToString(), out prix);
+
+            // Quantité
+            int qte = 0;
+            if (row.Cells["QuantiteCol"].Value != null)
+                int.TryParse(row.Cells["QuantiteCol"].Value.ToString(), out qte);
+
+            // Remise (Si vous voulez l'inclure dans le calcul)
+            decimal remise = 0;
+            if (row.Cells["RemiseCol"].Value != null)
+                decimal.TryParse(row.Cells["RemiseCol"].Value.ToString(), out remise);
+
+            // --- B. Le Calcul ---
+
+            // Formule simple (celle que vous avez montrée) :
+            // decimal total = prix * qte; 
+
+            // OU Formule avec Remise (Prix * Qté) - Remise% :
+            decimal totalSansRemise = prix * qte;
+            decimal montantRemise = totalSansRemise * (remise / 100);
+            decimal total = totalSansRemise - montantRemise;
+
+            // --- C. Affichage ---
+            row.Cells["TotalCol"].Value = total.ToString("F2");
         }
 
         private void btnAddDevis_Click(object sender, EventArgs e)
         {
-
+            // Logique d'ajout de devis ici
         }
 
         private void pnlDevis_Paint(object sender, PaintEventArgs e)
         {
-
         }
     }
 }

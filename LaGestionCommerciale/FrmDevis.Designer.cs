@@ -36,6 +36,13 @@
             this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDevis = new System.Windows.Forms.Panel();
             this.dgvModify = new System.Windows.Forms.DataGridView();
+            this.select_produit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categorie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prixUnitaire = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantite = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remise = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deleteProduit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAjouter = new System.Windows.Forms.Button();
             this.lblProduits = new System.Windows.Forms.Label();
             this.numRemiseGlobale = new System.Windows.Forms.NumericUpDown();
@@ -60,13 +67,6 @@
             this.txtCode = new System.Windows.Forms.TextBox();
             this.lblCode = new System.Windows.Forms.Label();
             this.lblDetail = new System.Windows.Forms.Label();
-            this.select_produit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categorie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prixUnitaire = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantite = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.remise = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deleteProduit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
@@ -168,9 +168,45 @@
             this.dgvModify.Name = "dgvModify";
             this.dgvModify.RowHeadersVisible = false;
             this.dgvModify.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvModify.Size = new System.Drawing.Size(933, 289);
+            this.dgvModify.Size = new System.Drawing.Size(933, 193);
             this.dgvModify.TabIndex = 23;
             this.dgvModify.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvModify_CellContentClick);
+            // 
+            // select_produit
+            // 
+            this.select_produit.HeaderText = "Produit";
+            this.select_produit.Name = "select_produit";
+            this.select_produit.Width = 330;
+            // 
+            // categorie
+            // 
+            this.categorie.HeaderText = "Catégorie";
+            this.categorie.Name = "categorie";
+            // 
+            // prixUnitaire
+            // 
+            this.prixUnitaire.HeaderText = "Prix unitaire HT";
+            this.prixUnitaire.Name = "prixUnitaire";
+            // 
+            // quantite
+            // 
+            this.quantite.HeaderText = "Qté";
+            this.quantite.Name = "quantite";
+            // 
+            // remise
+            // 
+            this.remise.HeaderText = "Rem.%";
+            this.remise.Name = "remise";
+            // 
+            // TotalHT
+            // 
+            this.TotalHT.HeaderText = "Total HT";
+            this.TotalHT.Name = "TotalHT";
+            // 
+            // deleteProduit
+            // 
+            this.deleteProduit.HeaderText = "supprimer";
+            this.deleteProduit.Name = "deleteProduit";
             // 
             // btnAjouter
             // 
@@ -383,42 +419,6 @@
             this.lblDetail.Size = new System.Drawing.Size(56, 21);
             this.lblDetail.TabIndex = 1;
             this.lblDetail.Text = "Détail";
-            // 
-            // select_produit
-            // 
-            this.select_produit.HeaderText = "Produit";
-            this.select_produit.Name = "select_produit";
-            this.select_produit.Width = 330;
-            // 
-            // categorie
-            // 
-            this.categorie.HeaderText = "Catégorie";
-            this.categorie.Name = "categorie";
-            // 
-            // prixUnitaire
-            // 
-            this.prixUnitaire.HeaderText = "Prix unitaire HT";
-            this.prixUnitaire.Name = "prixUnitaire";
-            // 
-            // quantite
-            // 
-            this.quantite.HeaderText = "Qté";
-            this.quantite.Name = "quantite";
-            // 
-            // remise
-            // 
-            this.remise.HeaderText = "Rem.%";
-            this.remise.Name = "remise";
-            // 
-            // TotalHT
-            // 
-            this.TotalHT.HeaderText = "Total HT";
-            this.TotalHT.Name = "TotalHT";
-            // 
-            // deleteProduit
-            // 
-            this.deleteProduit.HeaderText = "supprimer";
-            this.deleteProduit.Name = "deleteProduit";
             // 
             // FrmDevis
             // 
