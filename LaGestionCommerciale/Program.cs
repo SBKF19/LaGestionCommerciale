@@ -29,14 +29,7 @@ namespace GUI
             // 3. Démarrage de l'application (CETTE PARTIE DOIT VENIR EN DERNIER)
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-<<<<<<< HEAD
             Application.Run(new FrmDevis());
-=======
-            Application.Run(new FrmAjoutDeDevis());
-
-            SqlConnection maConnection = new SqlConnection(
-    "Server=localhost;Database=gestion_commerciale;Trusted_Connection=True;Persist Security Info=False;");
->>>>>>> master
 
             // REMARQUE : La ligne de connexion directe n'est plus nécessaire ici.
         }
