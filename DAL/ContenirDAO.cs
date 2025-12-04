@@ -15,38 +15,30 @@ namespace DAL
             return unContenirDAO;
         }
 
-        public int AjouterContenir(Contenir c, SqlConnection cnx, SqlTransaction transaction)
+        public int AjouterContenir(Contenir c, SqlConnection cnx = null, SqlTransaction transaction = null)
         {
-            string req = @"INSERT INTO CONTENIR (id_produit, id_devis, quantite_commandee, remise_par_ligne)
-                           VALUES (@idProduit, @idDevis, @qte, @remise)";
-
-            using (SqlCommand cmd = new SqlCommand(req, cnx, transaction))
+            bool closeConnexion = false;
+            if (cnx == null)
             {
-                cmd.Parameters.AddWithValue("@idProduit", c.ProduitBO.Code);
-                cmd.Parameters.AddWithValue("@idDevis", c.Devis.IdDevis);
-                cmd.Parameters.AddWithValue("@qte", c.Quantite_commandee);
-                cmd.Parameters.AddWithValue("@remise", c.Remise_par_ligne);
-
-                return cmd.ExecuteNonQuery();
-            }
-        }
-
-        public int AjouterContenir(Contenir c)
-        {
-            string req = @"INSERT INTO CONTENIR (id_produit, id_devis, quantite_commandee, remise_par_ligne)
-                           VALUES (@idProduit, @idDevis, @qte, @remise)";
-
-            using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
-            using (SqlCommand cmd = new SqlCommand(req, cnx))
-            {
+                cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion();
                 if (cnx.State == ConnectionState.Closed) cnx.Open();
+                closeConnexion = true;
+            }
 
+            using (SqlCommand cmd = new SqlCommand(
+                @"INSERT INTO CONTENIR (id_produit, id_devis, quantite_commandee, remise_par_ligne)
+          VALUES (@idProduit, @idDevis, @qte, @remise)", cnx, transaction))
+            {
                 cmd.Parameters.AddWithValue("@idProduit", c.ProduitBO.Code);
                 cmd.Parameters.AddWithValue("@idDevis", c.Devis.IdDevis);
                 cmd.Parameters.AddWithValue("@qte", c.Quantite_commandee);
                 cmd.Parameters.AddWithValue("@remise", c.Remise_par_ligne);
 
-                return cmd.ExecuteNonQuery();
+                int result = cmd.ExecuteNonQuery();
+
+                if (closeConnexion) cnx.Close();
+
+                return result;
             }
         }
 
