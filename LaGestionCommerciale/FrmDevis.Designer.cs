@@ -35,6 +35,12 @@
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDevis = new System.Windows.Forms.Panel();
+            this.txtTTC = new System.Windows.Forms.TextBox();
+            this.lblTTC = new System.Windows.Forms.Label();
+            this.txtMontantTVA = new System.Windows.Forms.TextBox();
+            this.lblMontantTVA = new System.Windows.Forms.Label();
+            this.txtHT = new System.Windows.Forms.TextBox();
+            this.lblHT = new System.Windows.Forms.Label();
             this.dgvModify = new System.Windows.Forms.DataGridView();
             this.select_produit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categorie = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +53,6 @@
             this.lblProduits = new System.Windows.Forms.Label();
             this.numRemiseGlobale = new System.Windows.Forms.NumericUpDown();
             this.lblRemiseGlobale = new System.Windows.Forms.Label();
-            this.numTVA = new System.Windows.Forms.NumericUpDown();
             this.lblTVA = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.txtLivre = new System.Windows.Forms.TextBox();
@@ -67,11 +72,11 @@
             this.txtCode = new System.Windows.Forms.TextBox();
             this.lblCode = new System.Windows.Forms.Label();
             this.lblDetail = new System.Windows.Forms.Label();
+            this.numTVA = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRemiseGlobale)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTVA)).BeginInit();
             this.pnlClient.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,12 +134,18 @@
             // 
             // pnlDevis
             // 
+            this.pnlDevis.Controls.Add(this.numTVA);
+            this.pnlDevis.Controls.Add(this.txtTTC);
+            this.pnlDevis.Controls.Add(this.lblTTC);
+            this.pnlDevis.Controls.Add(this.txtMontantTVA);
+            this.pnlDevis.Controls.Add(this.lblMontantTVA);
+            this.pnlDevis.Controls.Add(this.txtHT);
+            this.pnlDevis.Controls.Add(this.lblHT);
             this.pnlDevis.Controls.Add(this.dgvModify);
             this.pnlDevis.Controls.Add(this.btnAjouter);
             this.pnlDevis.Controls.Add(this.lblProduits);
             this.pnlDevis.Controls.Add(this.numRemiseGlobale);
             this.pnlDevis.Controls.Add(this.lblRemiseGlobale);
-            this.pnlDevis.Controls.Add(this.numTVA);
             this.pnlDevis.Controls.Add(this.lblTVA);
             this.pnlDevis.Controls.Add(this.pnlClient);
             this.pnlDevis.Controls.Add(this.cmbClient);
@@ -151,6 +162,57 @@
             this.pnlDevis.Size = new System.Drawing.Size(978, 662);
             this.pnlDevis.TabIndex = 7;
             this.pnlDevis.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDevis_Paint);
+            // 
+            // txtTTC
+            // 
+            this.txtTTC.Location = new System.Drawing.Point(437, 593);
+            this.txtTTC.Name = "txtTTC";
+            this.txtTTC.ReadOnly = true;
+            this.txtTTC.Size = new System.Drawing.Size(172, 20);
+            this.txtTTC.TabIndex = 29;
+            // 
+            // lblTTC
+            // 
+            this.lblTTC.AutoSize = true;
+            this.lblTTC.Location = new System.Drawing.Point(463, 577);
+            this.lblTTC.Name = "lblTTC";
+            this.lblTTC.Size = new System.Drawing.Size(70, 13);
+            this.lblTTC.TabIndex = 28;
+            this.lblTTC.Text = "Montant TTC";
+            // 
+            // txtMontantTVA
+            // 
+            this.txtMontantTVA.Location = new System.Drawing.Point(223, 593);
+            this.txtMontantTVA.Name = "txtMontantTVA";
+            this.txtMontantTVA.ReadOnly = true;
+            this.txtMontantTVA.Size = new System.Drawing.Size(161, 20);
+            this.txtMontantTVA.TabIndex = 27;
+            // 
+            // lblMontantTVA
+            // 
+            this.lblMontantTVA.AutoSize = true;
+            this.lblMontantTVA.Location = new System.Drawing.Point(247, 577);
+            this.lblMontantTVA.Name = "lblMontantTVA";
+            this.lblMontantTVA.Size = new System.Drawing.Size(70, 13);
+            this.lblMontantTVA.TabIndex = 26;
+            this.lblMontantTVA.Text = "Montant TVA";
+            // 
+            // txtHT
+            // 
+            this.txtHT.Location = new System.Drawing.Point(25, 593);
+            this.txtHT.Name = "txtHT";
+            this.txtHT.ReadOnly = true;
+            this.txtHT.Size = new System.Drawing.Size(151, 20);
+            this.txtHT.TabIndex = 25;
+            // 
+            // lblHT
+            // 
+            this.lblHT.AutoSize = true;
+            this.lblHT.Location = new System.Drawing.Point(38, 577);
+            this.lblHT.Name = "lblHT";
+            this.lblHT.Size = new System.Drawing.Size(64, 13);
+            this.lblHT.TabIndex = 24;
+            this.lblHT.Text = "Montant HT";
             // 
             // dgvModify
             // 
@@ -243,18 +305,6 @@
             this.lblRemiseGlobale.TabIndex = 18;
             this.lblRemiseGlobale.Text = "Taux de remise globale (%)";
             // 
-            // numTVA
-            // 
-            this.numTVA.Location = new System.Drawing.Point(25, 272);
-            this.numTVA.Name = "numTVA";
-            this.numTVA.Size = new System.Drawing.Size(126, 20);
-            this.numTVA.TabIndex = 17;
-            this.numTVA.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            // 
             // lblTVA
             // 
             this.lblTVA.AutoSize = true;
@@ -283,6 +333,7 @@
             // 
             this.txtLivre.Location = new System.Drawing.Point(69, 43);
             this.txtLivre.Name = "txtLivre";
+            this.txtLivre.ReadOnly = true;
             this.txtLivre.Size = new System.Drawing.Size(828, 20);
             this.txtLivre.TabIndex = 3;
             // 
@@ -290,6 +341,7 @@
             // 
             this.txtPhone.Location = new System.Drawing.Point(78, 80);
             this.txtPhone.Name = "txtPhone";
+            this.txtPhone.ReadOnly = true;
             this.txtPhone.Size = new System.Drawing.Size(819, 20);
             this.txtPhone.TabIndex = 5;
             // 
@@ -297,6 +349,7 @@
             // 
             this.txtMail.Location = new System.Drawing.Point(55, 113);
             this.txtMail.Name = "txtMail";
+            this.txtMail.ReadOnly = true;
             this.txtMail.Size = new System.Drawing.Size(842, 20);
             this.txtMail.TabIndex = 7;
             // 
@@ -304,6 +357,7 @@
             // 
             this.txtFacture.Location = new System.Drawing.Point(63, 11);
             this.txtFacture.Name = "txtFacture";
+            this.txtFacture.ReadOnly = true;
             this.txtFacture.Size = new System.Drawing.Size(834, 20);
             this.txtFacture.TabIndex = 1;
             // 
@@ -420,6 +474,14 @@
             this.lblDetail.TabIndex = 1;
             this.lblDetail.Text = "Détail";
             // 
+            // numTVA
+            // 
+            this.numTVA.Location = new System.Drawing.Point(25, 272);
+            this.numTVA.Name = "numTVA";
+            this.numTVA.ReadOnly = true;
+            this.numTVA.Size = new System.Drawing.Size(100, 20);
+            this.numTVA.TabIndex = 17;
+            // 
             // FrmDevis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,7 +498,6 @@
             this.pnlDevis.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRemiseGlobale)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTVA)).EndInit();
             this.pnlClient.ResumeLayout(false);
             this.pnlClient.PerformLayout();
             this.ResumeLayout(false);
@@ -466,7 +527,6 @@
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.TextBox txtFacture;
         private System.Windows.Forms.Label lblTVA;
-        private System.Windows.Forms.NumericUpDown numTVA;
         private System.Windows.Forms.NumericUpDown numRemiseGlobale;
         private System.Windows.Forms.Label lblRemiseGlobale;
         private System.Windows.Forms.Label lblProduits;
@@ -483,5 +543,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn remise;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalHT;
         private System.Windows.Forms.DataGridViewTextBoxColumn deleteProduit;
+        private System.Windows.Forms.Label lblMontantTVA;
+        private System.Windows.Forms.TextBox txtHT;
+        private System.Windows.Forms.Label lblHT;
+        private System.Windows.Forms.TextBox txtTTC;
+        private System.Windows.Forms.Label lblTTC;
+        private System.Windows.Forms.TextBox txtMontantTVA;
+        private System.Windows.Forms.TextBox numTVA;
     }
 }

@@ -97,7 +97,7 @@ namespace LaGestionCommerciale
             dgvModify.Columns.Add(colDel);
 
 
-            // --- 3. CHARGEMENT DES DONNÉES EXTERNES ---
+            // --- 3. CHARGEMENT DES COMBO BOX STATUT ET CLIENT ---
             cmbStatut.DataSource = GestionDevis.GetStatuts();
             cmbStatut.DisplayMember = "Nom_statut";
             cmbStatut.ValueMember = "IdStatut";
@@ -108,14 +108,8 @@ namespace LaGestionCommerciale
 
             // --- 4. CHARGEMENT DE LA LISTE DES DEVIS ---
             ChargerListeDevis();
+            numRemiseGlobale.ValueChanged += GlobalRates_ValueChanged;
         }
-
-        private void dgvModify_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            e.ThrowException = false; // "Ne plante pas"
-            e.Cancel = false;         // "Garde la valeur même si tu penses qu'elle est fausse"
-        }
-
         private void ChargerListeDevis()
         {
             List<Devis> lesDevis = GestionDevis.GetDevis();
@@ -167,14 +161,14 @@ namespace LaGestionCommerciale
 
             if (row.Tag is Devis devis)
             {
-                // Infos Générales
+                // --- REMPLISSAGE DU TABLEAU DEVIS ---
                 txtCode.Text = devis.IdDevis.ToString();
                 dtpDevis.Value = devis.Date_devis;
 
                 if (devis.Client != null) cmbClient.SelectedValue = devis.Client.IdClient;
                 if (devis.Statut != null) cmbStatut.SelectedValue = devis.Statut.IdStatut;
 
-                // Infos Client
+                // --- REMPLISSAGE DES DÉTAILS ---
                 if (devis.Client != null)
                 {
                     txtPhone.Text = devis.Client.NumPhoneClient;
@@ -185,10 +179,10 @@ namespace LaGestionCommerciale
 
                 try
                 {
-                    numTVA.Value = (decimal)devis.TVA_devis;
+                    numTVA.Text = devis.TVA_devis.ToString();
                     numRemiseGlobale.Value = (decimal)devis.Taux_remise_global_devis;
                 }
-                catch { numTVA.Value = 0; numRemiseGlobale.Value = 0; }
+                catch { numTVA.Text = "0"; numRemiseGlobale.Value = 0; }
 
                 // --- REMPLISSAGE DU TABLEAU PRODUITS ---
                 dgvModify.Rows.Clear();
@@ -225,6 +219,8 @@ namespace LaGestionCommerciale
                     // 5. Total
                     r.Cells["TotalCol"].Value = (ligne.ProduitBO.Prix * ligne.Quantite_commandee).ToString("F2");
                     dgvModify.CellValueChanged += dgvModify_CellValueChanged;
+
+                    CalculerTotauxGlobaux();
                 }
             }
         }
@@ -261,10 +257,11 @@ namespace LaGestionCommerciale
             {
                 dgvModify.Rows.RemoveAt(e.RowIndex);
             }
+
+            CalculerTotauxGlobaux();
         }
 
         // 1. Cette méthode force la validation dès qu'on clique sur la liste déroulante
-        // (Sinon il faut cliquer ailleurs pour que le total change)
         private void dgvModify_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (dgvModify.IsCurrentCellDirty)
@@ -322,15 +319,62 @@ namespace LaGestionCommerciale
 
             // --- C. Affichage ---
             row.Cells["TotalCol"].Value = total.ToString("F2");
+
+            CalculerTotauxGlobaux();
         }
 
-        private void btnAddDevis_Click(object sender, EventArgs e)
+        private void CalculerTotauxGlobaux()
         {
-            // Logique d'ajout de devis ici
+            decimal totalLignesHT = 0;
+
+            // 1. On additionne le montant HT de chaque ligne
+            foreach (DataGridViewRow row in dgvModify.Rows)
+            {
+                if (row.Cells["TotalCol"].Value != null)
+                {
+                    decimal valLigne = 0;
+                    // On convertit le texte "100,00" en chiffre
+                    decimal.TryParse(row.Cells["TotalCol"].Value.ToString(), out valLigne);
+                    totalLignesHT += valLigne;
+                }
+            }
+
+            // 2. Gestion de la Remise GLOBALE (NumericUpDown)
+            // On garde .Value car c'est surement encore un NumericUpDown
+            decimal tauxRemiseGlobal = numRemiseGlobale.Value;
+            decimal montantRemiseGlobal = totalLignesHT * (tauxRemiseGlobal / 100);
+            decimal totalHTNet = totalLignesHT - montantRemiseGlobal;
+
+            // 3. Gestion de la TVA (TextBox - FIX)
+            decimal tauxTVA = 0;
+            // On essaie de convertir le texte en chiffre. Si le texte est vide ou invalide, ça restera 0.
+            decimal.TryParse(numTVA.Text, out tauxTVA);
+
+            decimal montantTVA = totalHTNet * (tauxTVA / 100);
+
+            // 4. Calcul TTC
+            decimal totalTTC = totalHTNet + montantTVA;
+
+            // 5. Affichage dans les TextBox du bas
+            // Remplacez les noms ci-dessous par les noms réels de vos TextBox
+            txtHT.Text = totalHTNet.ToString("F2");
+            txtMontantTVA.Text = montantTVA.ToString("F2");
+            txtTTC.Text = totalTTC.ToString("F2");
+        }
+
+        private void GlobalRates_ValueChanged(object sender, EventArgs e)
+        {
+            CalculerTotauxGlobaux();
         }
 
         private void pnlDevis_Paint(object sender, PaintEventArgs e)
         {
+        }
+
+        private void dgvModify_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.ThrowException = false; // "Ne plante pas"
+            e.Cancel = false;         // "Garde la valeur même si tu penses qu'elle est fausse"
         }
     }
 }
