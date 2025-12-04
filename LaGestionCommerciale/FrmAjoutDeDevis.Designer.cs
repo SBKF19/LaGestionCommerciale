@@ -208,8 +208,9 @@
             // 
             this.btnAjouterLigne.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(20)))));
             this.btnAjouterLigne.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAjouterLigne.FlatAppearance.BorderSize = 0;
             this.btnAjouterLigne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAjouterLigne.FlatAppearance.BorderSize = 2; // Bordure épaisse
+            this.btnAjouterLigne.FlatAppearance.BorderColor = System.Drawing.Color.White; // Couleur Blanche
             this.btnAjouterLigne.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnAjouterLigne.ForeColor = System.Drawing.Color.White;
             this.btnAjouterLigne.Location = new System.Drawing.Point(710, 227);
@@ -324,8 +325,9 @@
             // 
             this.btnValider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.btnValider.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnValider.FlatAppearance.BorderSize = 0;
             this.btnValider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnValider.FlatAppearance.BorderSize = 2; // Bordure épaisse
+            this.btnValider.FlatAppearance.BorderColor = System.Drawing.Color.White; // Blanche
             this.btnValider.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnValider.ForeColor = System.Drawing.Color.White;
             this.btnValider.Location = new System.Drawing.Point(23, 580);
@@ -340,8 +342,9 @@
             // 
             this.btnRetour.BackColor = System.Drawing.Color.White;
             this.btnRetour.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnRetour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetour.FlatAppearance.BorderSize = 2; // Bordure épaisse
+            this.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.White; // Blanche (sera subtile sur fond clair)
             this.btnRetour.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnRetour.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnRetour.Location = new System.Drawing.Point(673, 580);
