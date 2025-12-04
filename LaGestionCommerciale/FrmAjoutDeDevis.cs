@@ -122,5 +122,10 @@ namespace LaGestionCommerciale
         {
             this.Close();
         }
+
+        private void FrmAjoutDeDevis_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

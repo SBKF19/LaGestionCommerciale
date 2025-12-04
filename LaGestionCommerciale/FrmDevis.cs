@@ -18,7 +18,7 @@ namespace LaGestionCommerciale
 {
     public partial class FrmDevis : Form
     {
-        //private Devis devisCourant;
+        public object ContenirDAO { get; private set; }
 
         public FrmDevis()
         {
@@ -386,79 +386,198 @@ namespace LaGestionCommerciale
             e.Cancel = false;         // "Garde la valeur même si tu penses qu'elle est fausse"
         }
 
-        //private void btnModifier_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        // Récupération des champs
-        //        string statut = cmbStatut.Text.Trim();
-        //        var clientSelectionne = cmbClient.SelectedItem;
-        //        var produitSelectionne = cmbProduit.SelectedItem;
+        private void btnModifier_Click(object sender, EventArgs e)
+        {
+            // --- 1. VALIDATIONS PRÉLIMINAIRES ---
 
-        //        if (clientSelectionne == null || produitSelectionne == null)
-        //            throw new Exception("Veuillez sélectionner un client et un produit.");
+            // A. Vérifier qu'un devis est sélectionné
+            if (dgvDevis.CurrentRow == null || dgvDevis.CurrentRow.Tag == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un devis à modifier.");
+                return;
+            }
 
-        //        int quantite = (int)numQuantite.Value;
-        //        float remiseProduit = (float)numRemiseProduit.Value;
-        //        float remiseGlobale = (float)numRemiseGlobale.Value;
+            // B. Vérifier Client et Statut
+            if (cmbClient.SelectedValue == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un client.");
+                return;
+            }
+            if (cmbStatut.SelectedValue == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un statut.");
+                return;
+            }
 
-        //        if (quantite <= 0)
-        //            throw new Exception("La quantité doit être > 0.");
+            // C. Vérifier qu'il y a au moins une ligne de produit
+            bool aDesProduits = false;
+            foreach (DataGridViewRow row in dgvModify.Rows)
+            {
+                if (row.Cells["ProduitCol"].Value != null)
+                {
+                    aDesProduits = true;
+                    break;
+                }
+            }
 
-        //        // Vérifier qu'une ligne est sélectionnée
-        //        if (dgvDevis.SelectedRows.Count == 0)
-        //            throw new Exception("Veuillez sélectionner une ligne.");
+            if (!aDesProduits)
+            {
+                MessageBox.Show("Le devis doit contenir au moins un produit.");
+                return;
+            }
 
-        //        // Récupération des clés (idDevis + idProduit)
-        //        int idProduit = ((ProduitBO)produitSelectionne).Code;
-        //        int idDevis = devisCourant.IdDevis;  // garde ton Devis actuel dans une variable globale
+            // D. Vérifier les Quantités et les Doublons
+            List<int> produitsVerif = new List<int>();
 
-        //        // Reconstruction de la ligne
-        //        Contenir ligne = new Contenir(
-        //            (ProduitBO)produitSelectionne,
-        //            devisCourant,
-        //            quantite,
-        //            remiseProduit
-        //        );
+            foreach (DataGridViewRow row in dgvModify.Rows)
+            {
+                if (row.Cells["ProduitCol"].Value == null) continue;
 
-        //        // Mise à jour ligne CONTENIR
-        //        int nb = GestionDevis.ModifierLigneContenir(ligne);
-        //        if (nb == 0)
-        //            throw new Exception("La modification de la ligne a échoué.");
+                int idProd = (int)row.Cells["ProduitCol"].Value;
 
+                // 1. Check Doublon
+                if (produitsVerif.Contains(idProd))
+                {
+                    MessageBox.Show($"Le produit (ID: {idProd}) est présent plusieurs fois. Veuillez regrouper les lignes.");
+                    return;
+                }
+                produitsVerif.Add(idProd);
 
-        //        // Mise à jour du DEVIS (remise globale, statut, date…)
-        //        devisCourant.Date_devis = dtpDevis.Value;
-        //        devisCourant.Taux_remise_global_devis = remiseGlobale;
+                // 2. Check Quantité
+                int qteVerif = 0;
+                if (row.Cells["QuantiteCol"].Value != null)
+                    int.TryParse(row.Cells["QuantiteCol"].Value.ToString(), out qteVerif);
 
-        //        GestionDevis.ModifierDevis(devisCourant);
+                if (qteVerif <= 0)
+                {
+                    MessageBox.Show($"La quantité pour le produit (ID: {idProd}) doit être supérieure à 0.");
+                    return;
+                }
+            }
 
-        //        Devis devis = new Devis(
-        //            dtpDevis.Value,            // DateTime
-        //            tVA_devis,                  // float (ex : 20f)
-        //            (float)remiseGlobale,      // float
-        //            montantHT,                 // float (calcule ou récupère)
-        //            (Client)clientSelectionne, // Client
-        //            (Statut)cmbStatut.SelectedItem // Statut
-        //        );
+            // --- FIN DES VALIDATIONS, DÉBUT DU TRAITEMENT ---
 
-        //        // Mise à jour DataGridView
-        //        var row = dgvDevis.SelectedRows[0];
+            Devis devisOriginal = (Devis)dgvDevis.CurrentRow.Tag;
+            int idDevis = devisOriginal.IdDevis;
 
-        //        row.Cells["Produit"].Value = ((ProduitBO)produitSelectionne).Libelle;
-        //        row.Cells["Quantite"].Value = quantite;
-        //        row.Cells["RemiseProduit"].Value = remiseProduit;
+            // 2. Mise à jour de l'entête du devis
+            Devis devisModif = new Devis();
+            devisModif.IdDevis = idDevis;
+            devisModif.Date_devis = dtpDevis.Value;
 
-        //        // Recalcul totals
-        //        CalculerTotaux();
+            float tva = 0;
+            float.TryParse(numTVA.Text, out tva);
+            devisModif.TVA_devis = tva;
 
-        //        MessageBox.Show("Devis modifié avec succès.", "OK",
-        //            MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+            devisModif.Taux_remise_global_devis = (float)numRemiseGlobale.Value;
+
+            float montantHT = 0;
+            float.TryParse(txtHT.Text, out montantHT);
+            devisModif.Montant_HT_devis = montantHT;
+
+            // Attention : Assurez-vous d'avoir le constructeur vide dans BO.Client ou utilisez le constructeur complet
+            Client c = new Client();
+            c.IdClient = (int)cmbClient.SelectedValue;
+            devisModif.Client = c;
+
+            Statut s = new Statut((int)cmbStatut.SelectedValue, cmbStatut.Text);
+            devisModif.Statut = s;
+
+            // Mise à jour SQL de l'entête
+            GestionDevis.ModifierDevis(devisModif);
+
+            // 3. Gestion des lignes (Ajout / Modif / Suppression)
+            List<Contenir> lignesBD = GestionDevis.GetLignesDuDevis(idDevis);
+            List<int> produitsTraites = new List<int>();
+
+            foreach (DataGridViewRow row in dgvModify.Rows)
+            {
+                if (row.Cells["ProduitCol"].Value == null) continue;
+
+                int idProduit = (int)row.Cells["ProduitCol"].Value;
+                int qte = int.Parse(row.Cells["QuantiteCol"].Value.ToString());
+                float remise = float.Parse(row.Cells["RemiseCol"].Value.ToString());
+
+                ProduitBO p = new ProduitBO(idProduit, "", null, 0);
+                Contenir ligne = new Contenir(p, devisModif, qte, remise);
+
+                if (lignesBD.Any(x => x.ProduitBO.Code == idProduit))
+                {
+                    // Le produit existait déjà -> UPDATE
+                    GestionDevis.ModifierLigneContenir(ligne);
+                }
+                else
+                {
+                    // Le produit est nouveau -> INSERT
+                    GestionDevis.AjouterLigneContenir(ligne);
+                }
+
+                produitsTraites.Add(idProduit);
+            }
+
+            // 4. Suppression des lignes qui ne sont plus dans la grille
+            foreach (Contenir ligneOld in lignesBD)
+            {
+                if (!produitsTraites.Contains(ligneOld.ProduitBO.Code))
+                {
+                    GestionDevis.SupprimerLigneContenir(ligneOld.ProduitBO.Code, idDevis);
+                }
+            }
+
+            // 5. Rafraichissement
+            ChargerListeDevis();
+
+            // Resélectionner la ligne modifiée
+            foreach (DataGridViewRow row in dgvDevis.Rows)
+            {
+                if (((Devis)row.Tag).IdDevis == idDevis)
+                {
+                    row.Selected = true;
+                    dgvDevis.CurrentCell = row.Cells[0];
+                    break;
+                }
+            }
+
+            MessageBox.Show("Devis modifié avec succès !");
+        }
+
+        private void btnSupprimer_Click(object sender, EventArgs e)
+        {
+            if (dgvDevis.CurrentRow == null || dgvDevis.CurrentRow.Tag == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un devis à supprimer.");
+                return;
+            }
+
+            Devis devisASupprimer = (Devis)dgvDevis.CurrentRow.Tag;
+
+            DialogResult reponse = MessageBox.Show(
+                $"Voulez-vous vraiment supprimer le devis N° {devisASupprimer.IdDevis} ?",
+                "Confirmation de suppression",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (reponse == DialogResult.Yes)
+            {
+                List<Contenir> lignes = GestionDevis.GetLignesDuDevis(devisASupprimer.IdDevis);
+                foreach (var ligne in lignes)
+                {
+                    GestionDevis.SupprimerLigneContenir(ligne.ProduitBO.Code, devisASupprimer.IdDevis);
+                }
+
+                GestionDevis.SupprimerDevis(devisASupprimer.IdDevis);
+
+                ChargerListeDevis();
+
+                // Vider les champs si plus aucun devis
+                if (dgvDevis.Rows.Count == 0)
+                {
+                    dgvModify.Rows.Clear();
+                    txtCode.Clear();
+                    txtHT.Clear();
+                    txtTTC.Clear();
+                }
+            }
+        }
     }
 }
