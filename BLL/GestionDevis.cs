@@ -26,6 +26,11 @@ namespace BLL
             ConnexionBD.GetConnexionBD().SetchaineConnexion(chaine);
         }
 
+        public static List<Devis> GetDevis()
+        {
+            return DevisDAO.GetDevis();
+        }
+
         public static int ModifierDevis(Devis idDevis)
         {
             return DevisDAO.ModifierDevis(idDevis);
