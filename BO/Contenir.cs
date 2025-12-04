@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BO
 {
@@ -25,5 +21,14 @@ namespace BO
             this.Quantite_commandee = quantite_commandee;
             this.Remise_par_ligne = remise_par_ligne;
         }
+
+        // --- CORRECTION : Utilisation de .Prix (tel que défini dans ProduitBO) ---
+        public float PrixUnitaire => ProduitBO.Prix;
+
+        public float MontantHT_SansRemise => PrixUnitaire * Quantite_commandee;
+
+        public float MontantRemise => MontantHT_SansRemise * (Remise_par_ligne / 100);
+
+        public float MontantHT_AvecRemise => MontantHT_SansRemise - MontantRemise;
     }
 }

@@ -40,5 +40,15 @@ namespace BLL
         {
             return DevisDAO.SupprimerDevis(idDevis);
         }
+
+        public static int AjouterDevis(Devis devis)
+        {
+            return DevisDAO.AjouterDevis(devis);
+        }
+
+        public static List<Statut> GetStatuts()
+        {
+            return StatutDAO.GetStatuts();
+        }
     }
 }
