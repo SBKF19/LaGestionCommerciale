@@ -87,13 +87,14 @@ namespace DAL
                     taux_remise_global_devis = @tauxRemiseGlobalDevis,
                     montant_HT_devis = @montantHorsTaxeDevis,
                     id_client = @client,
-                    id_statut = @statut,
+                    id_statut = @statut
                     WHERE id_devis = @id";
             using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
                 cnx.Open();
                 using (SqlCommand cmd = new SqlCommand(req, cnx))
                 {
+                    cmd.Parameters.AddWithValue("@id", devis.IdDevis);
                     cmd.Parameters.AddWithValue("@dateDevis", devis.Date_devis);
                     cmd.Parameters.AddWithValue("@tvaDevis", devis.TVA_devis);
                     cmd.Parameters.AddWithValue("@tauxRemiseGlobalDevis", devis.Taux_remise_global_devis);

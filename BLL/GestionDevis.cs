@@ -50,5 +50,15 @@ namespace BLL
         {
             return StatutDAO.GetStatuts();
         }
+
+        //public static int ModifierLigneContenir(Contenir c)
+        //{
+        //    return ContenirDAO.GetContenirDAO().ModifierContenir(c);
+        //}
+
+        //public static int SupprimerLigneContenir(int idProduit, int idDevis)
+        //{
+        //    return ContenirDAO.GetContenirDAO().SupprimerContenir(idProduit, idDevis);
+        //}
     }
 }
