@@ -52,6 +52,12 @@
     <Compile Include="FrmAjoutDeClients.Designer.cs">
       <DependentUpon>FrmAjoutDeClients.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAjoutDeDevis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAjoutDeDevis.Designer.cs">
+      <DependentUpon>FrmAjoutDeDevis.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAjoutDeProduit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FrmAjoutDeClients.resx">
       <DependentUpon>FrmAjoutDeClients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAjoutDeDevis.resx">
+      <DependentUpon>FrmAjoutDeDevis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAjoutDeProduit.resx">
       <DependentUpon>FrmAjoutDeProduit.cs</DependentUpon>

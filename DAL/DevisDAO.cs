@@ -74,5 +74,54 @@ namespace DAL
 
             return nbEnr;
         }
+
+        public static int AjouterDevis(Devis devis)
+        {
+            using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
+            {
+                cnx.Open();
+                SqlTransaction transaction = cnx.BeginTransaction();
+
+                try
+                {
+                    // 1. Insert Devis
+                    string reqDevis = @"INSERT INTO DEVIS (date_devis, TVA_devis, taux_remise_global_devis, montant_HT_devis, id_client, id_statut)
+                                VALUES (@date, @tva, @remise, @montant, @idClient, @idStatut);
+                                SELECT SCOPE_IDENTITY();";
+
+                    SqlCommand cmd = new SqlCommand(reqDevis, cnx, transaction);
+                    // ... (Paramètres identiques à avant) ...
+                    cmd.Parameters.AddWithValue("@date", devis.Date_devis);
+                    cmd.Parameters.AddWithValue("@tva", devis.TVA_devis);
+                    cmd.Parameters.AddWithValue("@remise", devis.Taux_remise_global_devis);
+                    cmd.Parameters.AddWithValue("@montant", devis.Montant_HT_devis);
+                    cmd.Parameters.AddWithValue("@idClient", devis.Client.IdClient);
+                    cmd.Parameters.AddWithValue("@idStatut", devis.Statut.IdStatut);
+
+                    int idDevisGenere = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    // 2. Mise à jour de l'ID du devis dans l'objet Devis
+                    devis.IdDevis = idDevisGenere;
+
+                    // 3. Insert Lignes via ContenirDAO
+                    foreach (Contenir ligne in devis.Lignes)
+                    {
+                        // Important : On lie la ligne au nouveau Devis créé
+                        ligne.Devis = devis;
+
+                        // Appel de ta méthode DAO
+                        ContenirDAO.GetContenirDAO().AjouterContenir(ligne, cnx, transaction);
+                    }
+
+                    transaction.Commit();
+                    return idDevisGenere;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
     }
 }
