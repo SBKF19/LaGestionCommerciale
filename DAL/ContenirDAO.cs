@@ -1,23 +1,35 @@
-﻿using BO;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
+using BO;
 
 namespace DAL
 {
     public class ContenirDAO
     {
         private static ContenirDAO unContenirDAO;
+
         public static ContenirDAO GetContenirDAO()
         {
             if (unContenirDAO == null)
-            {
                 unContenirDAO = new ContenirDAO();
-            }
             return unContenirDAO;
+        }
+
+        public int AjouterContenir(Contenir c, SqlConnection cnx, SqlTransaction transaction)
+        {
+            string req = @"INSERT INTO CONTENIR (id_produit, id_devis, quantite_commandee, remise_par_ligne)
+                           VALUES (@idProduit, @idDevis, @qte, @remise)";
+
+            using (SqlCommand cmd = new SqlCommand(req, cnx, transaction))
+            {
+                // --- CORRECTION : Utilisation de .Code au lieu de IdProduit ---
+                cmd.Parameters.AddWithValue("@idProduit", c.ProduitBO.Code);
+
+                cmd.Parameters.AddWithValue("@idDevis", c.Devis.IdDevis);
+                cmd.Parameters.AddWithValue("@qte", c.Quantite_commandee);
+                cmd.Parameters.AddWithValue("@remise", c.Remise_par_ligne);
+
+                return cmd.ExecuteNonQuery();
+            }
         }
 
         public int ModifierContenir(Contenir c)
