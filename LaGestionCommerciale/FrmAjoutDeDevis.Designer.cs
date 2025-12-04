@@ -52,7 +52,7 @@
             // CONFIGURATION GLOBALE
             // 
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250))))); // Gris très clair moderne
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250))))); // Gris très clair
             this.ClientSize = new System.Drawing.Size(820, 650);
             this.Text = "Détail Devis";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -69,7 +69,7 @@
             this.lblCode.ForeColor = System.Drawing.Color.DimGray;
 
             this.txtCode.Enabled = false;
-            this.txtCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(236)))), ((int)(((byte)(239))))); // Gris input disabled
+            this.txtCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.txtCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCode.Location = new System.Drawing.Point(23, 40);
             this.txtCode.Name = "txtCode";
@@ -118,15 +118,15 @@
             this.cbClient.SelectedIndexChanged += new System.EventHandler(this.cbClient_SelectedIndexChanged);
 
             // =========================================================================
-            // ZONE INFO CLIENT (Bleu)
+            // ZONE INFO CLIENT
             // =========================================================================
-            this.lblClientInfos.BackColor = System.Drawing.Color.AliceBlue; // Le fameux bleu clair
-            this.lblClientInfos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle; // Bordure fine
+            this.lblClientInfos.BackColor = System.Drawing.Color.AliceBlue;
+            this.lblClientInfos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblClientInfos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
             this.lblClientInfos.Location = new System.Drawing.Point(23, 80);
             this.lblClientInfos.Name = "lblClientInfos";
             this.lblClientInfos.Padding = new System.Windows.Forms.Padding(10);
-            this.lblClientInfos.Size = new System.Drawing.Size(770, 70); // Plus haut pour contenir le texte
+            this.lblClientInfos.Size = new System.Drawing.Size(770, 70);
             this.lblClientInfos.Text = "Sélectionnez un client...";
             this.lblClientInfos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 
@@ -147,7 +147,6 @@
             this.nudTauxTVA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nudTauxTVA.ValueChanged += new System.EventHandler(this.nudTauxTVA_ValueChanged);
 
-            // Taux Remise
             this.lblTauxRemise.AutoSize = true;
             this.lblTauxRemise.Location = new System.Drawing.Point(410, 165);
             this.lblTauxRemise.Name = "lblTauxRemise";
@@ -177,15 +176,19 @@
             this.cbProduit.Size = new System.Drawing.Size(610, 23);
             this.cbProduit.BackColor = System.Drawing.Color.White;
 
+            // ---------------------------------------------------------
+            // BOUTON + AJOUTER (NOIR AVEC BORDURE BLANCHE)
+            // ---------------------------------------------------------
             this.btnAjouterLigne.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(20))))); // Noir/Bleu nuit
             this.btnAjouterLigne.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAjouterLigne.FlatAppearance.BorderSize = 0;
             this.btnAjouterLigne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAjouterLigne.FlatAppearance.BorderSize = 2; // Bordure épaisse
+            this.btnAjouterLigne.FlatAppearance.BorderColor = System.Drawing.Color.White; // Couleur Blanche
             this.btnAjouterLigne.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnAjouterLigne.ForeColor = System.Drawing.Color.White;
             this.btnAjouterLigne.Location = new System.Drawing.Point(710, 227);
             this.btnAjouterLigne.Name = "btnAjouterLigne";
-            this.btnAjouterLigne.Size = new System.Drawing.Size(83, 26);
+            this.btnAjouterLigne.Size = new System.Drawing.Size(83, 30); // Un peu plus haut pour la bordure
             this.btnAjouterLigne.Text = "+ Ajouter";
             this.btnAjouterLigne.UseVisualStyleBackColor = false;
             this.btnAjouterLigne.Click += new System.EventHandler(this.btnAjouterLigne_Click);
@@ -195,12 +198,11 @@
             // =========================================================================
             this.dgvLignes.AllowUserToAddRows = false;
             this.dgvLignes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvLignes.BackgroundColor = System.Drawing.Color.White; // Fond blanc
-            this.dgvLignes.BorderStyle = System.Windows.Forms.BorderStyle.None; // Pas de bordure externe
+            this.dgvLignes.BackgroundColor = System.Drawing.Color.White;
+            this.dgvLignes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvLignes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvLignes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 
-            // Style Entête (Gris clair)
             dataGridViewCellStyleHeader.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyleHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(245)))));
             dataGridViewCellStyleHeader.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
@@ -210,14 +212,13 @@
             dataGridViewCellStyleHeader.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvLignes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyleHeader;
             this.dgvLignes.ColumnHeadersHeight = 35;
-            this.dgvLignes.EnableHeadersVisualStyles = false; // Force le style personnalisé
+            this.dgvLignes.EnableHeadersVisualStyles = false;
 
-            // Style Lignes
             dataGridViewCellStyleRows.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyleRows.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyleRows.Font = new System.Drawing.Font("Segoe UI", 9F);
             dataGridViewCellStyleRows.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyleRows.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(243)))), ((int)(((byte)(255))))); // Bleu très clair sélection
+            dataGridViewCellStyleRows.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
             dataGridViewCellStyleRows.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyleRows.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvLignes.DefaultCellStyle = dataGridViewCellStyleRows;
@@ -242,14 +243,14 @@
             this.lblMontantHT.Text = "Montant HT";
             this.lblMontantHT.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
 
-            this.lblValHT.BackColor = System.Drawing.Color.White; // Fond blanc pour faire "boite"
-            this.lblValHT.BorderStyle = System.Windows.Forms.BorderStyle.None; // Ou FixedSingle si tu veux un contour
+            this.lblValHT.BackColor = System.Drawing.Color.White;
+            this.lblValHT.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lblValHT.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblValHT.Location = new System.Drawing.Point(23, 510);
             this.lblValHT.Name = "lblValHT";
             this.lblValHT.Size = new System.Drawing.Size(250, 35);
             this.lblValHT.Text = "0,00 €";
-            this.lblValHT.TextAlign = System.Drawing.ContentAlignment.MiddleLeft; // Centrage vertical
+            this.lblValHT.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 
             // TVA
             this.lblMontantTVA.AutoSize = true;
@@ -286,10 +287,15 @@
             // =========================================================================
             // BOUTONS ACTION
             // =========================================================================
-            this.btnValider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69))))); // Vert Bootstrap
+
+            // ---------------------------------------------------------
+            // BOUTON AJOUTER (VERT AVEC BORDURE BLANCHE)
+            // ---------------------------------------------------------
+            this.btnValider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69))))); // Vert
             this.btnValider.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnValider.FlatAppearance.BorderSize = 0;
             this.btnValider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnValider.FlatAppearance.BorderSize = 2; // Bordure épaisse
+            this.btnValider.FlatAppearance.BorderColor = System.Drawing.Color.White; // Blanche
             this.btnValider.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnValider.ForeColor = System.Drawing.Color.White;
             this.btnValider.Location = new System.Drawing.Point(23, 580);
@@ -299,11 +305,14 @@
             this.btnValider.UseVisualStyleBackColor = false;
             this.btnValider.Click += new System.EventHandler(this.btnValider_Click);
 
-            // Bouton Retour
+            // ---------------------------------------------------------
+            // BOUTON RETOUR (BLANC AVEC BORDURE BLANCHE)
+            // ---------------------------------------------------------
             this.btnRetour.BackColor = System.Drawing.Color.White;
             this.btnRetour.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnRetour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetour.FlatAppearance.BorderSize = 2; // Bordure épaisse
+            this.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.White; // Blanche (sera subtile sur fond clair)
             this.btnRetour.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnRetour.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnRetour.Location = new System.Drawing.Point(673, 580);
