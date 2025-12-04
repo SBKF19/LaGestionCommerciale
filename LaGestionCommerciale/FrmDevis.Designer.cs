@@ -30,10 +30,6 @@
         {
             this.btnAddDevis = new System.Windows.Forms.Button();
             this.dgvDevis = new System.Windows.Forms.DataGridView();
-            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NomClient = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AdresseFacturation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDevis = new System.Windows.Forms.Panel();
             this.dgvModify = new System.Windows.Forms.DataGridView();
             this.select_produit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,11 +57,15 @@
             this.lblClient = new System.Windows.Forms.Label();
             this.cmbStatut = new System.Windows.Forms.ComboBox();
             this.lblSatut = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpDevis = new System.Windows.Forms.DateTimePicker();
             this.lblDate = new System.Windows.Forms.Label();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.lblCode = new System.Windows.Forms.Label();
             this.lblDetail = new System.Windows.Forms.Label();
+            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NomClient = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
@@ -93,7 +93,7 @@
             this.dgvDevis.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Code,
             this.NomClient,
-            this.AdresseFacturation,
+            this.Date,
             this.AdresseLivraison});
             this.dgvDevis.Location = new System.Drawing.Point(31, 117);
             this.dgvDevis.Name = "dgvDevis";
@@ -102,29 +102,6 @@
             this.dgvDevis.Size = new System.Drawing.Size(428, 662);
             this.dgvDevis.TabIndex = 6;
             this.dgvDevis.VisibleChanged += new System.EventHandler(this.FrmDevis_Load);
-            // 
-            // Code
-            // 
-            this.Code.HeaderText = "Code";
-            this.Code.Name = "Code";
-            this.Code.Width = 50;
-            // 
-            // NomClient
-            // 
-            this.NomClient.HeaderText = "Nom client";
-            this.NomClient.Name = "NomClient";
-            this.NomClient.Width = 150;
-            // 
-            // AdresseFacturation
-            // 
-            this.AdresseFacturation.HeaderText = "Date";
-            this.AdresseFacturation.Name = "AdresseFacturation";
-            this.AdresseFacturation.Width = 125;
-            // 
-            // AdresseLivraison
-            // 
-            this.AdresseLivraison.HeaderText = "Prix";
-            this.AdresseLivraison.Name = "AdresseLivraison";
             // 
             // pnlDevis
             // 
@@ -140,7 +117,7 @@
             this.pnlDevis.Controls.Add(this.lblClient);
             this.pnlDevis.Controls.Add(this.cmbStatut);
             this.pnlDevis.Controls.Add(this.lblSatut);
-            this.pnlDevis.Controls.Add(this.dateTimePicker1);
+            this.pnlDevis.Controls.Add(this.dtpDevis);
             this.pnlDevis.Controls.Add(this.lblDate);
             this.pnlDevis.Controls.Add(this.txtCode);
             this.pnlDevis.Controls.Add(this.lblCode);
@@ -368,12 +345,12 @@
             this.lblSatut.TabIndex = 10;
             this.lblSatut.Text = "Statut";
             // 
-            // dateTimePicker1
+            // dtpDevis
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(164, 55);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(272, 20);
-            this.dateTimePicker1.TabIndex = 9;
+            this.dtpDevis.Location = new System.Drawing.Point(164, 55);
+            this.dtpDevis.Name = "dtpDevis";
+            this.dtpDevis.Size = new System.Drawing.Size(272, 20);
+            this.dtpDevis.TabIndex = 9;
             // 
             // lblDate
             // 
@@ -411,6 +388,29 @@
             this.lblDetail.TabIndex = 1;
             this.lblDetail.Text = "Détail";
             // 
+            // Code
+            // 
+            this.Code.HeaderText = "Code";
+            this.Code.Name = "Code";
+            this.Code.Width = 50;
+            // 
+            // NomClient
+            // 
+            this.NomClient.HeaderText = "Nom client";
+            this.NomClient.Name = "NomClient";
+            this.NomClient.Width = 150;
+            // 
+            // Date
+            // 
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.Width = 125;
+            // 
+            // AdresseLivraison
+            // 
+            this.AdresseLivraison.HeaderText = "Prix";
+            this.AdresseLivraison.Name = "AdresseLivraison";
+            // 
             // FrmDevis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -437,16 +437,12 @@
         #endregion
         private System.Windows.Forms.Button btnAddDevis;
         private System.Windows.Forms.DataGridView dgvDevis;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Code;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NomClient;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AdresseFacturation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AdresseLivraison;
         private System.Windows.Forms.Panel pnlDevis;
         private System.Windows.Forms.Label lblDetail;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label lblCode;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpDevis;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label lblClient;
         private System.Windows.Forms.ComboBox cmbStatut;
@@ -473,5 +469,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn quantite;
         private System.Windows.Forms.DataGridViewTextBoxColumn remise;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Code;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NomClient;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AdresseLivraison;
     }
 }

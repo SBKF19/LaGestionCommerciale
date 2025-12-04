@@ -20,6 +20,7 @@ namespace DAL
         public static List<Devis> GetDevis()
         {
             List<Devis> lesDevis = new List<Devis>();
+
             using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
                 SqlCommand cmd = new SqlCommand("SELECT id_devis, date_devis, TVA_devis, taux_remise_global_devis, montant_HT_devis, " + 
@@ -58,9 +59,18 @@ namespace DAL
                     // Devis
                     int id_devis = (int)monReader["id_devis"];
                     DateTime date_devis = (DateTime)monReader["date_devis"];
-                    float tva_devis = (float)monReader["TVA_devis"];
-                    float taux_remise_global_devis = (float)monReader["taux_remise_global_devis"];
-                    float montant_devis = (float)monReader["montant_devis"];
+                    // 1. Lire la valeur en 'double' C# (car 'float' SQL Server correspond à 'double' C#)
+                    double tva_double = monReader.GetDouble(monReader.GetOrdinal("TVA_devis"));
+
+                    // 2. Convertir ensuite cette valeur en 'float' pour votre variable
+                    // TVA_devis
+                    float tva_devis = (float)monReader.GetDouble(monReader.GetOrdinal("TVA_devis"));
+
+                    // taux_remise_global_devis
+                    float taux_remise_global_devis = (float)monReader.GetDouble(monReader.GetOrdinal("taux_remise_global_devis"));
+
+                    // montant_HT_devis
+                    float montant_devis = (float)monReader.GetDouble(monReader.GetOrdinal("montant_HT_devis"));
                     // Objet Devis
                     Devis unDevis = new Devis(id_devis, date_devis, tva_devis, taux_remise_global_devis, montant_devis , unClient, unStatut);
                     lesDevis.Add(unDevis);
