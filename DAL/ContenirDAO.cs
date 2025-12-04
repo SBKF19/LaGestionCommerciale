@@ -21,9 +21,8 @@ namespace DAL
 
             using (SqlCommand cmd = new SqlCommand(req, cnx, transaction))
             {
-                // --- CORRECTION : Utilisation de .Code au lieu de IdProduit ---
+                // Correction : Utilise .Code (défini dans ProduitBO)
                 cmd.Parameters.AddWithValue("@idProduit", c.ProduitBO.Code);
-
                 cmd.Parameters.AddWithValue("@idDevis", c.Devis.IdDevis);
                 cmd.Parameters.AddWithValue("@qte", c.Quantite_commandee);
                 cmd.Parameters.AddWithValue("@remise", c.Remise_par_ligne);
