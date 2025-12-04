@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace LaGestionCommerciale
 {
     public partial class FrmDevis : Form
     {
+        //private Devis devisCourant;
+
         public FrmDevis()
         {
             InitializeComponent();
@@ -102,5 +105,80 @@ namespace LaGestionCommerciale
         {
 
         }
+
+        //private void btnModifier_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        // Récupération des champs
+        //        string statut = cmbStatut.Text.Trim();
+        //        var clientSelectionne = cmbClient.SelectedItem;
+        //        var produitSelectionne = cmbProduit.SelectedItem;
+
+        //        if (clientSelectionne == null || produitSelectionne == null)
+        //            throw new Exception("Veuillez sélectionner un client et un produit.");
+
+        //        int quantite = (int)numQuantite.Value;
+        //        float remiseProduit = (float)numRemiseProduit.Value;
+        //        float remiseGlobale = (float)numRemiseGlobale.Value;
+
+        //        if (quantite <= 0)
+        //            throw new Exception("La quantité doit être > 0.");
+
+        //        // Vérifier qu'une ligne est sélectionnée
+        //        if (dgvDevis.SelectedRows.Count == 0)
+        //            throw new Exception("Veuillez sélectionner une ligne.");
+
+        //        // Récupération des clés (idDevis + idProduit)
+        //        int idProduit = ((ProduitBO)produitSelectionne).Code;
+        //        int idDevis = devisCourant.IdDevis;  // garde ton Devis actuel dans une variable globale
+
+        //        // Reconstruction de la ligne
+        //        Contenir ligne = new Contenir(
+        //            (ProduitBO)produitSelectionne,
+        //            devisCourant,
+        //            quantite,
+        //            remiseProduit
+        //        );
+
+        //        // Mise à jour ligne CONTENIR
+        //        int nb = GestionDevis.ModifierLigneContenir(ligne);
+        //        if (nb == 0)
+        //            throw new Exception("La modification de la ligne a échoué.");
+
+
+        //        // Mise à jour du DEVIS (remise globale, statut, date…)
+        //        devisCourant.Date_devis = dtpDevis.Value;
+        //        devisCourant.Taux_remise_global_devis = remiseGlobale;
+
+        //        GestionDevis.ModifierDevis(devisCourant);
+
+        //        Devis devis = new Devis(
+        //            dtpDevis.Value,            // DateTime
+        //            tVA_devis,                  // float (ex : 20f)
+        //            (float)remiseGlobale,      // float
+        //            montantHT,                 // float (calcule ou récupère)
+        //            (Client)clientSelectionne, // Client
+        //            (Statut)cmbStatut.SelectedItem // Statut
+        //        );
+
+        //        // Mise à jour DataGridView
+        //        var row = dgvDevis.SelectedRows[0];
+
+        //        row.Cells["Produit"].Value = ((ProduitBO)produitSelectionne).Libelle;
+        //        row.Cells["Quantite"].Value = quantite;
+        //        row.Cells["RemiseProduit"].Value = remiseProduit;
+
+        //        // Recalcul totals
+        //        CalculerTotaux();
+
+        //        MessageBox.Show("Devis modifié avec succès.", "OK",
+        //            MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
     }
 }
