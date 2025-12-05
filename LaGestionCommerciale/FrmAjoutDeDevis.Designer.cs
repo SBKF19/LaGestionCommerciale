@@ -2,20 +2,34 @@
 {
     partial class FrmAjoutDeDevis
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null)) components.Dispose();
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
             base.Dispose(disposing);
         }
 
-        #region Code généré par le Concepteur Windows Form
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
 
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblCode = new System.Windows.Forms.Label();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.lblDate = new System.Windows.Forms.Label();
@@ -209,13 +223,13 @@
             this.btnAjouterLigne.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(20)))));
             this.btnAjouterLigne.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAjouterLigne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAjouterLigne.FlatAppearance.BorderSize = 2; // Bordure épaisse
-            this.btnAjouterLigne.FlatAppearance.BorderColor = System.Drawing.Color.White; // Couleur Blanche
+            this.btnAjouterLigne.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnAjouterLigne.FlatAppearance.BorderSize = 2;
             this.btnAjouterLigne.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnAjouterLigne.ForeColor = System.Drawing.Color.White;
-            this.btnAjouterLigne.Location = new System.Drawing.Point(710, 227);
+            this.btnAjouterLigne.Location = new System.Drawing.Point(710, 224);
             this.btnAjouterLigne.Name = "btnAjouterLigne";
-            this.btnAjouterLigne.Size = new System.Drawing.Size(83, 26);
+            this.btnAjouterLigne.Size = new System.Drawing.Size(83, 30);
             this.btnAjouterLigne.TabIndex = 15;
             this.btnAjouterLigne.Text = "+ Ajouter";
             this.btnAjouterLigne.UseVisualStyleBackColor = false;
@@ -225,33 +239,11 @@
             // 
             this.dgvLignes.AllowUserToAddRows = false;
             this.dgvLignes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvLignes.BackgroundColor = System.Drawing.Color.White;
-            this.dgvLignes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvLignes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvLignes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(245)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvLignes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvLignes.ColumnHeadersHeight = 35;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvLignes.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvLignes.EnableHeadersVisualStyles = false;
-            this.dgvLignes.GridColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvLignes.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dgvLignes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLignes.Location = new System.Drawing.Point(23, 270);
             this.dgvLignes.Name = "dgvLignes";
             this.dgvLignes.RowHeadersVisible = false;
-            this.dgvLignes.RowTemplate.Height = 30;
             this.dgvLignes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvLignes.Size = new System.Drawing.Size(770, 200);
             this.dgvLignes.TabIndex = 16;
@@ -326,32 +318,32 @@
             this.btnValider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.btnValider.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnValider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnValider.FlatAppearance.BorderSize = 2; // Bordure épaisse
-            this.btnValider.FlatAppearance.BorderColor = System.Drawing.Color.White; // Blanche
+            this.btnValider.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnValider.FlatAppearance.BorderSize = 2;
             this.btnValider.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnValider.ForeColor = System.Drawing.Color.White;
             this.btnValider.Location = new System.Drawing.Point(23, 580);
             this.btnValider.Name = "btnValider";
             this.btnValider.Size = new System.Drawing.Size(120, 40);
             this.btnValider.TabIndex = 23;
-            this.btnValider.Text = "Ajouter";
+            this.btnValider.Text = "Valider";
             this.btnValider.UseVisualStyleBackColor = false;
             this.btnValider.Click += new System.EventHandler(this.btnValider_Click);
             // 
             // btnRetour
             // 
-            this.btnRetour.BackColor = System.Drawing.Color.White;
+            this.btnRetour.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.btnRetour.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRetour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRetour.FlatAppearance.BorderSize = 2; // Bordure épaisse
-            this.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.White; // Blanche (sera subtile sur fond clair)
-            this.btnRetour.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.btnRetour.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRetour.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnRetour.FlatAppearance.BorderSize = 2;
+            this.btnRetour.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnRetour.ForeColor = System.Drawing.Color.White;
             this.btnRetour.Location = new System.Drawing.Point(673, 580);
             this.btnRetour.Name = "btnRetour";
             this.btnRetour.Size = new System.Drawing.Size(120, 40);
             this.btnRetour.TabIndex = 24;
-            this.btnRetour.Text = "Retour";
+            this.btnRetour.Text = "Annuler";
             this.btnRetour.UseVisualStyleBackColor = false;
             this.btnRetour.Click += new System.EventHandler(this.btnRetour_Click);
             // 
@@ -426,4 +418,4 @@
         private System.Windows.Forms.Button btnValider;
         private System.Windows.Forms.Button btnRetour;
     }
-}
+}   

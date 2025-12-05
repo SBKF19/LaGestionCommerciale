@@ -653,6 +653,12 @@ namespace LaGestionCommerciale
             this.Hide();
         }
 
+        private void btnAddDevis_Click(object sender, EventArgs e)
+        {
+            new FrmAjoutDeDevis().Show();
+            this.Hide();
+        }
+
         private void devisToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
