@@ -165,7 +165,6 @@
             this.pnlDevis.Name = "pnlDevis";
             this.pnlDevis.Size = new System.Drawing.Size(978, 662);
             this.pnlDevis.TabIndex = 7;
-            this.pnlDevis.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDevis_Paint);
             // 
             // btnSupprimer
             // 

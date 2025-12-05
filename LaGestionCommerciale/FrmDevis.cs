@@ -33,20 +33,18 @@ namespace LaGestionCommerciale
             GestionClients.SetchaineConnexion(chset);
         }
 
+        // Méthode exécutée au chargement du formulaire pour initialiser les composants et configurer les colonnes du DataGridView.
         private void FrmDevis_Load(object sender, EventArgs e)
         {
-            dgvModify.CellValueChanged += dgvModify_CellValueChanged; // Pour recalculer
-            dgvModify.CurrentCellDirtyStateChanged += dgvModify_CurrentCellDirtyStateChanged; // Pour valider le clic immédiatement
+            dgvModify.CellValueChanged += dgvModify_CellValueChanged;
+            dgvModify.CurrentCellDirtyStateChanged += dgvModify_CurrentCellDirtyStateChanged;
 
             dgvModify.AllowUserToAddRows = false;
             dgvModify.AutoGenerateColumns = false;
-            dgvModify.Columns.Clear(); // On efface tout ce qui vient du Designer pour recréer proprement
+            dgvModify.Columns.Clear();
 
             dgvModify.DataError += dgvModify_DataError;
 
-            // --- 2. CRÉATION DES COLONNES PAR LE CODE ---
-
-            // A. Colonne PRODUIT (ComboBox)
             DataGridViewComboBoxColumn colProd = new DataGridViewComboBoxColumn();
             colProd.HeaderText = "Produit";
             colProd.Name = "ProduitCol";
@@ -55,49 +53,41 @@ namespace LaGestionCommerciale
             colProd.ValueMember = "Code";
             colProd.Width = 330;
             dgvModify.Columns.Add(colProd);
-            
 
-            // B. Colonne CATÉGORIE (Texte Lecture Seule)
             DataGridViewTextBoxColumn colCat = new DataGridViewTextBoxColumn();
             colCat.HeaderText = "Catégorie";
             colCat.Name = "CatCol";
             colCat.ReadOnly = true;
             dgvModify.Columns.Add(colCat);
 
-            // C. Colonne PRIX (Texte Lecture Seule)
             DataGridViewTextBoxColumn colPrix = new DataGridViewTextBoxColumn();
             colPrix.HeaderText = "Prix U. HT";
             colPrix.Name = "PrixCol";
             colPrix.ReadOnly = true;
             dgvModify.Columns.Add(colPrix);
 
-            // D. Colonne QUANTITÉ (ComboBox - Remplie en String pour sécurité)
             DataGridViewComboBoxColumn colQte = new DataGridViewComboBoxColumn();
             colQte.HeaderText = "Qté";
             colQte.Name = "QuantiteCol";
-            for (int i = 1; i <= 100; i++) colQte.Items.Add(i.ToString());
+            for (int i = 1; i <= 999; i++) colQte.Items.Add(i.ToString());
             dgvModify.Columns.Add(colQte);
 
-            // E. Colonne REMISE (ComboBox - Remplie en String de 0 à 100)
             DataGridViewComboBoxColumn colRem = new DataGridViewComboBoxColumn();
             colRem.HeaderText = "Rem.%";
             colRem.Name = "RemiseCol";
 
-            // Boucle automatique de 0 à 100 (plus simple que de tout écrire)
             for (int i = 0; i <= 100; i++)
             {
                 colRem.Items.Add(i.ToString());
             }
             dgvModify.Columns.Add(colRem);
 
-            // F. Colonne TOTAL (Texte Lecture Seule)
             DataGridViewTextBoxColumn colTotal = new DataGridViewTextBoxColumn();
             colTotal.HeaderText = "Total HT";
             colTotal.Name = "TotalCol";
             colTotal.ReadOnly = true;
             dgvModify.Columns.Add(colTotal);
 
-            // G. Colonne SUPPRIMER (Bouton)
             DataGridViewButtonColumn colDel = new DataGridViewButtonColumn();
             colDel.HeaderText = "Sup.";
             colDel.Name = "DeleteCol";
@@ -105,8 +95,6 @@ namespace LaGestionCommerciale
             colDel.UseColumnTextForButtonValue = true;
             dgvModify.Columns.Add(colDel);
 
-
-            // --- 3. CHARGEMENT DES COMBO BOX STATUT ET CLIENT ---
             cmbStatut.DataSource = GestionDevis.GetStatuts();
             cmbStatut.DisplayMember = "Nom_statut";
             cmbStatut.ValueMember = "IdStatut";
@@ -115,15 +103,15 @@ namespace LaGestionCommerciale
             cmbClient.DisplayMember = "NomClient";
             cmbClient.ValueMember = "IdClient";
 
-            // --- 4. CHARGEMENT DE LA LISTE DES DEVIS ---
             ChargerListeDevis();
             numRemiseGlobale.ValueChanged += GlobalRates_ValueChanged;
         }
+
+        // Récupère la liste des devis depuis la base de données et remplit la grille de sélection des devis.
         private void ChargerListeDevis()
         {
             List<Devis> lesDevis = GestionDevis.GetDevis();
 
-            // On désactive l'event pour le chargement
             dgvDevis.SelectionChanged -= dgvDevis_SelectionChanged;
 
             dgvDevis.Rows.Clear();
@@ -131,10 +119,8 @@ namespace LaGestionCommerciale
             dgvDevis.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDevis.AllowUserToAddRows = false;
 
-            // Dans FrmDevis_Load, remplacez votre boucle foreach par celle-ci :
             foreach (Devis devis in lesDevis)
             {
-                // On ajoute la ligne et on récupère son index
                 int index = dgvDevis.Rows.Add(
                     devis.IdDevis,
                     devis.Client.NomClient,
@@ -142,11 +128,9 @@ namespace LaGestionCommerciale
                     devis.Montant_HT_devis
                 );
 
-                // IMPORTANT : On cache l'objet complet dans la propriété Tag de la ligne
                 dgvDevis.Rows[index].Tag = devis;
             }
 
-            // Gestion de la sélection initiale
             if (dgvDevis.Rows.Count > 0)
             {
                 dgvDevis.Rows[0].Selected = true;
@@ -156,6 +140,7 @@ namespace LaGestionCommerciale
             dgvDevis.SelectionChanged += dgvDevis_SelectionChanged;
         }
 
+        // Gère l'événement de changement de sélection dans la liste des devis pour afficher les détails du devis sélectionné.
         private void dgvDevis_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvDevis.CurrentRow != null)
@@ -164,20 +149,19 @@ namespace LaGestionCommerciale
             }
         }
 
+        // Remplit les champs de détails et la grille de modification avec les informations du devis situé à l'index spécifié.
         private void RemplirChampsDepuisLigne(int index)
         {
             DataGridViewRow row = dgvDevis.Rows[index];
 
             if (row.Tag is Devis devis)
             {
-                // --- REMPLISSAGE DU TABLEAU DEVIS ---
                 txtCode.Text = devis.IdDevis.ToString();
                 dtpDevis.Value = devis.Date_devis;
 
                 if (devis.Client != null) cmbClient.SelectedValue = devis.Client.IdClient;
                 if (devis.Statut != null) cmbStatut.SelectedValue = devis.Statut.IdStatut;
 
-                // --- REMPLISSAGE DES DÉTAILS ---
                 if (devis.Client != null)
                 {
                     txtPhone.Text = devis.Client.NumPhoneClient;
@@ -193,7 +177,6 @@ namespace LaGestionCommerciale
                 }
                 catch { numTVA.Text = "0"; numRemiseGlobale.Value = 0; }
 
-                // --- REMPLISSAGE DU TABLEAU PRODUITS ---
                 dgvModify.Rows.Clear();
                 List<Contenir> lesLignes = GestionDevis.GetLignesDuDevis(devis.IdDevis);
 
@@ -203,29 +186,24 @@ namespace LaGestionCommerciale
                     int i = dgvModify.Rows.Add();
                     DataGridViewRow r = dgvModify.Rows[i];
 
-                    // 1. Produit
                     r.Cells["ProduitCol"].Value = ligne.ProduitBO.Code;
 
-                    // 2. Infos ReadOnly
                     if (ligne.ProduitBO.Categorie != null)
                         r.Cells["CatCol"].Value = ligne.ProduitBO.Categorie.NomCategorie;
                     r.Cells["PrixCol"].Value = ligne.ProduitBO.Prix;
 
-                    // 3. QUANTITÉ (Sécurisée avec String)
                     string qteStr = ligne.Quantite_commandee.ToString();
                     DataGridViewComboBoxCell cellQte = (DataGridViewComboBoxCell)r.Cells["QuantiteCol"];
-                    // Si la quantité (ex: 150) n'est pas dans la liste (1-100), on l'ajoute pour ne pas planter
+
                     if (!cellQte.Items.Contains(qteStr)) cellQte.Items.Add(qteStr);
                     cellQte.Value = qteStr;
 
-                    // 4. REMISE (Sécurisée avec String)
                     string remStr = ((int)ligne.Remise_par_ligne).ToString();
                     DataGridViewComboBoxCell cellRem = (DataGridViewComboBoxCell)r.Cells["RemiseCol"];
-                    // Si la remise n'est pas dans la liste standard, on l'ajoute
+
                     if (!cellRem.Items.Contains(remStr)) cellRem.Items.Add(remStr);
                     cellRem.Value = remStr;
 
-                    // 5. Total
                     r.Cells["TotalCol"].Value = (ligne.ProduitBO.Prix * ligne.Quantite_commandee).ToString("F2");
                     dgvModify.CellValueChanged += dgvModify_CellValueChanged;
 
@@ -234,17 +212,16 @@ namespace LaGestionCommerciale
             }
         }
 
+        // Ajoute une nouvelle ligne dans la grille de modification pour permettre l'ajout d'un produit au devis.
         private void btnAddProduit_Click(object sender, EventArgs e)
         {
             dgvModify.AllowUserToAddRows = true;
             int rowIndex = dgvModify.Rows.Add();
             DataGridViewRow newRow = dgvModify.Rows[rowIndex];
 
-            // --- VALEURS PAR DÉFAUT (En String pour éviter les erreurs ComboBox) ---
             newRow.Cells["QuantiteCol"].Value = "1";
             newRow.Cells["RemiseCol"].Value = "0";
 
-            // Sélectionner le premier produit par défaut pour éviter une cellule vide
             var colProduit = (DataGridViewComboBoxColumn)dgvModify.Columns["ProduitCol"];
             if (colProduit.DataSource is List<ProduitBO> liste && liste.Count > 0)
             {
@@ -259,9 +236,9 @@ namespace LaGestionCommerciale
             dgvModify.AllowUserToAddRows = false;
         }
 
+        // Gère les suppressions de lignes produits si le bouton de suppression est cliqué.
         private void dgvModify_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Gestion du bouton Supprimer "X"
             if (e.RowIndex >= 0 && dgvModify.Columns[e.ColumnIndex].Name == "DeleteCol")
             {
                 dgvModify.Rows.RemoveAt(e.RowIndex);
@@ -270,7 +247,7 @@ namespace LaGestionCommerciale
             CalculerTotauxGlobaux();
         }
 
-        // 1. Cette méthode force la validation dès qu'on clique sur la liste déroulante
+        // Force la validation immédiate des modifications dans la grille pour déclencher les événements de changement de valeur.
         private void dgvModify_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (dgvModify.IsCurrentCellDirty)
@@ -279,112 +256,92 @@ namespace LaGestionCommerciale
             }
         }
 
-        // 2. C'est ici que le calcul se fait en temps réel
+        // Détecte les modifications de valeurs dans les cellules (Quantité, Remise, Produit) et lance le recalcul de la ligne.
         private void dgvModify_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            // On ignore si c'est l'entête ou si la ligne est vide
             if (e.RowIndex < 0) return;
 
             string colName = dgvModify.Columns[e.ColumnIndex].Name;
 
-            // On ne recalcule que si on touche à la Quantité, la Remise ou le Produit
             if (colName == "QuantiteCol" || colName == "RemiseCol" || colName == "ProduitCol")
             {
                 CalculerTotalLigne(e.RowIndex);
             }
         }
 
-        // 3. La logique mathématique isolée pour être propre
+        // Calcule le montant total HT d'une ligne spécifique en fonction du prix, de la quantité et de la remise unitaire.
         private void CalculerTotalLigne(int rowIndex)
         {
             DataGridViewRow row = dgvModify.Rows[rowIndex];
 
-            // --- A. Récupération des valeurs (Sécurisée) ---
-
-            // Prix
             decimal prix = 0;
             if (row.Cells["PrixCol"].Value != null)
                 decimal.TryParse(row.Cells["PrixCol"].Value.ToString(), out prix);
 
-            // Quantité
             int qte = 0;
             if (row.Cells["QuantiteCol"].Value != null)
                 int.TryParse(row.Cells["QuantiteCol"].Value.ToString(), out qte);
 
-            // Remise (Si vous voulez l'inclure dans le calcul)
             decimal remise = 0;
             if (row.Cells["RemiseCol"].Value != null)
                 decimal.TryParse(row.Cells["RemiseCol"].Value.ToString(), out remise);
 
-            // --- B. Le Calcul ---
-
-            // Formule simple (celle que vous avez montrée) :
-            // decimal total = prix * qte; 
-
-            // OU Formule avec Remise (Prix * Qté) - Remise% :
             decimal totalSansRemise = prix * qte;
             decimal montantRemise = totalSansRemise * (remise / 100);
             decimal total = totalSansRemise - montantRemise;
 
-            // --- C. Affichage ---
             row.Cells["TotalCol"].Value = total.ToString("F2");
 
             CalculerTotauxGlobaux();
         }
 
+        // Calcule les totaux globaux du devis (Total HT, TVA, TTC) en incluant la remise globale.
         private void CalculerTotauxGlobaux()
         {
             decimal totalLignesHT = 0;
 
-            // 1. On additionne le montant HT de chaque ligne
             foreach (DataGridViewRow row in dgvModify.Rows)
             {
                 if (row.Cells["TotalCol"].Value != null)
                 {
                     decimal valLigne = 0;
-                    // On convertit le texte "100,00" en chiffre
                     decimal.TryParse(row.Cells["TotalCol"].Value.ToString(), out valLigne);
                     totalLignesHT += valLigne;
                 }
             }
 
-            // 2. Gestion de la Remise GLOBALE (NumericUpDown)
-            // On garde .Value car c'est surement encore un NumericUpDown
             decimal tauxRemiseGlobal = numRemiseGlobale.Value;
             decimal montantRemiseGlobal = totalLignesHT * (tauxRemiseGlobal / 100);
             decimal totalHTNet = totalLignesHT - montantRemiseGlobal;
 
-            // 3. Gestion de la TVA (TextBox - FIX)
             decimal tauxTVA = 0;
-            // On essaie de convertir le texte en chiffre. Si le texte est vide ou invalide, ça restera 0.
             decimal.TryParse(numTVA.Text, out tauxTVA);
 
             decimal montantTVA = totalHTNet * (tauxTVA / 100);
 
-            // 4. Calcul TTC
             decimal totalTTC = totalHTNet + montantTVA;
 
-            // 5. Affichage dans les TextBox du bas
-            // Remplacez les noms ci-dessous par les noms réels de vos TextBox
             txtHT.Text = totalHTNet.ToString("F2");
             txtMontantTVA.Text = montantTVA.ToString("F2");
             txtTTC.Text = totalTTC.ToString("F2");
         }
 
+        // Recalcule les totaux globaux lorsque la remise globale ou le taux de TVA est modifié.
         private void GlobalRates_ValueChanged(object sender, EventArgs e)
         {
             CalculerTotauxGlobaux();
         }
 
-        private void pnlDevis_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
+        // Gère les erreurs de données dans le DataGridView pour éviter les plantages lors de problèmes d'affichage ou de saisie.
         private void dgvModify_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            e.ThrowException = false; // "Ne plante pas"
-            e.Cancel = false;         // "Garde la valeur même si tu penses qu'elle est fausse"
+            e.ThrowException = false;
+            e.Cancel = false;
         }
+
+
+
+        //----------------------------------------------------------Partie Modification et suppression-----------------------------------------------------
 
         private void btnModifier_Click(object sender, EventArgs e)
         {
