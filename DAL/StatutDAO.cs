@@ -18,8 +18,6 @@ namespace DAL
             return unStatutDAO;
         }
 
-        // --- TES MÉTHODES EXISTANTES (INCHANGÉES) ---
-
         public static int ModifierStatut(Statut statut)
         {
             string req = @"UPDATE STATUT SET nom_statut = @nomStatut WHERE id_statut = @id";
@@ -63,7 +61,6 @@ namespace DAL
 
             using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
-                // Sécurité : ouvrir la connexion si elle est fermée
                 if (cnx.State == System.Data.ConnectionState.Closed)
                     cnx.Open();
 

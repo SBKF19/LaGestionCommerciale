@@ -33,10 +33,8 @@ namespace LaGestionCommerciale
             // 4. Valeurs par défaut
             dtpDate.Value = DateTime.Now;
 
-            // --- MODIFICATION ICI ---
             nudTauxTVA.Value = 20;      // Force la valeur à 20
             nudTauxTVA.Enabled = false; // Rend le contrôle non cliquable / non modifiable
-            // ------------------------
         }
 
         private void ChargerListes()
@@ -60,7 +58,6 @@ namespace LaGestionCommerciale
                 cbProduit.DisplayMember = "Libelle";
                 cbProduit.ValueMember = "Code";
 
-                // Petite astuce pour afficher "Libelle (Code)" dans la liste déroulante
                 cbProduit.Format += (s, e) => {
                     if (e.ListItem is ProduitBO p) e.Value = $"{p.Libelle} (Ref: {p.Code})";
                 };
@@ -76,7 +73,6 @@ namespace LaGestionCommerciale
             dgvLignes.DataSource = lignesBinding;
             dgvLignes.Columns.Clear();
 
-            // NOTE : J'ai ajouté la propriété 'Name' pour identifier les colonnes dans CellFormatting
 
             // 1. Produit (Lecture seule)
             dgvLignes.Columns.Add(new DataGridViewTextBoxColumn
@@ -109,7 +105,7 @@ namespace LaGestionCommerciale
             dgvLignes.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "PU HT",
-                DataPropertyName = "PrixUnitaire", // Propriété directe de 'Contenir', ça marche tout seul
+                DataPropertyName = "PrixUnitaire", 
                 ReadOnly = true,
                 Width = 70,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
@@ -144,7 +140,6 @@ namespace LaGestionCommerciale
             });
         }
 
-        // C'EST ICI QUE LA MAGIE DE L'AFFICHAGE OPÈRE
         private void dgvLignes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // On récupère l'objet de la ligne en cours
@@ -221,7 +216,6 @@ namespace LaGestionCommerciale
 
         private void nudTauxTVA_ValueChanged(object sender, EventArgs e) { RecalculerTotaux(); }
 
-        // BOUTON VALIDER AVEC LES VALIDATIONS DEMANDÉES
         private void btnValider_Click(object sender, EventArgs e)
         {
             try

@@ -35,7 +35,6 @@ namespace DAL
 
                 while (monReader.Read())
                 {
-                    // Client
                     int id_client = (int)monReader["id_client"];
                     string nom_client = monReader["nom_client"].ToString();
                     string num_fax = monReader["num_fax_client"].ToString();
@@ -60,11 +59,9 @@ namespace DAL
                     // Devis
                     int id_devis = (int)monReader["id_devis"];
                     DateTime date_devis = (DateTime)monReader["date_devis"];
-                    // 1. Lire la valeur en 'double' C# (car 'float' SQL Server correspond à 'double' C#)
+
                     double tva_double = monReader.GetDouble(monReader.GetOrdinal("TVA_devis"));
 
-                    // 2. Convertir ensuite cette valeur en 'float' pour votre variable
-                    // TVA_devis
                     float tva_devis = (float)monReader.GetDouble(monReader.GetOrdinal("TVA_devis"));
 
                     // taux_remise_global_devis
@@ -106,15 +103,13 @@ namespace DAL
 
                 while (reader.Read())
                 {
-                    // 1. Reconstitution de l'objet Categorie
                     int idCat = (int)reader["id_categorie"];
                     string nomCat = reader["nom_categorie"].ToString();
                     Categorie uneCat = new Categorie(idCat, nomCat);
 
-                    // 2. Reconstitution de l'objet ProduitBO
                     int idProd = (int)reader["id_produit"];
                     string libelle = reader["libelle_produit"].ToString();
-                    // Attention : SQL float -> C# double -> on cast en float pour ton objet
+
                     float prix = Convert.ToSingle(reader["prix_vente_HT_produit"]);
 
                     ProduitBO unProduit = new ProduitBO(idProd, libelle, uneCat, prix);
@@ -123,8 +118,6 @@ namespace DAL
                     int qte = (int)reader["quantite_commandee"];
                     float remise = Convert.ToSingle(reader["remise_par_ligne"]);
 
-                    // On crée un Devis "vide" juste pour satisfaire le constructeur de Contenir
-                    // (On a seulement besoin de l'ID ici)
                     Devis leDevis = new Devis();
                     leDevis.IdDevis = idDevis;
 
@@ -186,7 +179,6 @@ namespace DAL
                 }
                 catch (SqlException ex)
                 {
-                    // Si contrainte FK en base, on peut remonter une exception plus parlante
                     throw new Exception("Erreur SQL lors de la suppression : " + ex.Message, ex);
                 }
             }
@@ -198,7 +190,6 @@ namespace DAL
         {
             using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
-                // CORRECTION MAJEURE : On ne réouvre pas si c'est déjà ouvert
                 if (cnx.State == ConnectionState.Closed) cnx.Open();
 
                 SqlTransaction transaction = cnx.BeginTransaction();
