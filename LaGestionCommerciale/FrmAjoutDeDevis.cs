@@ -257,6 +257,8 @@ namespace LaGestionCommerciale
 
                 int newId = GestionDevis.AjouterDevis(devisCourant);
                 MessageBox.Show($"Devis n°{newId} créé avec succès !", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                new FrmDevis().Show();
+                this.Hide();
             }
             catch (Exception ex)
             {
