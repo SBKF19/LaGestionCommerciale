@@ -246,26 +246,18 @@ namespace GUI
         }
 
         // Menu navigation
-        private void gérerLesClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void clientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmClient frm = new FrmClient();
-            frm.Show();
+            new FrmClient().Show();
             this.Hide();
         }
 
-        private void ajouterUnClientToolStripMenuItem_Click(object sender, EventArgs e)
+        private void deviToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmAjoutDeClients frm = new FrmAjoutDeClients();
-            frm.Show();
+            new FrmDevis().Show();
             this.Hide();
         }
 
-        private void ajouterUnProduitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmAjoutDeProduit frm = new FrmAjoutDeProduit();
-            frm.Show();
-            this.Hide();
-        }
     }
 }
 

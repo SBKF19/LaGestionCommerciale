@@ -75,11 +75,17 @@
             this.txtCode = new System.Windows.Forms.TextBox();
             this.lblCode = new System.Windows.Forms.Label();
             this.lblDetail = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.clientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.produitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.devisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.synthèseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRemiseGlobale)).BeginInit();
             this.pnlClient.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddDevis
@@ -91,8 +97,9 @@
             this.btnAddDevis.Name = "btnAddDevis";
             this.btnAddDevis.Size = new System.Drawing.Size(152, 35);
             this.btnAddDevis.TabIndex = 5;
-            this.btnAddDevis.Text = "Ajouter un client";
+            this.btnAddDevis.Text = "Ajouter un devis";
             this.btnAddDevis.UseVisualStyleBackColor = false;
+            this.btnAddDevis.Click += new System.EventHandler(this.btnAddDevis_Click);
             // 
             // dgvDevis
             // 
@@ -165,7 +172,6 @@
             this.pnlDevis.Name = "pnlDevis";
             this.pnlDevis.Size = new System.Drawing.Size(978, 662);
             this.pnlDevis.TabIndex = 7;
-            this.pnlDevis.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDevis_Paint);
             // 
             // btnSupprimer
             // 
@@ -510,6 +516,46 @@
             this.lblDetail.TabIndex = 1;
             this.lblDetail.Text = "Détail";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clientsToolStripMenuItem,
+            this.produitToolStripMenuItem,
+            this.devisToolStripMenuItem,
+            this.synthèseToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1455, 24);
+            this.menuStrip1.TabIndex = 8;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // clientsToolStripMenuItem
+            // 
+            this.clientsToolStripMenuItem.Name = "clientsToolStripMenuItem";
+            this.clientsToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.clientsToolStripMenuItem.Text = "Clients";
+            this.clientsToolStripMenuItem.Click += new System.EventHandler(this.clientsToolStripMenuItem_Click);
+            // 
+            // produitToolStripMenuItem
+            // 
+            this.produitToolStripMenuItem.Name = "produitToolStripMenuItem";
+            this.produitToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.produitToolStripMenuItem.Text = "Produit";
+            this.produitToolStripMenuItem.Click += new System.EventHandler(this.produitToolStripMenuItem_Click);
+            // 
+            // devisToolStripMenuItem
+            // 
+            this.devisToolStripMenuItem.Name = "devisToolStripMenuItem";
+            this.devisToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.devisToolStripMenuItem.Text = "Devis";
+            this.devisToolStripMenuItem.Click += new System.EventHandler(this.devisToolStripMenuItem_Click);
+            // 
+            // synthèseToolStripMenuItem
+            // 
+            this.synthèseToolStripMenuItem.Name = "synthèseToolStripMenuItem";
+            this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.synthèseToolStripMenuItem.Text = "Synthèse";
+            // 
             // FrmDevis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -518,6 +564,8 @@
             this.Controls.Add(this.pnlDevis);
             this.Controls.Add(this.dgvDevis);
             this.Controls.Add(this.btnAddDevis);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmDevis";
             this.Text = "FrmDevis";
             this.Load += new System.EventHandler(this.FrmDevis_Load);
@@ -528,7 +576,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numRemiseGlobale)).EndInit();
             this.pnlClient.ResumeLayout(false);
             this.pnlClient.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -580,5 +631,10 @@
         private System.Windows.Forms.TextBox numTVA;
         private System.Windows.Forms.Button btnSupprimer;
         private System.Windows.Forms.Button btnModifier;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem clientsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem produitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem devisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem synthèseToolStripMenuItem;
     }
 }

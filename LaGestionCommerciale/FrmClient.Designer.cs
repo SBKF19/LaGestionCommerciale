@@ -80,19 +80,18 @@
             this.lblDetail = new System.Windows.Forms.Label();
             this.lblTitre = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.listeDesClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gérerLesClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ajouterUnClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listeDesProduitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gérerLesProduitsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ajouterUnProduitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.listeDesDevisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gérerLesDevisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ajouterUnDevisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.produitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.devisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.synthèseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.clientsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.produitsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.devisToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.synthèseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
             this.pnlDetail.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddClient
@@ -549,101 +548,73 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.listeDesClientsToolStripMenuItem,
-            this.listeDesProduitsToolStripMenuItem,
-            this.listeDesDevisToolStripMenuItem,
-            this.synthèseToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 24);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1443, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1443, 24);
             this.menuStrip1.TabIndex = 4;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
-            // listeDesClientsToolStripMenuItem
+            // clientsToolStripMenuItem
             // 
-            this.listeDesClientsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.listeDesClientsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gérerLesClientsToolStripMenuItem,
-            this.ajouterUnClientToolStripMenuItem});
-            this.listeDesClientsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.listeDesClientsToolStripMenuItem.Name = "listeDesClientsToolStripMenuItem";
-            this.listeDesClientsToolStripMenuItem.Size = new System.Drawing.Size(62, 23);
-            this.listeDesClientsToolStripMenuItem.Text = "Clients";
+            this.clientsToolStripMenuItem.Name = "clientsToolStripMenuItem";
+            this.clientsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // gérerLesClientsToolStripMenuItem
+            // produitsToolStripMenuItem
             // 
-            this.gérerLesClientsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.gérerLesClientsToolStripMenuItem.Name = "gérerLesClientsToolStripMenuItem";
-            this.gérerLesClientsToolStripMenuItem.Size = new System.Drawing.Size(179, 24);
-            this.gérerLesClientsToolStripMenuItem.Text = "Gérer les clients";
+            this.produitsToolStripMenuItem.Name = "produitsToolStripMenuItem";
+            this.produitsToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.produitsToolStripMenuItem.Text = "Produits";
             // 
-            // ajouterUnClientToolStripMenuItem
+            // devisToolStripMenuItem
             // 
-            this.ajouterUnClientToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ajouterUnClientToolStripMenuItem.Name = "ajouterUnClientToolStripMenuItem";
-            this.ajouterUnClientToolStripMenuItem.Size = new System.Drawing.Size(179, 24);
-            this.ajouterUnClientToolStripMenuItem.Text = "Ajouter un client";
-            this.ajouterUnClientToolStripMenuItem.Click += new System.EventHandler(this.ajouterUnClientToolStripMenuItem_Click);
-            // 
-            // listeDesProduitsToolStripMenuItem
-            // 
-            this.listeDesProduitsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.listeDesProduitsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gérerLesProduitsToolStripMenuItem1,
-            this.ajouterUnProduitToolStripMenuItem1});
-            this.listeDesProduitsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.listeDesProduitsToolStripMenuItem.Name = "listeDesProduitsToolStripMenuItem";
-            this.listeDesProduitsToolStripMenuItem.Size = new System.Drawing.Size(72, 23);
-            this.listeDesProduitsToolStripMenuItem.Text = "Produits";
-            // 
-            // gérerLesProduitsToolStripMenuItem1
-            // 
-            this.gérerLesProduitsToolStripMenuItem1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.gérerLesProduitsToolStripMenuItem1.Name = "gérerLesProduitsToolStripMenuItem1";
-            this.gérerLesProduitsToolStripMenuItem1.Size = new System.Drawing.Size(192, 24);
-            this.gérerLesProduitsToolStripMenuItem1.Text = "Gérer les produits";
-            this.gérerLesProduitsToolStripMenuItem1.Click += new System.EventHandler(this.gérerLesProduitsToolStripMenuItem1_Click);
-            // 
-            // ajouterUnProduitToolStripMenuItem1
-            // 
-            this.ajouterUnProduitToolStripMenuItem1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ajouterUnProduitToolStripMenuItem1.Name = "ajouterUnProduitToolStripMenuItem1";
-            this.ajouterUnProduitToolStripMenuItem1.Size = new System.Drawing.Size(192, 24);
-            this.ajouterUnProduitToolStripMenuItem1.Text = "Ajouter un produit";
-            this.ajouterUnProduitToolStripMenuItem1.Click += new System.EventHandler(this.ajouterUnProduitToolStripMenuItem1_Click);
-            // 
-            // listeDesDevisToolStripMenuItem
-            // 
-            this.listeDesDevisToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.listeDesDevisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gérerLesDevisToolStripMenuItem,
-            this.ajouterUnDevisToolStripMenuItem});
-            this.listeDesDevisToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.listeDesDevisToolStripMenuItem.Name = "listeDesDevisToolStripMenuItem";
-            this.listeDesDevisToolStripMenuItem.Size = new System.Drawing.Size(54, 23);
-            this.listeDesDevisToolStripMenuItem.Text = "Devis";
-            // 
-            // gérerLesDevisToolStripMenuItem
-            // 
-            this.gérerLesDevisToolStripMenuItem.Name = "gérerLesDevisToolStripMenuItem";
-            this.gérerLesDevisToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
-            this.gérerLesDevisToolStripMenuItem.Text = "Gérer les devis";
-            // 
-            // ajouterUnDevisToolStripMenuItem
-            // 
-            this.ajouterUnDevisToolStripMenuItem.Name = "ajouterUnDevisToolStripMenuItem";
-            this.ajouterUnDevisToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
-            this.ajouterUnDevisToolStripMenuItem.Text = "Ajouter un devis";
+            this.devisToolStripMenuItem.Name = "devisToolStripMenuItem";
+            this.devisToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.devisToolStripMenuItem.Text = "Devis";
             // 
             // synthèseToolStripMenuItem
             // 
-            this.synthèseToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.synthèseToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.synthèseToolStripMenuItem.Name = "synthèseToolStripMenuItem";
-            this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(76, 23);
+            this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.synthèseToolStripMenuItem.Text = "Synthèse";
+            // 
+            // menuStrip2
+            // 
+            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clientsToolStripMenuItem1,
+            this.produitsToolStripMenuItem1,
+            this.devisToolStripMenuItem1,
+            this.synthèseToolStripMenuItem1});
+            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Size = new System.Drawing.Size(1443, 24);
+            this.menuStrip2.TabIndex = 5;
+            this.menuStrip2.Text = "menuStrip2";
+            // 
+            // clientsToolStripMenuItem1
+            // 
+            this.clientsToolStripMenuItem1.Name = "clientsToolStripMenuItem1";
+            this.clientsToolStripMenuItem1.Size = new System.Drawing.Size(55, 20);
+            this.clientsToolStripMenuItem1.Text = "Clients";
+            this.clientsToolStripMenuItem1.Click += new System.EventHandler(this.clientsToolStripMenuItem1_Click);
+            // 
+            // produitsToolStripMenuItem1
+            // 
+            this.produitsToolStripMenuItem1.Name = "produitsToolStripMenuItem1";
+            this.produitsToolStripMenuItem1.Size = new System.Drawing.Size(63, 20);
+            this.produitsToolStripMenuItem1.Text = "Produits";
+            this.produitsToolStripMenuItem1.Click += new System.EventHandler(this.produitsToolStripMenuItem1_Click);
+            // 
+            // devisToolStripMenuItem1
+            // 
+            this.devisToolStripMenuItem1.Name = "devisToolStripMenuItem1";
+            this.devisToolStripMenuItem1.Size = new System.Drawing.Size(47, 20);
+            this.devisToolStripMenuItem1.Text = "Devis";
+            this.devisToolStripMenuItem1.Click += new System.EventHandler(this.devisToolStripMenuItem1_Click);
+            // 
+            // synthèseToolStripMenuItem1
+            // 
+            this.synthèseToolStripMenuItem1.Name = "synthèseToolStripMenuItem1";
+            this.synthèseToolStripMenuItem1.Size = new System.Drawing.Size(66, 20);
+            this.synthèseToolStripMenuItem1.Text = "Synthèse";
             // 
             // FrmClient
             // 
@@ -656,6 +627,7 @@
             this.Controls.Add(this.btnAddClient);
             this.Controls.Add(this.dgvClient);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip2);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmClient";
@@ -664,8 +636,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).EndInit();
             this.pnlDetail.ResumeLayout(false);
             this.pnlDetail.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip2.ResumeLayout(false);
+            this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -724,15 +696,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CodePostalLiv;
         private System.Windows.Forms.Label lblTitre;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem listeDesClientsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gérerLesClientsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ajouterUnClientToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem listeDesProduitsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gérerLesProduitsToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem ajouterUnProduitToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem listeDesDevisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clientsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem produitsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem devisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem synthèseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gérerLesDevisToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ajouterUnDevisToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem clientsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem produitsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem devisToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem synthèseToolStripMenuItem1;
     }
 }

@@ -51,26 +51,24 @@
             this.listeDesClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gérerLesClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ajouterUnClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.produitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gérerLesProduitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ajouterUnProduitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.devisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gérerLesDevisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ajouterUnDevisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.clientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.produitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deviToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.synthèseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.pnlDetail.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // addProduct
             // 
             this.addProduct.BackColor = System.Drawing.SystemColors.Highlight;
             this.addProduct.ForeColor = System.Drawing.Color.White;
-            this.addProduct.Location = new System.Drawing.Point(36, 85);
-            this.addProduct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addProduct.Location = new System.Drawing.Point(27, 69);
             this.addProduct.Name = "addProduct";
-            this.addProduct.Size = new System.Drawing.Size(160, 43);
+            this.addProduct.Size = new System.Drawing.Size(120, 35);
             this.addProduct.TabIndex = 0;
             this.addProduct.Text = "Nouveau";
             this.addProduct.UseVisualStyleBackColor = false;
@@ -87,14 +85,13 @@
             this.Libellé,
             this.Catégorie,
             this.Prix});
-            this.dataGridView1.Location = new System.Drawing.Point(36, 153);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Location = new System.Drawing.Point(27, 124);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(915, 554);
+            this.dataGridView1.Size = new System.Drawing.Size(686, 450);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -142,20 +139,18 @@
             this.pnlDetail.Controls.Add(this.lblLibelle);
             this.pnlDetail.Controls.Add(this.lblCode);
             this.pnlDetail.Controls.Add(this.lblDetail);
-            this.pnlDetail.Location = new System.Drawing.Point(1211, 153);
-            this.pnlDetail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlDetail.Location = new System.Drawing.Point(908, 124);
             this.pnlDetail.Name = "pnlDetail";
-            this.pnlDetail.Size = new System.Drawing.Size(466, 554);
+            this.pnlDetail.Size = new System.Drawing.Size(350, 450);
             this.pnlDetail.TabIndex = 2;
             // 
             // btnSupprimer
             // 
             this.btnSupprimer.BackColor = System.Drawing.Color.Crimson;
             this.btnSupprimer.ForeColor = System.Drawing.Color.White;
-            this.btnSupprimer.Location = new System.Drawing.Point(227, 320);
-            this.btnSupprimer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSupprimer.Location = new System.Drawing.Point(170, 260);
             this.btnSupprimer.Name = "btnSupprimer";
-            this.btnSupprimer.Size = new System.Drawing.Size(160, 43);
+            this.btnSupprimer.Size = new System.Drawing.Size(120, 35);
             this.btnSupprimer.TabIndex = 10;
             this.btnSupprimer.Text = "Supprimer";
             this.btnSupprimer.UseVisualStyleBackColor = false;
@@ -165,10 +160,9 @@
             // 
             this.btnModifier.BackColor = System.Drawing.Color.LimeGreen;
             this.btnModifier.ForeColor = System.Drawing.Color.White;
-            this.btnModifier.Location = new System.Drawing.Point(33, 320);
-            this.btnModifier.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnModifier.Location = new System.Drawing.Point(25, 260);
             this.btnModifier.Name = "btnModifier";
-            this.btnModifier.Size = new System.Drawing.Size(160, 43);
+            this.btnModifier.Size = new System.Drawing.Size(120, 35);
             this.btnModifier.TabIndex = 9;
             this.btnModifier.Text = "Modifier";
             this.btnModifier.UseVisualStyleBackColor = false;
@@ -176,10 +170,9 @@
             // 
             // txtPrix
             // 
-            this.txtPrix.Location = new System.Drawing.Point(173, 255);
-            this.txtPrix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPrix.Location = new System.Drawing.Point(130, 207);
             this.txtPrix.Name = "txtPrix";
-            this.txtPrix.Size = new System.Drawing.Size(132, 22);
+            this.txtPrix.Size = new System.Drawing.Size(100, 20);
             this.txtPrix.TabIndex = 8;
             // 
             // cmbCategorie
@@ -191,66 +184,59 @@
             "consommable",
             "PC",
             "pièces détachées"});
-            this.cmbCategorie.Location = new System.Drawing.Point(173, 193);
-            this.cmbCategorie.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbCategorie.Location = new System.Drawing.Point(130, 157);
             this.cmbCategorie.Name = "cmbCategorie";
-            this.cmbCategorie.Size = new System.Drawing.Size(239, 24);
+            this.cmbCategorie.Size = new System.Drawing.Size(180, 21);
             this.cmbCategorie.TabIndex = 6;
             // 
             // txtLibelle
             // 
-            this.txtLibelle.Location = new System.Drawing.Point(173, 132);
-            this.txtLibelle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLibelle.Location = new System.Drawing.Point(130, 107);
             this.txtLibelle.Name = "txtLibelle";
-            this.txtLibelle.Size = new System.Drawing.Size(239, 22);
+            this.txtLibelle.Size = new System.Drawing.Size(180, 20);
             this.txtLibelle.TabIndex = 4;
             // 
             // txtCode
             // 
-            this.txtCode.Location = new System.Drawing.Point(173, 70);
-            this.txtCode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCode.Location = new System.Drawing.Point(130, 57);
             this.txtCode.Name = "txtCode";
             this.txtCode.ReadOnly = true;
-            this.txtCode.Size = new System.Drawing.Size(132, 22);
+            this.txtCode.Size = new System.Drawing.Size(100, 20);
             this.txtCode.TabIndex = 2;
             // 
             // lblPrix
             // 
             this.lblPrix.AutoSize = true;
-            this.lblPrix.Location = new System.Drawing.Point(29, 258);
-            this.lblPrix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPrix.Location = new System.Drawing.Point(22, 210);
             this.lblPrix.Name = "lblPrix";
-            this.lblPrix.Size = new System.Drawing.Size(109, 16);
+            this.lblPrix.Size = new System.Drawing.Size(90, 13);
             this.lblPrix.TabIndex = 7;
             this.lblPrix.Text = "Prix de vente HT:";
             // 
             // lblCategorie
             // 
             this.lblCategorie.AutoSize = true;
-            this.lblCategorie.Location = new System.Drawing.Point(29, 197);
-            this.lblCategorie.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCategorie.Location = new System.Drawing.Point(22, 160);
             this.lblCategorie.Name = "lblCategorie";
-            this.lblCategorie.Size = new System.Drawing.Size(69, 16);
+            this.lblCategorie.Size = new System.Drawing.Size(55, 13);
             this.lblCategorie.TabIndex = 5;
             this.lblCategorie.Text = "Catégorie:";
             // 
             // lblLibelle
             // 
             this.lblLibelle.AutoSize = true;
-            this.lblLibelle.Location = new System.Drawing.Point(29, 135);
-            this.lblLibelle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLibelle.Location = new System.Drawing.Point(22, 110);
             this.lblLibelle.Name = "lblLibelle";
-            this.lblLibelle.Size = new System.Drawing.Size(50, 16);
+            this.lblLibelle.Size = new System.Drawing.Size(40, 13);
             this.lblLibelle.TabIndex = 3;
             this.lblLibelle.Text = "Libellé:";
             // 
             // lblCode
             // 
             this.lblCode.AutoSize = true;
-            this.lblCode.Location = new System.Drawing.Point(29, 74);
-            this.lblCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCode.Location = new System.Drawing.Point(22, 60);
             this.lblCode.Name = "lblCode";
-            this.lblCode.Size = new System.Drawing.Size(43, 16);
+            this.lblCode.Size = new System.Drawing.Size(35, 13);
             this.lblCode.TabIndex = 1;
             this.lblCode.Text = "Code:";
             // 
@@ -258,8 +244,7 @@
             // 
             this.lblDetail.AutoSize = true;
             this.lblDetail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblDetail.Location = new System.Drawing.Point(27, 18);
-            this.lblDetail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDetail.Location = new System.Drawing.Point(20, 15);
             this.lblDetail.Name = "lblDetail";
             this.lblDetail.Size = new System.Drawing.Size(56, 21);
             this.lblDetail.TabIndex = 0;
@@ -269,8 +254,7 @@
             // 
             this.lblTitre.AutoSize = true;
             this.lblTitre.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.lblTitre.Location = new System.Drawing.Point(729, 73);
-            this.lblTitre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitre.Location = new System.Drawing.Point(547, 59);
             this.lblTitre.Name = "lblTitre";
             this.lblTitre.Size = new System.Drawing.Size(203, 29);
             this.lblTitre.TabIndex = 3;
@@ -279,114 +263,80 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.listeDesClientsToolStripMenuItem,
-            this.produitToolStripMenuItem,
-            this.devisToolStripMenuItem,
-            this.synthèseToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.listeDesClientsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 24);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1733, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1300, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // listeDesClientsToolStripMenuItem
             // 
-            this.listeDesClientsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.listeDesClientsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gérerLesClientsToolStripMenuItem,
-            this.ajouterUnClientToolStripMenuItem});
-            this.listeDesClientsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.listeDesClientsToolStripMenuItem.Name = "listeDesClientsToolStripMenuItem";
-            this.listeDesClientsToolStripMenuItem.Size = new System.Drawing.Size(62, 23);
-            this.listeDesClientsToolStripMenuItem.Text = "Clients";
+            this.listeDesClientsToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
             // 
             // gérerLesClientsToolStripMenuItem
             // 
-            this.gérerLesClientsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.gérerLesClientsToolStripMenuItem.Name = "gérerLesClientsToolStripMenuItem";
-            this.gérerLesClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.gérerLesClientsToolStripMenuItem.Text = "Gérer les clients";
-            this.gérerLesClientsToolStripMenuItem.Click += new System.EventHandler(this.gérerLesClientsToolStripMenuItem_Click);
+            this.gérerLesClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             // 
             // ajouterUnClientToolStripMenuItem
             // 
-            this.ajouterUnClientToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ajouterUnClientToolStripMenuItem.Name = "ajouterUnClientToolStripMenuItem";
-            this.ajouterUnClientToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.ajouterUnClientToolStripMenuItem.Text = "Ajouter un client";
-            this.ajouterUnClientToolStripMenuItem.Click += new System.EventHandler(this.ajouterUnClientToolStripMenuItem_Click);
+            this.ajouterUnClientToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             // 
-            // produitToolStripMenuItem
+            // menuStrip2
             // 
-            this.produitToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.produitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gérerLesProduitsToolStripMenuItem,
-            this.ajouterUnProduitToolStripMenuItem});
-            this.produitToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.produitToolStripMenuItem.Name = "produitToolStripMenuItem";
-            this.produitToolStripMenuItem.Size = new System.Drawing.Size(66, 23);
-            this.produitToolStripMenuItem.Text = "Produit";
+            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clientsToolStripMenuItem,
+            this.produitsToolStripMenuItem,
+            this.deviToolStripMenuItem,
+            this.synthèseToolStripMenuItem});
+            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Size = new System.Drawing.Size(1300, 24);
+            this.menuStrip2.TabIndex = 5;
+            this.menuStrip2.Text = "menuStrip2";
             // 
-            // gérerLesProduitsToolStripMenuItem
+            // clientsToolStripMenuItem
             // 
-            this.gérerLesProduitsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.gérerLesProduitsToolStripMenuItem.Name = "gérerLesProduitsToolStripMenuItem";
-            this.gérerLesProduitsToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
-            this.gérerLesProduitsToolStripMenuItem.Text = "Gérer les produits";
+            this.clientsToolStripMenuItem.Name = "clientsToolStripMenuItem";
+            this.clientsToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.clientsToolStripMenuItem.Text = "Clients";
+            this.clientsToolStripMenuItem.Click += new System.EventHandler(this.clientsToolStripMenuItem_Click);
             // 
-            // ajouterUnProduitToolStripMenuItem
+            // produitsToolStripMenuItem
             // 
-            this.ajouterUnProduitToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ajouterUnProduitToolStripMenuItem.Name = "ajouterUnProduitToolStripMenuItem";
-            this.ajouterUnProduitToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
-            this.ajouterUnProduitToolStripMenuItem.Text = "Ajouter un produit";
-            this.ajouterUnProduitToolStripMenuItem.Click += new System.EventHandler(this.ajouterUnProduitToolStripMenuItem_Click);
+            this.produitsToolStripMenuItem.Name = "produitsToolStripMenuItem";
+            this.produitsToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.produitsToolStripMenuItem.Text = "Produits";
             // 
-            // devisToolStripMenuItem
+            // deviToolStripMenuItem
             // 
-            this.devisToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.devisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gérerLesDevisToolStripMenuItem,
-            this.ajouterUnDevisToolStripMenuItem});
-            this.devisToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.devisToolStripMenuItem.Name = "devisToolStripMenuItem";
-            this.devisToolStripMenuItem.Size = new System.Drawing.Size(58, 23);
-            this.devisToolStripMenuItem.Text = "Devis ";
-            // 
-            // gérerLesDevisToolStripMenuItem
-            // 
-            this.gérerLesDevisToolStripMenuItem.Name = "gérerLesDevisToolStripMenuItem";
-            this.gérerLesDevisToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
-            this.gérerLesDevisToolStripMenuItem.Text = "Gérer les devis";
-            // 
-            // ajouterUnDevisToolStripMenuItem
-            // 
-            this.ajouterUnDevisToolStripMenuItem.Name = "ajouterUnDevisToolStripMenuItem";
-            this.ajouterUnDevisToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
-            this.ajouterUnDevisToolStripMenuItem.Text = "Ajouter un devis";
+            this.deviToolStripMenuItem.Name = "deviToolStripMenuItem";
+            this.deviToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.deviToolStripMenuItem.Text = "Devis";
+            this.deviToolStripMenuItem.Click += new System.EventHandler(this.deviToolStripMenuItem_Click);
             // 
             // synthèseToolStripMenuItem
             // 
-            this.synthèseToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.synthèseToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.synthèseToolStripMenuItem.Name = "synthèseToolStripMenuItem";
-            this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(76, 23);
+            this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.synthèseToolStripMenuItem.Text = "Synthèse";
             // 
             // FrmProduit
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1733, 876);
+            this.ClientSize = new System.Drawing.Size(1300, 712);
             this.Controls.Add(this.lblTitre);
             this.Controls.Add(this.pnlDetail);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.addProduct);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip2);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmProduit";
             this.Text = "Produits";
             this.Load += new System.EventHandler(this.Produit_Load);
@@ -395,6 +345,8 @@
             this.pnlDetail.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.menuStrip2.ResumeLayout(false);
+            this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -425,12 +377,10 @@
         private System.Windows.Forms.ToolStripMenuItem listeDesClientsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gérerLesClientsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ajouterUnClientToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem produitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gérerLesProduitsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ajouterUnProduitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem devisToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gérerLesDevisToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ajouterUnDevisToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem clientsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem produitsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deviToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem synthèseToolStripMenuItem;
     }
 }
