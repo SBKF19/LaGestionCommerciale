@@ -257,7 +257,6 @@ namespace LaGestionCommerciale
 
                 int newId = GestionDevis.AjouterDevis(devisCourant);
                 MessageBox.Show($"Devis n°{newId} créé avec succès !", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
             }
             catch (Exception ex)
             {
@@ -268,6 +267,7 @@ namespace LaGestionCommerciale
 
         private void btnRetour_Click(object sender, EventArgs e)
         {
+            new FrmDevis().Show();
             this.Close();
         }
 

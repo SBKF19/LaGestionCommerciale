@@ -99,6 +99,7 @@
             this.btnAddDevis.TabIndex = 5;
             this.btnAddDevis.Text = "Ajouter un devis";
             this.btnAddDevis.UseVisualStyleBackColor = false;
+            this.btnAddDevis.Click += new System.EventHandler(this.btnAddDevis_Click);
             // 
             // dgvDevis
             // 
