@@ -106,20 +106,13 @@ namespace LaGestionCommerciale
             ChargerListeDevis();
             numRemiseGlobale.ValueChanged += GlobalRates_ValueChanged;
         }
-<<<<<<< HEAD
 
         // Récupère la liste des devis depuis la base de données et remplit la grille de sélection des devis.
-        private void ChargerListeDevis()
-        {
-            List<Devis> lesDevis = GestionDevis.GetDevis();
-
-=======
         private void ChargerListeDevis(int idSelection = -1)
         {
             List<Devis> lesDevis = GestionDevis.GetDevis();
 
             // On désactive l'event pour éviter de déclencher SelectionChanged pendant la construction
->>>>>>> d5f81dda730bb082f6e855b3ccaa5b58b5383b67
             dgvDevis.SelectionChanged -= dgvDevis_SelectionChanged;
 
             dgvDevis.Rows.Clear();
@@ -127,13 +120,11 @@ namespace LaGestionCommerciale
             dgvDevis.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDevis.AllowUserToAddRows = false;
 
-<<<<<<< HEAD
-=======
             int indexRowSelection = 0; // Par défaut, on sélectionnera la première ligne (0)
 
->>>>>>> d5f81dda730bb082f6e855b3ccaa5b58b5383b67
             foreach (Devis devis in lesDevis)
             {
+                // On ajoute la ligne et on récupère son index
                 int index = dgvDevis.Rows.Add(
                     devis.IdDevis,
                     devis.Client.NomClient,
@@ -141,10 +132,7 @@ namespace LaGestionCommerciale
                     devis.Montant_HT_devis
                 );
 
-<<<<<<< HEAD
-=======
                 // On cache l'objet complet dans le Tag
->>>>>>> d5f81dda730bb082f6e855b3ccaa5b58b5383b67
                 dgvDevis.Rows[index].Tag = devis;
 
                 // SI l'ID du devis en cours correspond à celui qu'on veut sélectionner
@@ -154,13 +142,10 @@ namespace LaGestionCommerciale
                 }
             }
 
-<<<<<<< HEAD
-=======
             // On réactive l'event
             dgvDevis.SelectionChanged += dgvDevis_SelectionChanged;
 
             // Gestion de la sélection finale
->>>>>>> d5f81dda730bb082f6e855b3ccaa5b58b5383b67
             if (dgvDevis.Rows.Count > 0)
             {
                 dgvDevis.ClearSelection();

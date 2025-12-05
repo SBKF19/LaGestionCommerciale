@@ -97,7 +97,7 @@
             this.btnAddDevis.Name = "btnAddDevis";
             this.btnAddDevis.Size = new System.Drawing.Size(152, 35);
             this.btnAddDevis.TabIndex = 5;
-            this.btnAddDevis.Text = "Ajouter un client";
+            this.btnAddDevis.Text = "Ajouter un devis";
             this.btnAddDevis.UseVisualStyleBackColor = false;
             // 
             // dgvDevis
