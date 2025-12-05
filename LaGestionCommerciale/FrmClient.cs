@@ -332,31 +332,21 @@ namespace LaGestionCommerciale
             txtCodePostalLivraison.Text = row.Cells["CodePostalLiv"].Value?.ToString();
         }
 
-        // Menu pour accéder aux autres formulaires
-        private void ajouterUnClientToolStripMenuItem_Click(object sender, EventArgs e)
+        private void clientsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            FrmAjoutDeClients frm = new FrmAjoutDeClients();
-            frm.Show();
+
+        }
+
+        private void produitsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new FrmProduit().Show();
             this.Hide();
         }
 
-        private void gérerLesProduitsToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void devisToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            FrmProduit frm = new FrmProduit();
-            frm.Show();
+            new FrmDevis().Show();
             this.Hide();
-        }
-
-        private void ajouterUnProduitToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            FrmAjoutDeProduit frm = new FrmAjoutDeProduit();
-            frm.Show();
-            this.Hide();
-        }
-
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
         }
     }
 }
