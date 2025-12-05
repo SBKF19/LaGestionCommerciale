@@ -80,6 +80,8 @@
             this.produitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.synthèseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblMontantHTnonRem = new System.Windows.Forms.Label();
+            this.txtNonRemHt = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
@@ -142,6 +144,8 @@
             // 
             // pnlDevis
             // 
+            this.pnlDevis.Controls.Add(this.txtNonRemHt);
+            this.pnlDevis.Controls.Add(this.lblMontantHTnonRem);
             this.pnlDevis.Controls.Add(this.btnSupprimer);
             this.pnlDevis.Controls.Add(this.btnModifier);
             this.pnlDevis.Controls.Add(this.numTVA);
@@ -206,7 +210,7 @@
             // 
             // txtTTC
             // 
-            this.txtTTC.Location = new System.Drawing.Point(437, 593);
+            this.txtTTC.Location = new System.Drawing.Point(665, 555);
             this.txtTTC.Name = "txtTTC";
             this.txtTTC.ReadOnly = true;
             this.txtTTC.Size = new System.Drawing.Size(172, 20);
@@ -215,7 +219,7 @@
             // lblTTC
             // 
             this.lblTTC.AutoSize = true;
-            this.lblTTC.Location = new System.Drawing.Point(463, 577);
+            this.lblTTC.Location = new System.Drawing.Point(691, 539);
             this.lblTTC.Name = "lblTTC";
             this.lblTTC.Size = new System.Drawing.Size(70, 13);
             this.lblTTC.TabIndex = 28;
@@ -223,7 +227,7 @@
             // 
             // txtMontantTVA
             // 
-            this.txtMontantTVA.Location = new System.Drawing.Point(223, 593);
+            this.txtMontantTVA.Location = new System.Drawing.Point(451, 555);
             this.txtMontantTVA.Name = "txtMontantTVA";
             this.txtMontantTVA.ReadOnly = true;
             this.txtMontantTVA.Size = new System.Drawing.Size(161, 20);
@@ -232,7 +236,7 @@
             // lblMontantTVA
             // 
             this.lblMontantTVA.AutoSize = true;
-            this.lblMontantTVA.Location = new System.Drawing.Point(247, 577);
+            this.lblMontantTVA.Location = new System.Drawing.Point(475, 539);
             this.lblMontantTVA.Name = "lblMontantTVA";
             this.lblMontantTVA.Size = new System.Drawing.Size(70, 13);
             this.lblMontantTVA.TabIndex = 26;
@@ -240,7 +244,7 @@
             // 
             // txtHT
             // 
-            this.txtHT.Location = new System.Drawing.Point(25, 593);
+            this.txtHT.Location = new System.Drawing.Point(253, 555);
             this.txtHT.Name = "txtHT";
             this.txtHT.ReadOnly = true;
             this.txtHT.Size = new System.Drawing.Size(151, 20);
@@ -249,11 +253,11 @@
             // lblHT
             // 
             this.lblHT.AutoSize = true;
-            this.lblHT.Location = new System.Drawing.Point(38, 577);
+            this.lblHT.Location = new System.Drawing.Point(266, 539);
             this.lblHT.Name = "lblHT";
-            this.lblHT.Size = new System.Drawing.Size(64, 13);
+            this.lblHT.Size = new System.Drawing.Size(82, 13);
             this.lblHT.TabIndex = 24;
-            this.lblHT.Text = "Montant HT";
+            this.lblHT.Text = "Total HT remisé";
             // 
             // dgvModify
             // 
@@ -555,6 +559,23 @@
             this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.synthèseToolStripMenuItem.Text = "Synthèse";
             // 
+            // lblMontantHTnonRem
+            // 
+            this.lblMontantHTnonRem.AutoSize = true;
+            this.lblMontantHTnonRem.Location = new System.Drawing.Point(46, 539);
+            this.lblMontantHTnonRem.Name = "lblMontantHTnonRem";
+            this.lblMontantHTnonRem.Size = new System.Drawing.Size(105, 13);
+            this.lblMontantHTnonRem.TabIndex = 32;
+            this.lblMontantHTnonRem.Text = "Total HT hors remise";
+            // 
+            // txtNonRemHt
+            // 
+            this.txtNonRemHt.Location = new System.Drawing.Point(25, 555);
+            this.txtNonRemHt.Name = "txtNonRemHt";
+            this.txtNonRemHt.ReadOnly = true;
+            this.txtNonRemHt.Size = new System.Drawing.Size(166, 20);
+            this.txtNonRemHt.TabIndex = 33;
+            // 
             // FrmDevis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -635,5 +656,7 @@
         private System.Windows.Forms.ToolStripMenuItem produitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem devisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem synthèseToolStripMenuItem;
+        private System.Windows.Forms.TextBox txtNonRemHt;
+        private System.Windows.Forms.Label lblMontantHTnonRem;
     }
 }

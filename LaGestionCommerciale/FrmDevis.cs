@@ -23,19 +23,20 @@ namespace LaGestionCommerciale
         public FrmDevis()
         {
             InitializeComponent();
+        }
 
+        // Méthode exécutée au chargement du formulaire pour initialiser les composants et configurer les colonnes du DataGridView.
+        // Méthode exécutée au chargement du formulaire pour initialiser les composants et configurer les colonnes du DataGridView.
+        private void FrmDevis_Load(object sender, EventArgs e)
+        {
             var chset = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
             if (chset == null)
             {
                 MessageBox.Show("Chaîne de connexion introuvable !");
                 return;
             }
-            GestionClients.SetchaineConnexion(chset);
-        }
+            GestionDevis.SetchaineConnexion(chset);
 
-        // Méthode exécutée au chargement du formulaire pour initialiser les composants et configurer les colonnes du DataGridView.
-        private void FrmDevis_Load(object sender, EventArgs e)
-        {
             dgvModify.CellValueChanged += dgvModify_CellValueChanged;
             dgvModify.CurrentCellDirtyStateChanged += dgvModify_CurrentCellDirtyStateChanged;
 
@@ -51,7 +52,7 @@ namespace LaGestionCommerciale
             colProd.DataSource = GestionProduits.GetProduits();
             colProd.DisplayMember = "Libelle";
             colProd.ValueMember = "Code";
-            colProd.Width = 330;
+            colProd.Width = 230;
             dgvModify.Columns.Add(colProd);
 
             DataGridViewTextBoxColumn colCat = new DataGridViewTextBoxColumn();
@@ -75,11 +76,7 @@ namespace LaGestionCommerciale
             DataGridViewComboBoxColumn colRem = new DataGridViewComboBoxColumn();
             colRem.HeaderText = "Rem.%";
             colRem.Name = "RemiseCol";
-
-            for (int i = 0; i <= 100; i++)
-            {
-                colRem.Items.Add(i.ToString());
-            }
+            for (int i = 0; i <= 100; i++) colRem.Items.Add(i.ToString());
             dgvModify.Columns.Add(colRem);
 
             DataGridViewTextBoxColumn colTotal = new DataGridViewTextBoxColumn();
@@ -87,6 +84,14 @@ namespace LaGestionCommerciale
             colTotal.Name = "TotalCol";
             colTotal.ReadOnly = true;
             dgvModify.Columns.Add(colTotal);
+
+            // --- CORRECTION ICI ---
+            DataGridViewTextBoxColumn colMontantRem = new DataGridViewTextBoxColumn();
+            colMontantRem.HeaderText = "Montant Rem";
+            colMontantRem.Name = "MontantRemCol"; // J'ai donné un nom précis
+            colMontantRem.ReadOnly = true;
+            dgvModify.Columns.Add(colMontantRem);
+            // ----------------------
 
             DataGridViewButtonColumn colDel = new DataGridViewButtonColumn();
             colDel.HeaderText = "Sup.";
@@ -174,15 +179,16 @@ namespace LaGestionCommerciale
         }
 
         // Remplit les champs de détails et la grille de modification avec les informations du devis situé à l'index spécifié.
+        // Remplit les champs de détails et la grille de modification avec les informations du devis situé à l'index spécifié.
         private void RemplirChampsDepuisLigne(int index)
         {
             DataGridViewRow row = dgvDevis.Rows[index];
 
             if (row.Tag is Devis devis)
             {
+                // ... (Début du code inchangé : txtCode, dtpDevis, Client, etc.) ...
                 txtCode.Text = devis.IdDevis.ToString();
                 dtpDevis.Value = devis.Date_devis;
-
                 if (devis.Client != null) cmbClient.SelectedValue = devis.Client.IdClient;
                 if (devis.Statut != null) cmbStatut.SelectedValue = devis.Statut.IdStatut;
 
@@ -200,11 +206,13 @@ namespace LaGestionCommerciale
                     numRemiseGlobale.Value = (decimal)devis.Taux_remise_global_devis;
                 }
                 catch { numTVA.Text = "0"; numRemiseGlobale.Value = 0; }
+                // ... (Fin partie entête) ...
 
                 dgvModify.Rows.Clear();
                 List<Contenir> lesLignes = GestionDevis.GetLignesDuDevis(devis.IdDevis);
 
                 dgvModify.CellValueChanged -= dgvModify_CellValueChanged;
+
                 foreach (Contenir ligne in lesLignes)
                 {
                     int i = dgvModify.Rows.Add();
@@ -218,19 +226,24 @@ namespace LaGestionCommerciale
 
                     string qteStr = ligne.Quantite_commandee.ToString();
                     DataGridViewComboBoxCell cellQte = (DataGridViewComboBoxCell)r.Cells["QuantiteCol"];
-
                     if (!cellQte.Items.Contains(qteStr)) cellQte.Items.Add(qteStr);
                     cellQte.Value = qteStr;
 
                     string remStr = ((int)ligne.Remise_par_ligne).ToString();
                     DataGridViewComboBoxCell cellRem = (DataGridViewComboBoxCell)r.Cells["RemiseCol"];
-
                     if (!cellRem.Items.Contains(remStr)) cellRem.Items.Add(remStr);
                     cellRem.Value = remStr;
 
-                    r.Cells["TotalCol"].Value = (ligne.ProduitBO.Prix * ligne.Quantite_commandee).ToString("F2");
-                    dgvModify.CellValueChanged += dgvModify_CellValueChanged;
+                    // --- NOUVEAUX CALCULS ---
+                    decimal prixTotalBrut = (decimal)ligne.ProduitBO.Prix * ligne.Quantite_commandee;
+                    decimal montantRemise = prixTotalBrut * ((decimal)ligne.Remise_par_ligne / 100); // Cast decimal important
 
+                    r.Cells["MontantRemCol"].Value = montantRemise.ToString("F2");
+                    // La colonne TotalCol affiche le BRUT (sans remise)
+                    r.Cells["TotalCol"].Value = prixTotalBrut.ToString("F2");
+                    // ------------------------
+
+                    dgvModify.CellValueChanged += dgvModify_CellValueChanged;
                     CalculerTotauxGlobaux();
                 }
             }
@@ -287,6 +300,39 @@ namespace LaGestionCommerciale
 
             string colName = dgvModify.Columns[e.ColumnIndex].Name;
 
+            // --- CORRECTION : Mise à jour des infos produit si on change le produit ---
+            if (colName == "ProduitCol")
+            {
+                DataGridViewRow row = dgvModify.Rows[e.RowIndex];
+
+                // On récupère l'ID du produit sélectionné
+                if (row.Cells["ProduitCol"].Value != null)
+                {
+                    int idProduit;
+                    if (int.TryParse(row.Cells["ProduitCol"].Value.ToString(), out idProduit))
+                    {
+                        // On récupère la liste source depuis la colonne pour éviter de rappeler la BDD
+                        var colProd = (DataGridViewComboBoxColumn)dgvModify.Columns["ProduitCol"];
+                        List<ProduitBO> lesProduits = (List<ProduitBO>)colProd.DataSource;
+
+                        // On cherche le produit correspondant
+                        ProduitBO leProduit = lesProduits.Find(p => p.Code == idProduit);
+
+                        if (leProduit != null)
+                        {
+                            // On met à jour les cellules Prix et Catégorie
+                            row.Cells["PrixCol"].Value = leProduit.Prix;
+
+                            if (leProduit.Categorie != null)
+                                row.Cells["CatCol"].Value = leProduit.Categorie.NomCategorie;
+                            else
+                                row.Cells["CatCol"].Value = "";
+                        }
+                    }
+                }
+            }
+            // --------------------------------------------------------------------------
+
             if (colName == "QuantiteCol" || colName == "RemiseCol" || colName == "ProduitCol")
             {
                 CalculerTotalLigne(e.RowIndex);
@@ -306,47 +352,84 @@ namespace LaGestionCommerciale
             if (row.Cells["QuantiteCol"].Value != null)
                 int.TryParse(row.Cells["QuantiteCol"].Value.ToString(), out qte);
 
-            decimal remise = 0;
+            decimal remisePourcentage = 0;
             if (row.Cells["RemiseCol"].Value != null)
-                decimal.TryParse(row.Cells["RemiseCol"].Value.ToString(), out remise);
+                decimal.TryParse(row.Cells["RemiseCol"].Value.ToString(), out remisePourcentage);
 
-            decimal totalSansRemise = prix * qte;
-            decimal montantRemise = totalSansRemise * (remise / 100);
-            decimal total = totalSansRemise - montantRemise;
+            // Calcul du Total Brut (Prix * Qté) SANS la remise
+            decimal totalBrut = prix * qte;
 
-            row.Cells["TotalCol"].Value = total.ToString("F2");
+            // Calcul du montant de la remise
+            decimal montantRemise = totalBrut * (remisePourcentage / 100);
+
+            // Affichage : TotalCol contient maintenant le Brut
+            row.Cells["MontantRemCol"].Value = montantRemise.ToString("F2");
+            row.Cells["TotalCol"].Value = totalBrut.ToString("F2");
 
             CalculerTotauxGlobaux();
         }
 
         // Calcule les totaux globaux du devis (Total HT, TVA, TTC) en incluant la remise globale.
+        // Calcule les totaux globaux : Brut, Net Commercial, TVA et TTC
         private void CalculerTotauxGlobaux()
         {
-            decimal totalLignesHT = 0;
+            decimal totalBrutGlobal = 0;      // Somme des (Prix * Qté) sans remises
+            decimal totalRemiseLignes = 0;    // Somme des remises par ligne
 
             foreach (DataGridViewRow row in dgvModify.Rows)
             {
+                // 1. Récupération du Total Brut (Colonne TotalCol contient maintenant le brut)
                 if (row.Cells["TotalCol"].Value != null)
                 {
                     decimal valLigne = 0;
                     decimal.TryParse(row.Cells["TotalCol"].Value.ToString(), out valLigne);
-                    totalLignesHT += valLigne;
+                    totalBrutGlobal += valLigne;
+                }
+
+                // 2. Récupération du Montant Remise Ligne
+                if (row.Cells["MontantRemCol"].Value != null)
+                {
+                    decimal valRem = 0;
+                    decimal.TryParse(row.Cells["MontantRemCol"].Value.ToString(), out valRem);
+                    totalRemiseLignes += valRem;
                 }
             }
 
-            decimal tauxRemiseGlobal = numRemiseGlobale.Value;
-            decimal montantRemiseGlobal = totalLignesHT * (tauxRemiseGlobal / 100);
-            decimal totalHTNet = totalLignesHT - montantRemiseGlobal;
+            // --- CALCULS ---
 
+            // A. Calculs des remises
+            decimal tauxRemiseGlobal = numRemiseGlobale.Value;
+
+            // Le total après avoir enlevé les remises ligne par ligne
+            decimal totalApresRemiseLignes = totalBrutGlobal - totalRemiseLignes;
+
+            // Calcul de la remise globale sur le montant restant
+            decimal montantRemiseGlobal = totalApresRemiseLignes * (tauxRemiseGlobal / 100);
+
+            // Total HT Net (Le montant final HT que le client doit payer)
+            decimal totalHTNetFinancier = totalApresRemiseLignes - montantRemiseGlobal;
+
+            // B. Calcul TVA (Sur le BRUT GLOBAL comme demandé précédemment)
             decimal tauxTVA = 0;
             decimal.TryParse(numTVA.Text, out tauxTVA);
 
-            decimal montantTVA = totalHTNet * (tauxTVA / 100);
+            decimal montantTVA = totalBrutGlobal * (tauxTVA / 100);
 
-            decimal totalTTC = totalHTNet + montantTVA;
+            // C. Calcul TTC
+            decimal totalTTC = totalHTNetFinancier + montantTVA;
 
-            txtHT.Text = totalHTNet.ToString("F2");
+            // --- AFFICHAGE ---
+
+            // 1. Le Total HT sans aucune remise (Brut) -> C'est ici votre nouveau champ
+            txtNonRemHt.Text = totalBrutGlobal.ToString("F2");
+
+            // 2. Le Total HT Net (remises déduites)
+            txtHT.Text = totalHTNetFinancier.ToString("F2");
+
+            // 3. La TVA
             txtMontantTVA.Text = montantTVA.ToString("F2");
+
+            // 4. Le TTC
             txtTTC.Text = totalTTC.ToString("F2");
         }
 

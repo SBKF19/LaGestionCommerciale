@@ -14,17 +14,17 @@ namespace GUI
         [STAThread]
         static void Main()
         {
-            // 1. Initialisation de la chaîne de connexion à partir du fichier de configuration
-            var chset = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
+            //// 1. Initialisation de la chaîne de connexion à partir du fichier de configuration
+            //var chset = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
 
-            if (chset == null)
-            {
-                MessageBox.Show("Chaîne de connexion 'gestion_commerciale' introuvable dans App.config ! L'application va s'arrêter.");
-                return; // Arrête l'application si la config est manquante
-            }
+            //if (chset == null)
+            //{
+            //    MessageBox.Show("Chaîne de connexion 'gestion_commerciale' introuvable dans App.config ! L'application va s'arrêter.");
+            //    return; // Arrête l'application si la config est manquante
+            //}
 
-            // 2. Transférer la chaîne de connexion à la couche BLL/DAL
-            GestionDevis.SetchaineConnexion(chset);
+            //// 2. Transférer la chaîne de connexion à la couche BLL/DAL
+            //GestionDevis.SetchaineConnexion(chset);
 
             // 3. Démarrage de l'application (CETTE PARTIE DOIT VENIR EN DERNIER)
             Application.EnableVisualStyles();
