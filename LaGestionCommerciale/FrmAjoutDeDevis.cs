@@ -32,7 +32,11 @@ namespace LaGestionCommerciale
 
             // 4. Valeurs par défaut
             dtpDate.Value = DateTime.Now;
-            nudTauxTVA.Value = 20;
+
+            // --- MODIFICATION ICI ---
+            nudTauxTVA.Value = 20;      // Force la valeur à 20
+            nudTauxTVA.Enabled = false; // Rend le contrôle non cliquable / non modifiable
+            // ------------------------
         }
 
         private void ChargerListes()
