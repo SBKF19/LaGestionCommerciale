@@ -82,6 +82,12 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSyntheseClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSyntheseClient.Designer.cs">
+      <DependentUpon>FrmSyntheseClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="gestion_commercialeDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -145,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmProduit.resx">
       <DependentUpon>FrmProduit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSyntheseClient.resx">
+      <DependentUpon>FrmSyntheseClient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

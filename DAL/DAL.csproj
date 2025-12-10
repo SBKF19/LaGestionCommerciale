@@ -48,6 +48,7 @@
     <Compile Include="DevisDAO.cs" />
     <Compile Include="ProduitDAO.cs" />
     <Compile Include="StatutDAO.cs" />
+    <Compile Include="SyntheseDAO.cs" />
     <Compile Include="UtilisateurDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

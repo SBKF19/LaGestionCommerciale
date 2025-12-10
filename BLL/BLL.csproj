@@ -45,6 +45,7 @@
     <Compile Include="GestionClients.cs" />
     <Compile Include="GestionDevis.cs" />
     <Compile Include="GestionProduits.cs" />
+    <Compile Include="GestionSynthese.cs" />
     <Compile Include="LoginUtilisateur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

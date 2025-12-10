@@ -13,7 +13,9 @@ namespace GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmLogin());
+            Application.Run(new FrmSyntheseClient());
+
+            // REMARQUE : La ligne de connexion directe n'est plus nécessaire ici.
         }
     }
 }
