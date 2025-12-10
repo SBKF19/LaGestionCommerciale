@@ -22,7 +22,6 @@ namespace BO
             this.Remise_par_ligne = remise_par_ligne;
         }
 
-        // --- CORRECTION : Utilisation de .Prix (tel que défini dans ProduitBO) ---
         public float PrixUnitaire => ProduitBO.Prix;
 
         public float MontantHT_SansRemise => PrixUnitaire * Quantite_commandee;
