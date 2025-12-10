@@ -76,7 +76,6 @@ namespace LaGestionCommerciale
             dgvLignes.DataSource = lignesBinding;
             dgvLignes.Columns.Clear();
 
-            // NOTE : J'ai ajouté la propriété 'Name' pour identifier les colonnes dans CellFormatting
 
             // 1. Produit (Lecture seule)
             dgvLignes.Columns.Add(new DataGridViewTextBoxColumn
