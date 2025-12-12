@@ -25,18 +25,8 @@ namespace GUI
                     throw new ConfigurationErrorsException("La chaîne de connexion 'gestion_commerciale' est introuvable dans App.config.");
 
                 GestionSynthese.SetchaineConnexion(cs);
-
-<<<<<<< HEAD
                 dtpDebut.Value = new DateTime(2025, 09, 30);
                 dtpFin.Value = new DateTime(2025, 10, 17);
-=======
-                DateTime min, max;
-
-                GestionSynthese.GetLimitesDates(out min, out max);
-
-                dtpDebut.Value = min;
-                dtpFin.Value = max;
->>>>>>> 9ccfdd15cf9c8a9aa1ac779ff44bc8a2935cc71e
 
                 ChargerDonnees();
             }
@@ -50,19 +40,7 @@ namespace GUI
         {
             try
             {
-<<<<<<< HEAD
                 List<ClientStat> lesStats = GestionSynthese.GetSyntheseClients(dtpDebut.Value, dtpFin.Value);
-=======
-                List<ClientStat> lesStats;
-
-                // Appel BLL
-                if (dtpFin.Value < dtpDebut.Value) 
-                {
-                    lesStats = new List<ClientStat>();
-                } else { 
-                    lesStats = GestionSynthese.GetSyntheseClients(dtpDebut.Value, dtpFin.Value);
-                }
->>>>>>> 9ccfdd15cf9c8a9aa1ac779ff44bc8a2935cc71e
 
                 dgvSynthese.Rows.Clear();
 
