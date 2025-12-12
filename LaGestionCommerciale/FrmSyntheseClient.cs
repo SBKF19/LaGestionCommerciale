@@ -25,8 +25,9 @@ namespace GUI
                     throw new ConfigurationErrorsException("La chaîne de connexion 'gestion_commerciale' est introuvable dans App.config.");
 
                 GestionSynthese.SetchaineConnexion(cs);
-                dtpDebut.Value = new DateTime(2025, 09, 30);
-                dtpFin.Value = new DateTime(2025, 10, 17);
+                GestionSynthese.GetLimitesDates(out DateTime min, out DateTime max);
+                dtpDebut.Value = min;
+                dtpFin.Value = max;
 
                 ChargerDonnees();
             }
@@ -40,6 +41,14 @@ namespace GUI
         {
             try
             {
+                if (dtpDebut.Value > dtpFin.Value)
+                {
+                    GestionSynthese.GetLimitesDates(out DateTime min, out DateTime max);
+                    MessageBox.Show("La date de début doit être antérieure à la date de fin. DATE DE FIN MAX : " + max.ToShortDateString() + " DATE DE DÉBUT MIN : " + min.ToShortDateString() , "Erreur de date", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnReset_Click(this, EventArgs.Empty);
+                    return;
+                }
+
                 List<ClientStat> lesStats = GestionSynthese.GetSyntheseClients(dtpDebut.Value, dtpFin.Value);
 
                 dgvSynthese.Rows.Clear();
