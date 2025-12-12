@@ -20,9 +20,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.devisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.syntheseClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.syntheseClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelFiltres = new System.Windows.Forms.Panel();
+            this.txtReset = new System.Windows.Forms.Button();
             this.lblFin = new System.Windows.Forms.Label();
             this.dtpFin = new System.Windows.Forms.DateTimePicker();
             this.lblDebut = new System.Windows.Forms.Label();
@@ -36,7 +37,6 @@
             this.colPctRefuse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPctAccepte = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMontant = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtReset = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panelFiltres.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSynthese)).BeginInit();
@@ -69,6 +69,13 @@
             this.clientsToolStripMenuItem.Text = "Clients";
             this.clientsToolStripMenuItem.Click += new System.EventHandler(this.clientsToolStripMenuItem_Click);
             // 
+            // produitsToolStripMenuItem
+            // 
+            this.produitsToolStripMenuItem.Name = "produitsToolStripMenuItem";
+            this.produitsToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.produitsToolStripMenuItem.Text = "Produits";
+            this.produitsToolStripMenuItem.Click += new System.EventHandler(this.produitsToolStripMenuItem_Click);
+            // 
             // syntheseClientsToolStripMenuItem
             // 
             this.syntheseClientsToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -76,13 +83,6 @@
             this.syntheseClientsToolStripMenuItem.Name = "syntheseClientsToolStripMenuItem";
             this.syntheseClientsToolStripMenuItem.Size = new System.Drawing.Size(109, 20);
             this.syntheseClientsToolStripMenuItem.Text = "Synthèse clients";
-            // 
-            // produitsToolStripMenuItem
-            // 
-            this.produitsToolStripMenuItem.Name = "produitsToolStripMenuItem";
-            this.produitsToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            this.produitsToolStripMenuItem.Text = "Produits";
-            this.produitsToolStripMenuItem.Click += new System.EventHandler(this.produitsToolStripMenuItem_Click);
             // 
             // panelFiltres
             // 
@@ -97,6 +97,16 @@
             this.panelFiltres.Name = "panelFiltres";
             this.panelFiltres.Size = new System.Drawing.Size(1100, 70);
             this.panelFiltres.TabIndex = 1;
+            // 
+            // txtReset
+            // 
+            this.txtReset.Location = new System.Drawing.Point(352, 28);
+            this.txtReset.Name = "txtReset";
+            this.txtReset.Size = new System.Drawing.Size(75, 23);
+            this.txtReset.TabIndex = 4;
+            this.txtReset.Text = "Actualiser";
+            this.txtReset.UseVisualStyleBackColor = true;
+            this.txtReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // lblFin
             // 
@@ -209,16 +219,6 @@
             this.colMontant.HeaderText = "Montant facturé HT";
             this.colMontant.Name = "colMontant";
             this.colMontant.ReadOnly = true;
-            // 
-            // txtReset
-            // 
-            this.txtReset.Location = new System.Drawing.Point(367, 27);
-            this.txtReset.Name = "txtReset";
-            this.txtReset.Size = new System.Drawing.Size(75, 23);
-            this.txtReset.TabIndex = 4;
-            this.txtReset.Text = "Réinitialiser";
-            this.txtReset.UseVisualStyleBackColor = true;
-            this.txtReset.Click += new System.EventHandler(this.button1_Click);
             // 
             // FrmSyntheseClient
             // 
