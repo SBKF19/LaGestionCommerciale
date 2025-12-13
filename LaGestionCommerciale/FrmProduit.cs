@@ -41,14 +41,14 @@ namespace GUI
 
                 // Remplissage du comboBox des catégories
                 cmbCategorie.DataSource = GestionProduits.GetCategories();
-                cmbCategorie.DisplayMember = "NomCategorie"; // ce qui est affiché
-                cmbCategorie.ValueMember = "IdCategorie";     // valeur interne
+                cmbCategorie.DisplayMember = "NomCategorie"; 
+                cmbCategorie.ValueMember = "IdCategorie";   
 
-                // --- Étape 2 : Récupération de la liste des produits depuis la BLL ---
+                // Récupération de la liste des produits depuis la BLL 
                 List<ProduitBO> lesProduits = GestionProduits.GetProduits();
 
-                // --- Étape 3 : Affichage des produits dans le DataGridView ---
-                dataGridView1.Rows.Clear(); // vide le DGV avant remplissage
+                //  Affichage des produits dans le DataGridView 
+                dataGridView1.Rows.Clear(); 
                 foreach (var p in lesProduits)
                 {
                     dataGridView1.Rows.Add(p.Code, p.Libelle, p.Categorie.NomCategorie, $"{p.Prix} €");
@@ -73,7 +73,7 @@ namespace GUI
         {
             LaGestionCommerciale.FrmAjoutDeProduit frm = new LaGestionCommerciale.FrmAjoutDeProduit();
             frm.Show();
-            this.Hide(); // Cache le formulaire actuel
+            this.Hide(); 
         }
 
         // Mise à jour des champs lorsque la sélection change dans le DataGridView

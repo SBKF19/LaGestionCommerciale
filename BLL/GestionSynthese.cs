@@ -27,10 +27,11 @@ namespace BLL
 
         public static List<ClientStat> GetSyntheseClients(DateTime debut, DateTime fin)
         {
-            // Règle métier : cohérence des dates
-            if (fin < debut) return new List<ClientStat>();
-
             return SyntheseDAO.GetStatistiques(debut, fin);
+        }
+        public static void GetLimitesDates(out DateTime debut, out DateTime fin)
+        {
+            SyntheseDAO.GetLimitesDatesDevis(out debut, out fin);
         }
     }
 }

@@ -19,10 +19,6 @@ namespace DAL
         public static List<ClientStat> GetStatistiques(DateTime dateDebut, DateTime dateFin)
         {
             List<ClientStat> liste = new List<ClientStat>();
-
-            // Requête SQL optimisée :
-            // 1. On filtre les dates DANS le JOIN pour conserver les clients qui n'ont pas de devis (afficher 0 partout).
-            // 2. On utilise SUM(CASE...) pour compter les statuts en une seule requête.
             string req = @"
                 SELECT 
                     c.id_client, 
@@ -34,10 +30,10 @@ namespace DAL
                     SUM(CASE WHEN s.nom_statut = 'accepté' THEN d.montant_HT_devis ELSE 0 END) AS MontantTotal
                 FROM 
                     client c
-                LEFT JOIN 
+                LEFT JOIN
                     devis d ON c.id_client = d.id_client 
-                    AND d.date_devis >= @DateDebut 
-                    AND d.date_devis <= @DateFin
+                    AND (@DateDebut IS NULL OR d.date_devis >= @DateDebut) 
+                    AND (@DateFin IS NULL OR d.date_devis <= @DateFin)
                 LEFT JOIN 
                     statut s ON d.id_statut = s.id_statut
                 GROUP BY 
@@ -45,12 +41,27 @@ namespace DAL
 
             using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
-                // Sécurité si connexion fermée
                 if (cnx.State == System.Data.ConnectionState.Closed) cnx.Open();
 
                 SqlCommand cmd = new SqlCommand(req, cnx);
-                cmd.Parameters.AddWithValue("@DateDebut", dateDebut);
-                cmd.Parameters.AddWithValue("@DateFin", dateFin);
+                if (dateDebut == DateTime.MinValue)
+                {
+                    cmd.Parameters.AddWithValue("@DateDebut", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@DateDebut", dateDebut);
+                }
+
+                // Si la date reçue est la date maximale (31/12/9999), on envoie DBNull à SQL
+                if (dateFin == DateTime.MaxValue)
+                {
+                    cmd.Parameters.AddWithValue("@DateFin", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@DateFin", dateFin);
+                }
 
                 SqlDataReader rdr = cmd.ExecuteReader();
 
@@ -60,7 +71,6 @@ namespace DAL
                     {
                         Code = (int)rdr["id_client"],
                         NomClient = rdr["nom_client"].ToString(),
-                        // Gestion des valeurs nulles si pas de devis
                         NbDevis = rdr["NbTotal"] != DBNull.Value ? (int)rdr["NbTotal"] : 0,
                         NbAcceptes = rdr["NbAcceptes"] != DBNull.Value ? (int)rdr["NbAcceptes"] : 0,
                         NbEnAttente = rdr["NbAttente"] != DBNull.Value ? (int)rdr["NbAttente"] : 0,
@@ -71,6 +81,39 @@ namespace DAL
                 rdr.Close();
             }
             return liste;
+        }
+
+        // Cette fonction va selectionner la plus petite et la plus grande date dans les devis et les retourner dans des variables
+        // en paramètres de sortie | Sert au bouton actualiser pour afficher toute la période des devis
+        public static void GetLimitesDatesDevis(out DateTime dateMin, out DateTime dateMax)
+        {
+            dateMin = DateTime.Now;
+            dateMax = DateTime.Now;
+
+            string req = "SELECT MIN(date_devis) as MinDate, MAX(date_devis) as MaxDate FROM devis";
+
+            using (SqlConnection cnx = ConnexionBD.GetConnexionBD().GetSqlConnexion())
+            {
+                if (cnx.State == System.Data.ConnectionState.Closed) cnx.Open();
+
+                SqlCommand cmd = new SqlCommand(req, cnx);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    // Dates min et max présentes en bdd ? alors on convertis en DateTime
+                    if (rdr["MinDate"] != DBNull.Value)
+                    {
+                        dateMin = (DateTime)rdr["MinDate"];
+                    }
+
+                    if (rdr["MaxDate"] != DBNull.Value)
+                    {
+                        dateMax = (DateTime)rdr["MaxDate"];
+                    }
+                }
+                rdr.Close();
+            }
         }
     }
 }

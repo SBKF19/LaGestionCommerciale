@@ -3,7 +3,8 @@ using BO;
 using LaGestionCommerciale;
 using System;
 using System.Collections.Generic;
-using System.Configuration; // Indispensable
+using System.Configuration;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace GUI
@@ -19,21 +20,15 @@ namespace GUI
         {
             try
             {
-                // --- Étape 1 : Connexion ---
-                // On récupère l'objet de configuration complet
                 ConnectionStringSettings cs = ConfigurationManager.ConnectionStrings["gestion_commerciale"];
 
                 if (cs == null)
                     throw new ConfigurationErrorsException("La chaîne de connexion 'gestion_commerciale' est introuvable dans App.config.");
 
-                // On passe l'objet 'cs' entier à la BLL (Correction de ton erreur)
                 GestionSynthese.SetchaineConnexion(cs);
-
-                // Initialisation des dates (Dates de ta maquette)
                 dtpDebut.Value = new DateTime(2025, 09, 30);
                 dtpFin.Value = new DateTime(2025, 10, 17);
 
-                // --- Étape 2 : Chargement ---
                 ChargerDonnees();
             }
             catch (Exception ex)
@@ -46,7 +41,6 @@ namespace GUI
         {
             try
             {
-                // Appel BLL
                 List<ClientStat> lesStats = GestionSynthese.GetSyntheseClients(dtpDebut.Value, dtpFin.Value);
 
                 dgvSynthese.Rows.Clear();
@@ -58,10 +52,10 @@ namespace GUI
                         s.NomClient,
                         s.NbDevis,
                         s.NbAcceptes,
-                        s.PctAttente.ToString("0.0") + "%", // Format 50.0%
+                        s.PctAttente.ToString("0.0") + "%", 
                         s.PctRefuse.ToString("0.0") + "%",
                         s.PctAccepte.ToString("0.0") + "%",
-                        s.MontantFactureHT.ToString("N2") + " €" // Format monétaire
+                        s.MontantFactureHT.ToString("N2") + " €" 
                     );
                 }
                 dgvSynthese.ClearSelection();
@@ -82,7 +76,6 @@ namespace GUI
             ChargerDonnees();
         }
 
-        // --- Navigation Menu ---
         private void clientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FrmClient().Show();
@@ -101,9 +94,24 @@ namespace GUI
             this.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnReset_Click(object sender, EventArgs e)
         {
+            try
+            {
+                DateTime min, max;
 
+                GestionSynthese.GetLimitesDates(out min, out max);
+
+                dtpDebut.Value = min;
+                dtpFin.Value = max;
+
+                ChargerDonnees();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors de la réinitialisation : " + ex.Message);
+            }
         }
+
     }
 }
