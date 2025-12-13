@@ -1,5 +1,6 @@
 ﻿using BLL;
 using BO;
+using LaGestionCommerciale;
 using System;
 using System.Collections.Generic;
 using System.Configuration; // Indispensable
@@ -84,6 +85,7 @@ namespace GUI
         // --- Navigation Menu ---
         private void clientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            new FrmClient().Show();
             this.Hide();
         }
 
@@ -95,6 +97,7 @@ namespace GUI
 
         private void devisToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            new FrmDevis().Show();
             this.Hide();
         }
 

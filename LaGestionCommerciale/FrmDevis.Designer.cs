@@ -35,6 +35,8 @@
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDevis = new System.Windows.Forms.Panel();
+            this.txtNonRemHt = new System.Windows.Forms.TextBox();
+            this.lblMontantHTnonRem = new System.Windows.Forms.Label();
             this.btnSupprimer = new System.Windows.Forms.Button();
             this.btnModifier = new System.Windows.Forms.Button();
             this.numTVA = new System.Windows.Forms.TextBox();
@@ -80,8 +82,6 @@
             this.produitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.synthèseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblMontantHTnonRem = new System.Windows.Forms.Label();
-            this.txtNonRemHt = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevis)).BeginInit();
             this.pnlDevis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModify)).BeginInit();
@@ -176,6 +176,23 @@
             this.pnlDevis.Name = "pnlDevis";
             this.pnlDevis.Size = new System.Drawing.Size(978, 662);
             this.pnlDevis.TabIndex = 7;
+            // 
+            // txtNonRemHt
+            // 
+            this.txtNonRemHt.Location = new System.Drawing.Point(25, 555);
+            this.txtNonRemHt.Name = "txtNonRemHt";
+            this.txtNonRemHt.ReadOnly = true;
+            this.txtNonRemHt.Size = new System.Drawing.Size(166, 20);
+            this.txtNonRemHt.TabIndex = 33;
+            // 
+            // lblMontantHTnonRem
+            // 
+            this.lblMontantHTnonRem.AutoSize = true;
+            this.lblMontantHTnonRem.Location = new System.Drawing.Point(46, 539);
+            this.lblMontantHTnonRem.Name = "lblMontantHTnonRem";
+            this.lblMontantHTnonRem.Size = new System.Drawing.Size(105, 13);
+            this.lblMontantHTnonRem.TabIndex = 32;
+            this.lblMontantHTnonRem.Text = "Total HT hors remise";
             // 
             // btnSupprimer
             // 
@@ -559,23 +576,7 @@
             this.synthèseToolStripMenuItem.Name = "synthèseToolStripMenuItem";
             this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.synthèseToolStripMenuItem.Text = "Synthèse";
-            // 
-            // lblMontantHTnonRem
-            // 
-            this.lblMontantHTnonRem.AutoSize = true;
-            this.lblMontantHTnonRem.Location = new System.Drawing.Point(46, 539);
-            this.lblMontantHTnonRem.Name = "lblMontantHTnonRem";
-            this.lblMontantHTnonRem.Size = new System.Drawing.Size(105, 13);
-            this.lblMontantHTnonRem.TabIndex = 32;
-            this.lblMontantHTnonRem.Text = "Total HT hors remise";
-            // 
-            // txtNonRemHt
-            // 
-            this.txtNonRemHt.Location = new System.Drawing.Point(25, 555);
-            this.txtNonRemHt.Name = "txtNonRemHt";
-            this.txtNonRemHt.ReadOnly = true;
-            this.txtNonRemHt.Size = new System.Drawing.Size(166, 20);
-            this.txtNonRemHt.TabIndex = 33;
+            this.synthèseToolStripMenuItem.Click += new System.EventHandler(this.synthèseToolStripMenuItem_Click);
             // 
             // FrmDevis
             // 
