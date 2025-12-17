@@ -348,5 +348,11 @@ namespace LaGestionCommerciale
             new FrmDevis().Show();
             this.Hide();
         }
+
+        private void synthèseToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new FrmSyntheseClient().Show();
+            this.Hide();
+        }
     }
 }

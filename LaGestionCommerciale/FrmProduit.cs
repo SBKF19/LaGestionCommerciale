@@ -258,6 +258,11 @@ namespace GUI
             this.Hide();
         }
 
+        private void synthèseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmSyntheseClient().Show();
+            this.Hide();
+        }
     }
 }
 

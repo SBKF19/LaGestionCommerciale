@@ -323,6 +323,7 @@
             this.synthèseToolStripMenuItem.Name = "synthèseToolStripMenuItem";
             this.synthèseToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.synthèseToolStripMenuItem.Text = "Synthèse";
+            this.synthèseToolStripMenuItem.Click += new System.EventHandler(this.synthèseToolStripMenuItem_Click);
             // 
             // FrmProduit
             // 
