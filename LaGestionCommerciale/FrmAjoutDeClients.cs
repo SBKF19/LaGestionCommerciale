@@ -33,6 +33,21 @@ namespace LaGestionCommerciale
             GestionClients.SetchaineConnexion(chset);
         }
 
+        private void FrmAjoutDeClients_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                // Chargement de la liste des pays dans la ComboBox
+                comboBox1.DataSource = GestionProvenances.GetProvenances();
+                comboBox1.DisplayMember = "NomPays";      // Ce qui est affiché (ex: France)
+                comboBox1.ValueMember = "IdProvenances"; 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement des pays : " + ex.Message);
+            }
+        }
+
         private void btnAjoutClient_Click(object sender, EventArgs e)
         {
             try
@@ -67,6 +82,12 @@ namespace LaGestionCommerciale
                     string.IsNullOrWhiteSpace(nomVilleLivraison))
                 {
                     throw new Exception("Veuillez remplir tous les champs.");
+                }
+
+                // Vérification qu'un pays est bien sélectionné
+                if (comboBox1.SelectedItem == null)
+                {
+                    throw new Exception("Veuillez sélectionner une provenance (Pays).");
                 }
 
                 // Conversion et vérification des champs numériques
@@ -108,6 +129,9 @@ namespace LaGestionCommerciale
                 int numRueFactureInt = int.Parse(numRueFacture);
                 int numRueLivraisonInt = int.Parse(numRueLivraison);
 
+                // Récupération de l'objet Provenance sélectionné dans la ComboBox
+                Provenance provenanceSelectionnee = (Provenance)comboBox1.SelectedItem;
+
                 // --- Création du client ---
                 Client nouveauClient = new Client(
                     nom,                    // nomClient
@@ -121,7 +145,8 @@ namespace LaGestionCommerciale
                     postalLivraison,        // codePostalLivraison
                     nomVilleLivraison,      // villeLivraison
                     numRueLivraisonInt,     // numRueLivraison
-                    nomRueLivraison         // nomRueLivraison
+                    nomRueLivraison,        // nomRueLivraison
+                    provenanceSelectionnee  // provenance 
                 );
 
                 // Ajout du client
@@ -165,7 +190,7 @@ namespace LaGestionCommerciale
             txtNomVilleLivre.Clear();
         }
 
-        private void FrmAjoutDeClients_Load(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

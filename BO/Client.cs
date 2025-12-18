@@ -10,7 +10,6 @@ namespace BO
     public class Client
     {
         private int idClient;
-
         private string nomClient;
         private string numFaxClient;
         private string mailClient;
@@ -26,24 +25,31 @@ namespace BO
         private int numRueLivraison;
         private string nomRueLivraison;
 
+        private Provenance provenance;
+
+        // --- PROPRIÉTÉS PUBLIQUES ---
         public int IdClient { get => idClient; set => idClient = value; }
         public string NomClient { get => nomClient; set => nomClient = value; }
         public string NumFaxClient { get => numFaxClient; set => numFaxClient = value; }
         public string MailClient { get => mailClient; set => mailClient = value; }
         public string NumPhoneClient { get => numPhoneClient; set => numPhoneClient = value; }
+
         public string CodePostalFacture { get => codePostalFacture; set => codePostalFacture = value; }
         public string VilleFacture { get => villeFacture; set => villeFacture = value; }
         public int NumRueFacture { get => numRueFacture; set => numRueFacture = value; }
         public string NomRueFacture { get => nomRueFacture; set => nomRueFacture = value; }
+
         public string CodePostalLivraison { get => codePostalLivraison; set => codePostalLivraison = value; }
         public string VilleLivraison { get => villeLivraison; set => villeLivraison = value; }
         public int NumRueLivraison { get => numRueLivraison; set => numRueLivraison = value; }
         public string NomRueLivraison { get => nomRueLivraison; set => nomRueLivraison = value; }
 
-        // Constructeur complet avec l'ID du client (pour modification)
+        public Provenance Provenance { get => provenance; set => provenance = value; }
+
         public Client(int idClient, string nomClient, string numFaxClient, string mailClient, string numPhoneClient,
                       string codePostalFacture, string villeFacture, int numRueFacture, string nomRueFacture,
-                      string codePostalLivraison, string villeLivraison, int numRueLivraison, string nomRueLivraison)
+                      string codePostalLivraison, string villeLivraison, int numRueLivraison, string nomRueLivraison,
+                      Provenance provenance)
         {
             this.IdClient = idClient;
             this.NomClient = nomClient;
@@ -58,12 +64,13 @@ namespace BO
             this.VilleLivraison = villeLivraison;
             this.NumRueLivraison = numRueLivraison;
             this.NomRueLivraison = nomRueLivraison;
+            this.Provenance = provenance;
         }
 
-        // Constructeur sans ID (pour création d'un nouveau client)
         public Client(string nomClient, string numFaxClient, string mailClient, string numPhoneClient,
-              string codePostalFacture, string villeFacture, int numRueFacture, string nomRueFacture,
-              string codePostalLivraison, string villeLivraison, int numRueLivraison, string nomRueLivraison)
+                      string codePostalFacture, string villeFacture, int numRueFacture, string nomRueFacture,
+                      string codePostalLivraison, string villeLivraison, int numRueLivraison, string nomRueLivraison,
+                      Provenance provenance)
         {
             this.NomClient = nomClient;
             this.NumFaxClient = numFaxClient;
@@ -77,6 +84,7 @@ namespace BO
             this.VilleLivraison = villeLivraison;
             this.NumRueLivraison = numRueLivraison;
             this.NomRueLivraison = nomRueLivraison;
+            this.Provenance = provenance;
         }
 
         public Client()
@@ -84,4 +92,3 @@ namespace BO
         }
     }
 }
-

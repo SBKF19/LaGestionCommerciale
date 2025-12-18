@@ -2,15 +2,8 @@
 {
     partial class FrmClient
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,16 +15,16 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.btnAddClient = new System.Windows.Forms.Button();
             this.dgvClient = new System.Windows.Forms.DataGridView();
             this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NomClient = new System.Windows.Forms.DataGridViewTextBoxColumn();
+
+            // AJOUT DE LA COLONNE ICI
+            this.ProvenanceCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+
             this.AdresseFacturation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdresseLivraison = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Téléphone = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,6 +39,8 @@
             this.VilleLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CodePostalLiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlDetail = new System.Windows.Forms.Panel();
+            this.cbxProvenance = new System.Windows.Forms.ComboBox();
+            this.lblProvenance = new System.Windows.Forms.Label();
             this.btnSupprimer = new System.Windows.Forms.Button();
             this.btnModifier = new System.Windows.Forms.Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
@@ -114,6 +109,7 @@
             this.dgvClient.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Code,
             this.NomClient,
+            this.ProvenanceCol, // AJOUT DE LA COLONNE DANS LA LISTE
             this.AdresseFacturation,
             this.AdresseLivraison,
             this.Téléphone,
@@ -131,7 +127,7 @@
             this.dgvClient.Name = "dgvClient";
             this.dgvClient.RowHeadersVisible = false;
             this.dgvClient.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvClient.Size = new System.Drawing.Size(1932, 665);
+            this.dgvClient.Size = new System.Drawing.Size(1000, 665);
             this.dgvClient.TabIndex = 0;
             this.dgvClient.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClient_SelectionChanged);
             // 
@@ -146,6 +142,12 @@
             this.NomClient.HeaderText = "Nom client";
             this.NomClient.Name = "NomClient";
             this.NomClient.Width = 150;
+            // 
+            // ProvenanceCol (Configuration)
+            // 
+            this.ProvenanceCol.HeaderText = "Provenance";
+            this.ProvenanceCol.Name = "ProvenanceCol";
+            this.ProvenanceCol.Width = 100;
             // 
             // AdresseFacturation
             // 
@@ -226,6 +228,8 @@
             // pnlDetail
             // 
             this.pnlDetail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlDetail.Controls.Add(this.cbxProvenance);
+            this.pnlDetail.Controls.Add(this.lblProvenance);
             this.pnlDetail.Controls.Add(this.btnSupprimer);
             this.pnlDetail.Controls.Add(this.btnModifier);
             this.pnlDetail.Controls.Add(this.txtEmail);
@@ -258,17 +262,34 @@
             this.pnlDetail.Controls.Add(this.txtNom);
             this.pnlDetail.Controls.Add(this.lblNom);
             this.pnlDetail.Controls.Add(this.lblDetail);
-            this.pnlDetail.Location = new System.Drawing.Point(1002, 115);
+            this.pnlDetail.Location = new System.Drawing.Point(1050, 115);
             this.pnlDetail.Name = "pnlDetail";
-            this.pnlDetail.Size = new System.Drawing.Size(380, 665);
+            this.pnlDetail.Size = new System.Drawing.Size(380, 680);
             this.pnlDetail.TabIndex = 2;
+            // 
+            // lblProvenance
+            // 
+            this.lblProvenance.AutoSize = true;
+            this.lblProvenance.Location = new System.Drawing.Point(15, 580);
+            this.lblProvenance.Name = "lblProvenance";
+            this.lblProvenance.Size = new System.Drawing.Size(65, 13);
+            this.lblProvenance.TabIndex = 32;
+            this.lblProvenance.Text = "Provenance";
+            // 
+            // cbxProvenance
+            // 
+            this.cbxProvenance.FormattingEnabled = true;
+            this.cbxProvenance.Location = new System.Drawing.Point(18, 596);
+            this.cbxProvenance.Name = "cbxProvenance";
+            this.cbxProvenance.Size = new System.Drawing.Size(150, 21);
+            this.cbxProvenance.TabIndex = 33;
             // 
             // btnSupprimer
             // 
             this.btnSupprimer.BackColor = System.Drawing.Color.Red;
             this.btnSupprimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.btnSupprimer.ForeColor = System.Drawing.Color.White;
-            this.btnSupprimer.Location = new System.Drawing.Point(224, 598);
+            this.btnSupprimer.Location = new System.Drawing.Point(224, 630);
             this.btnSupprimer.Name = "btnSupprimer";
             this.btnSupprimer.Size = new System.Drawing.Size(113, 41);
             this.btnSupprimer.TabIndex = 31;
@@ -281,7 +302,7 @@
             this.btnModifier.BackColor = System.Drawing.Color.LimeGreen;
             this.btnModifier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.btnModifier.ForeColor = System.Drawing.Color.White;
-            this.btnModifier.Location = new System.Drawing.Point(44, 598);
+            this.btnModifier.Location = new System.Drawing.Point(44, 630);
             this.btnModifier.Name = "btnModifier";
             this.btnModifier.Size = new System.Drawing.Size(116, 41);
             this.btnModifier.TabIndex = 30;
@@ -679,8 +700,11 @@
         private System.Windows.Forms.TextBox txtTelephone;
         private System.Windows.Forms.Button btnModifier;
         private System.Windows.Forms.Button btnSupprimer;
+        private System.Windows.Forms.ComboBox cbxProvenance;
+        private System.Windows.Forms.Label lblProvenance;
         private System.Windows.Forms.DataGridViewTextBoxColumn Code;
         private System.Windows.Forms.DataGridViewTextBoxColumn NomClient;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProvenanceCol; 
         private System.Windows.Forms.DataGridViewTextBoxColumn AdresseFacturation;
         private System.Windows.Forms.DataGridViewTextBoxColumn AdresseLivraison;
         private System.Windows.Forms.DataGridViewTextBoxColumn Téléphone;

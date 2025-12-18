@@ -47,6 +47,7 @@
     <Compile Include="ContenirDAO.cs" />
     <Compile Include="DevisDAO.cs" />
     <Compile Include="ProduitDAO.cs" />
+    <Compile Include="ProvenanceDAO.cs" />
     <Compile Include="StatutDAO.cs" />
     <Compile Include="SyntheseDAO.cs" />
     <Compile Include="UtilisateurDAO.cs" />
