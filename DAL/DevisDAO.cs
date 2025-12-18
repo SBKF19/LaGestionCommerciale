@@ -23,23 +23,21 @@ namespace DAL
 
             using (SqlConnection maConnexion = ConnexionBD.GetConnexionBD().GetSqlConnexion())
             {
-                // J'ai ajouté le JOIN vers 'provenance' et sélectionné les champs nécessaires
                 SqlCommand cmd = new SqlCommand("SELECT id_devis, date_devis, TVA_devis, taux_remise_global_devis, montant_HT_devis, " +
                     "client.id_client, nom_client, num_fax_client, mail_client, num_phone_client, " +
                     "code_postal_facture, ville_facture, num_rue_facture, nom_rue_facture, " +
                     "code_postal_livraison, ville_livraison, num_rue_livraison, nom_rue_livraison, " +
                     "nom_statut, statut.id_statut, " +
-                    "provenance.id_provenance, provenance.nom_pays, provenance.TVA_pays " + // Champs ajoutés
+                    "provenance.id_provenance, provenance.nom_pays, provenance.TVA_pays " + 
                     "FROM devis " +
                     " JOIN client on devis.id_client = client.id_client " +
                     " JOIN statut on devis.id_statut = statut.id_statut " +
-                    " JOIN provenance on client.id_provenance = provenance.id_provenance", maConnexion); // Join ajouté
+                    " JOIN provenance on client.id_provenance = provenance.id_provenance", maConnexion); 
 
                 SqlDataReader monReader = cmd.ExecuteReader();
 
                 while (monReader.Read())
                 {
-                    // --- C'est ici que je crée la variable 'provenance' qui manquait ---
                     Provenance provenance = new Provenance(
                         (int)monReader["id_provenance"],
                         monReader["nom_pays"].ToString(),
@@ -60,7 +58,6 @@ namespace DAL
                     int num_rue_livraison = (int)monReader["num_rue_livraison"];
                     string nom_rue_livraison = monReader["nom_rue_livraison"].ToString();
 
-                    // Objet Client (maintenant la variable 'provenance' existe et peut être passée)
                     Client unClient = new Client(id_client, nom_client, num_fax, mail, num_phone, code_postal_facture, ville_facture, num_rue_facture, nom_rue_facture,
                     code_postal_livraison, ville_livraison, num_rue_livraison, nom_rue_livraison, provenance);
 
@@ -91,7 +88,6 @@ namespace DAL
         {
             List<Contenir> lesLignes = new List<Contenir>();
 
-            // On récupère les infos de la ligne + les infos du produit + la catégorie
             string req = @"SELECT c.id_produit, c.quantite_commandee, c.remise_par_ligne, 
                           p.libelle_produit, p.prix_vente_HT_produit, 
                           cat.id_categorie, cat.nom_categorie
